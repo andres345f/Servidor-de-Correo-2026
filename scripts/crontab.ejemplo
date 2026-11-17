@@ -1,0 +1,5 @@
+# Alternativa al modo continuo: un ciclo por minuto con cron (en el servidor Linux).
+# flock evita que dos ciclos se solapen si uno tarda más de un minuto.
+# Las contraseñas se leen de config/secretos.env, un archivo con permisos 600 que NO está en el repositorio,
+# con una línea por variable (DB_PASSWORD=... y MAIL_PASSWORD=...). set -a las exporta al proceso.
+* * * * * cd /home/grupo29sa/feder-email-driven && mkdir -p logs estado && set -a && . ./config/secretos.env && set +a && APP_ENV=tecnoweb flock -n estado/ciclo.lock ./scripts/iniciar.sh una-vez >> logs/cron.log 2>&1

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1080" viewBox="0 0 1800 1080" font-family="Arial, Helvetica, sans-serif" role="img" aria-labelledby="titulo desc">
+<title id="titulo">Diagrama de despliegue — FEDER email-driven</title>
+<desc id="desc">Despliegue en los entornos LOCAL (PC Windows) y TECNOWEB (servidor Linux, mail.tecnoweb.org.bo y db.tecnoweb.org.bo).</desc>
+<defs>
+<marker id="flecha" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L12,5 L0,10 z" fill="#3C3C3C" stroke="#3C3C3C" stroke-width="1.3" /></marker>
+<marker id="flechaAcento" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L12,5 L0,10 z" fill="#1F4E79" stroke="#1F4E79" stroke-width="1.3" /></marker>
+<marker id="abierta" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L11,5 L1,9" fill="none" stroke="#3C3C3C" stroke-width="1.3" stroke-linejoin="round"/></marker>
+<marker id="abiertaAcento" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L11,5 L1,9" fill="none" stroke="#1F4E79" stroke-width="1.3" stroke-linejoin="round"/></marker>
+<marker id="triangulo" viewBox="0 0 18 16" refX="17" refY="8" markerWidth="18" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L17,8 L1,15 z" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.3" /></marker>
+<marker id="trianguloAcento" viewBox="0 0 18 16" refX="17" refY="8" markerWidth="18" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L17,8 L1,15 z" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.3" /></marker>
+</defs>
+<rect x="0" y="0" width="1800" height="1080" fill="#FFFFFF"/>
+<text x="40" y="50" font-size="28" font-weight="bold" text-anchor="start" fill="#1F4E79">Diagrama de despliegue — entornos LOCAL y TECNOWEB</text>
+<text x="40" y="80" font-size="17" text-anchor="start" fill="#5A5A5A">Un mismo artefacto (feder-email-driven.jar, Java 17) en ambos entornos; solo cambian APP_ENV y config/application-&lt;entorno&gt;.properties</text>
+<line x1="40" y1="96" x2="1760" y2="96" stroke="#1F4E79" stroke-width="2"/>
+<rect x="40" y="290" width="860" height="750" rx="8" fill="#FBFCFD" stroke="#1F4E79" stroke-width="2" stroke-dasharray="10 6"/><rect x="40" y="290" width="860" height="40" rx="8" fill="#1F4E79" stroke="#1F4E79" stroke-width="2"/><rect x="40" y="314" width="860" height="16" fill="#1F4E79" stroke="#1F4E79" stroke-width="0"/><text x="56" y="317" font-size="19" font-weight="bold" text-anchor="start" fill="#FFFFFF">Entorno LOCAL</text><text x="215.5" y="317" font-size="14" text-anchor="start" fill="#FFFFFF">· APP_ENV=local · desarrollo y demostración</text>
+<path d="M66 362 L80 348 L886 348 L886 1004 L872 1018 L872 362 Z" fill="#F3F3F3" stroke="#3C3C3C" stroke-width="1.5" stroke-linejoin="round"/>
+<line x1="872" y1="362" x2="886" y2="348" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="66" y="362" width="806" height="656" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/><text x="78" y="382" font-size="13" text-anchor="start" fill="#5A5A5A">«dispositivo»</text><text x="78" y="402" font-size="16" font-weight="bold" text-anchor="start" fill="#1A1A1A">PC Windows del desarrollador</text>
+<path d="M92 436 L106 422 L466 422 L466 636 L452 650 L452 436 Z" fill="#F3F3F3" stroke="#3C3C3C" stroke-width="1.5" stroke-linejoin="round"/>
+<line x1="452" y1="436" x2="466" y2="422" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="92" y="436" width="360" height="214" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/><text x="104" y="456" font-size="13" text-anchor="start" fill="#5A5A5A">«entorno de ejecución»</text><text x="104" y="476" font-size="16" font-weight="bold" text-anchor="start" fill="#1A1A1A">JVM 17 · proceso «procesar»</text>
+<rect x="110" y="500" width="324" height="132" rx="2" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.3"/><path d="M410 508 L420 508 L425 513 L425 526 L410 526 Z M420 508 L420 513 L425 513" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/><text x="272" y="539.1" font-size="12" text-anchor="middle" fill="#5A5A5A">«artifact»</text>
+<text x="272" y="557.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">feder-email-driven.jar</text>
+<text x="272" y="573.9" font-size="13" text-anchor="middle" fill="#1A1A1A">java -jar feder-email-driven.jar procesar</text>
+<text x="272" y="589.9" font-size="13" text-anchor="middle" fill="#1A1A1A">config/application-local.properties</text>
+<text x="272" y="605.9" font-size="13" text-anchor="middle" fill="#1A1A1A">ciclo cada 10 s · máx. 20 correos por ciclo</text>
+<path d="M512 436 L526 422 L860 422 L860 636 L846 650 L846 436 Z" fill="#F3F3F3" stroke="#3C3C3C" stroke-width="1.5" stroke-linejoin="round"/>
+<line x1="846" y1="436" x2="860" y2="422" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="512" y="436" width="334" height="214" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/><text x="524" y="456" font-size="13" text-anchor="start" fill="#5A5A5A">«entorno de ejecución»</text><text x="524" y="476" font-size="16" font-weight="bold" text-anchor="start" fill="#1A1A1A">JVM 17 · proceso «correo-local»</text>
+<rect x="530" y="500" width="298" height="132" rx="2" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.3"/><path d="M804 508 L814 508 L819 513 L819 526 L804 526 Z M814 508 L814 513 L819 513" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/><text x="679" y="539.1" font-size="12" text-anchor="middle" fill="#5A5A5A">«artifact»</text>
+<text x="679" y="557.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Servidor de correo local</text>
+<text x="679" y="573.9" font-size="13" text-anchor="middle" fill="#1A1A1A">herramientas.correolocal (mismo .jar)</text>
+<text x="679" y="589.9" font-size="13" text-anchor="middle" fill="#1A1A1A">SMTP 127.0.0.1:2525 · POP3 127.0.0.1:1110</text>
+<text x="679" y="605.9" font-size="13" text-anchor="middle" fill="#1A1A1A">buzón grupo29sa@feder.local</text>
+<path d="M92 760 L106 746 L466 746 L466 976 L452 990 L452 760 Z" fill="#F3F3F3" stroke="#3C3C3C" stroke-width="1.5" stroke-linejoin="round"/>
+<line x1="452" y1="760" x2="466" y2="746" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="92" y="760" width="360" height="230" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/><text x="104" y="780" font-size="13" text-anchor="start" fill="#5A5A5A">«servidor de BD»</text><text x="104" y="800" font-size="16" font-weight="bold" text-anchor="start" fill="#1A1A1A">PostgreSQL 18 (clúster local)</text>
+<text x="104" y="822" font-size="13" text-anchor="start" fill="#5A5A5A">127.0.0.1:55432 · scripts/pg-local.ps1</text>
+<rect x="110" y="834" width="324" height="66" rx="2" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.3"/><path d="M410 842 L420 842 L425 847 L425 860 L410 860 Z M420 842 L420 847 L425 847" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/><text x="272" y="856.1" font-size="12" text-anchor="middle" fill="#5A5A5A">«artifact»</text>
+<text x="272" y="874.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">feder_local</text>
+<text x="272" y="890.9" font-size="13" text-anchor="middle" fill="#1A1A1A">base de la aplicación</text>
+<rect x="110" y="910" width="324" height="66" rx="2" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.3"/><path d="M410 918 L420 918 L425 923 L425 936 L410 936 Z M420 918 L420 923 L425 923" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/><text x="272" y="932.1" font-size="12" text-anchor="middle" fill="#5A5A5A">«artifact»</text>
+<text x="272" y="950.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">feder_test</text>
+<text x="272" y="966.9" font-size="13" text-anchor="middle" fill="#1A1A1A">base de las pruebas (mvn test)</text>
+<path d="M512 760 L526 746 L860 746 L860 976 L846 990 L846 760 Z" fill="#F3F3F3" stroke="#3C3C3C" stroke-width="1.5" stroke-linejoin="round"/>
+<line x1="846" y1="760" x2="860" y2="746" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="512" y="760" width="334" height="230" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/><text x="524" y="780" font-size="13" text-anchor="start" fill="#5A5A5A">«entorno de ejecución»</text><text x="524" y="800" font-size="16" font-weight="bold" text-anchor="start" fill="#1A1A1A">JVM 17 · «cliente-demo»</text>
+<rect x="530" y="824" width="298" height="150" rx="2" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.3"/><path d="M804 832 L814 832 L819 837 L819 850 L804 850 Z M814 832 L814 837 L819 837" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/><text x="679" y="864.1" font-size="12" text-anchor="middle" fill="#5A5A5A">«artifact»</text>
+<text x="679" y="882.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">ClienteDemo</text>
+<text x="679" y="898.9" font-size="13" text-anchor="middle" fill="#1A1A1A">envía el asunto COMANDO[&quot;...&quot;]</text>
+<text x="679" y="914.9" font-size="13" text-anchor="middle" fill="#1A1A1A">y lee la respuesta</text>
+<text x="679" y="930.9" font-size="13" text-anchor="middle" fill="#1A1A1A">(o cualquier cliente de correo</text>
+<text x="679" y="946.9" font-size="13" text-anchor="middle" fill="#1A1A1A">configurado a 127.0.0.1)</text>
+<line x1="452" y1="548" x2="512" y2="548" stroke="#1F4E79" stroke-width="2"/>
+<line x1="452" y1="600" x2="512" y2="600" stroke="#1F4E79" stroke-width="2"/>
+<rect x="444.4" y="526" width="75.2" height="20" fill="#FFFFFF" opacity="0.92"/><text x="482" y="540" font-size="13" text-anchor="middle" fill="#1F4E79">POP3 1110</text>
+<rect x="443.7" y="578" width="76.6" height="20" fill="#FFFFFF" opacity="0.92"/><text x="482" y="592" font-size="13" text-anchor="middle" fill="#1F4E79">SMTP 2525</text>
+<rect x="457.7" y="617" width="48.7" height="19" fill="#FFFFFF" opacity="0.92"/><text x="482" y="630" font-size="12" text-anchor="middle" fill="#5A5A5A">sin TLS</text>
+<line x1="272" y1="650" x2="272" y2="760" stroke="#1F4E79" stroke-width="2"/>
+<rect x="278" y="698" width="213.9" height="20" fill="#FFFFFF" opacity="0.92"/><text x="282" y="712" font-size="13" text-anchor="start" fill="#1F4E79">JDBC 127.0.0.1:55432 · feder_local</text>
+<line x1="679" y1="650" x2="679" y2="760" stroke="#1F4E79" stroke-width="2"/>
+<rect x="685" y="688" width="175.6" height="36" fill="#FFFFFF" opacity="0.92"/><text x="689" y="702" font-size="13" text-anchor="start" fill="#1F4E79">SMTP 2525 (envía comando)</text>
+<text x="689" y="718" font-size="13" text-anchor="start" fill="#1F4E79">POP3 1110 (lee respuesta)</text>
+<rect x="940" y="290" width="820" height="750" rx="8" fill="#FBFCFD" stroke="#1F4E79" stroke-width="2" stroke-dasharray="10 6"/><rect x="940" y="290" width="820" height="40" rx="8" fill="#1F4E79" stroke="#1F4E79" stroke-width="2"/><rect x="940" y="314" width="820" height="16" fill="#1F4E79" stroke="#1F4E79" stroke-width="0"/><text x="956" y="317" font-size="19" font-weight="bold" text-anchor="start" fill="#FFFFFF">Entorno TECNOWEB</text><text x="1166.3" y="317" font-size="14" text-anchor="start" fill="#FFFFFF">· APP_ENV=tecnoweb · grupo 29SA</text>
+<path d="M966 362 L980 348 L1380 348 L1380 648 L1366 662 L1366 362 Z" fill="#F3F3F3" stroke="#3C3C3C" stroke-width="1.5" stroke-linejoin="round"/>
+<line x1="1366" y1="362" x2="1380" y2="348" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="966" y="362" width="400" height="300" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/><text x="978" y="382" font-size="13" text-anchor="start" fill="#5A5A5A">«dispositivo»</text><text x="978" y="402" font-size="16" font-weight="bold" text-anchor="start" fill="#1A1A1A">Servidor Linux del grupo</text>
+<path d="M986 436 L1000 422 L1360 422 L1360 628 L1346 642 L1346 436 Z" fill="#F3F3F3" stroke="#3C3C3C" stroke-width="1.5" stroke-linejoin="round"/>
+<line x1="1346" y1="436" x2="1360" y2="422" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="986" y="436" width="360" height="206" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/><text x="998" y="456" font-size="13" text-anchor="start" fill="#5A5A5A">«entorno de ejecución»</text><text x="998" y="476" font-size="16" font-weight="bold" text-anchor="start" fill="#1A1A1A">JVM 17</text>
+<rect x="1004" y="500" width="324" height="124" rx="2" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.3"/><path d="M1304 508 L1314 508 L1319 513 L1319 526 L1304 526 Z M1314 508 L1314 513 L1319 513" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/><text x="1166" y="535.1" font-size="12" text-anchor="middle" fill="#5A5A5A">«artifact»</text>
+<text x="1166" y="553.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">feder-email-driven.jar</text>
+<text x="1166" y="569.9" font-size="13" text-anchor="middle" fill="#1A1A1A">scripts/iniciar.sh (continuo) o cron</text>
+<text x="1166" y="585.9" font-size="13" text-anchor="middle" fill="#1A1A1A">procesar-una-vez · ciclo cada 60 s</text>
+<text x="1166" y="601.9" font-size="13" text-anchor="middle" fill="#1A1A1A">config/application-tecnoweb.properties</text>
+<path d="M1436 362 L1450 348 L1750 348 L1750 648 L1736 662 L1736 362 Z" fill="#F3F3F3" stroke="#3C3C3C" stroke-width="1.5" stroke-linejoin="round"/>
+<line x1="1736" y1="362" x2="1750" y2="348" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="1436" y="362" width="300" height="300" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/><text x="1448" y="382" font-size="13" text-anchor="start" fill="#5A5A5A">«servidor de correo»</text><text x="1448" y="402" font-size="16" font-weight="bold" text-anchor="start" fill="#1A1A1A">mail.tecnoweb.org.bo</text>
+<rect x="1454" y="436" width="264" height="92" rx="2" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.3"/><path d="M1694 444 L1704 444 L1709 449 L1709 462 L1694 462 Z M1704 444 L1704 449 L1709 449" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/><text x="1586" y="471.1" font-size="12" text-anchor="middle" fill="#5A5A5A">«artifact»</text>
+<text x="1586" y="489.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Buzón del sistema</text>
+<text x="1586" y="505.9" font-size="13" text-anchor="middle" fill="#1A1A1A">grupo29sa@tecnoweb.org.bo</text>
+<text x="1454" y="560" font-size="14" text-anchor="start" fill="#1A1A1A">POP3 995 · TLS implícito</text>
+<text x="1454" y="580" font-size="14" text-anchor="start" fill="#1A1A1A">SMTP 587 · STARTTLS + AUTH</text>
+<text x="1454" y="606" font-size="13" font-weight="bold" text-anchor="start" fill="#1F4E79">puertos por confirmar con diagnóstico</text>
+<path d="M966 780 L980 766 L1380 766 L1380 976 L1366 990 L1366 780 Z" fill="#F3F3F3" stroke="#3C3C3C" stroke-width="1.5" stroke-linejoin="round"/>
+<line x1="1366" y1="780" x2="1380" y2="766" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="966" y="780" width="400" height="210" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/><text x="978" y="800" font-size="13" text-anchor="start" fill="#5A5A5A">«servidor de BD»</text><text x="978" y="820" font-size="16" font-weight="bold" text-anchor="start" fill="#1A1A1A">db.tecnoweb.org.bo</text>
+<rect x="984" y="850" width="364" height="116" rx="2" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.3"/><path d="M1324 858 L1334 858 L1339 863 L1339 876 L1324 876 Z M1334 858 L1334 863 L1339 863" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/><text x="1166" y="881.1" font-size="12" text-anchor="middle" fill="#5A5A5A">«artifact»</text>
+<text x="1166" y="899.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">PostgreSQL · db_grupo29sa</text>
+<text x="1166" y="915.9" font-size="13" text-anchor="middle" fill="#1A1A1A">puerto 5432</text>
+<text x="1166" y="931.9" font-size="13" text-anchor="middle" fill="#1A1A1A">usuario grupo29sa</text>
+<text x="1166" y="947.9" font-size="13" text-anchor="middle" fill="#1A1A1A">esquema de 01_schema.sql</text>
+<path d="M1436 780 L1724 780 L1736 792 L1736 940 L1436 940 Z" fill="#FBFBF6" stroke="#9A9A9A" stroke-width="1.2"/>
+<path d="M1724 780 L1724 792 L1736 792" fill="none" stroke="#9A9A9A" stroke-width="1.2"/>
+<text x="1446" y="802" font-size="14" font-weight="bold" text-anchor="start" fill="#1A1A1A">Antes de operar en TECNOWEB</text>
+<text x="1446" y="820" font-size="14" text-anchor="start" fill="#1A1A1A">Confirmar puertos y cifrado con</text>
+<text x="1446" y="838" font-size="14" text-anchor="start" fill="#1A1A1A">scripts/diagnostico-tecnoweb.ps1</text>
+<text x="1446" y="856" font-size="14" text-anchor="start" fill="#1A1A1A">(acción «diagnostico»: DNS, puertos,</text>
+<text x="1446" y="874" font-size="14" text-anchor="start" fill="#1A1A1A">POP3, SMTP y PostgreSQL, sin</text>
+<text x="1446" y="892" font-size="14" text-anchor="start" fill="#1A1A1A">modificar nada). 995/587 son los</text>
+<text x="1446" y="910" font-size="14" text-anchor="start" fill="#1A1A1A">valores previstos; 110 con STLS o</text>
+<text x="1446" y="928" font-size="14" text-anchor="start" fill="#1A1A1A">465 son alternativas.</text>
+<line x1="1366" y1="548" x2="1436" y2="548" stroke="#1F4E79" stroke-width="2"/>
+<line x1="1366" y1="600" x2="1436" y2="600" stroke="#1F4E79" stroke-width="2"/>
+<rect x="1362.7" y="526" width="76.7" height="20" fill="#FFFFFF" opacity="0.92"/><text x="1401" y="540" font-size="13" text-anchor="middle" fill="#1F4E79">POP3S 995</text>
+<rect x="1366.3" y="578" width="69.4" height="20" fill="#FFFFFF" opacity="0.92"/><text x="1401" y="592" font-size="13" text-anchor="middle" fill="#1F4E79">SMTP 587</text>
+<line x1="1166" y1="662" x2="1166" y2="780" stroke="#1F4E79" stroke-width="2"/>
+<rect x="1172" y="712" width="286.2" height="20" fill="#FFFFFF" opacity="0.92"/><text x="1176" y="726" font-size="13" text-anchor="start" fill="#1F4E79">JDBC db.tecnoweb.org.bo:5432 · db_grupo29sa</text>
+<path d="M1180 124 L1194 110 L1750 110 L1750 222 L1736 236 L1736 124 Z" fill="#F3F3F3" stroke="#3C3C3C" stroke-width="1.5" stroke-linejoin="round"/>
+<line x1="1736" y1="124" x2="1750" y2="110" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="1180" y="124" width="556" height="112" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/><text x="1192" y="144" font-size="13" text-anchor="start" fill="#5A5A5A">«dispositivo»</text><text x="1192" y="164" font-size="16" font-weight="bold" text-anchor="start" fill="#1A1A1A">Equipo del usuario</text>
+<rect x="1440" y="132" width="280" height="94" rx="2" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.3"/><path d="M1696 140 L1706 140 L1711 145 L1711 158 L1696 158 Z M1706 140 L1706 145 L1711 145" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/><text x="1580" y="160.1" font-size="12" text-anchor="middle" fill="#5A5A5A">«artifact»</text>
+<text x="1580" y="178.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Cliente de correo</text>
+<text x="1580" y="194.9" font-size="13" text-anchor="middle" fill="#1A1A1A">webmail, Outlook, Thunderbird…</text>
+<text x="1580" y="210.9" font-size="13" text-anchor="middle" fill="#1A1A1A">cuenta registrada en FEDER</text>
+<text x="1196" y="180" font-size="14" text-anchor="start" fill="#1A1A1A">Asunto = comando, p. ej.</text>
+<text x="1196" y="199" font-size="14" text-anchor="start" fill="#1A1A1A">LISPRO[&quot;*&quot;] o HELP[&quot;*&quot;]</text>
+<line x1="1586" y1="236" x2="1586" y2="362" stroke="#1F4E79" stroke-width="2"/>
+<rect x="1235.1" y="244" width="344.9" height="36" fill="#FFFFFF" opacity="0.92"/><text x="1576" y="258" font-size="13" text-anchor="end" fill="#1F4E79">comando a grupo29sa@tecnoweb.org.bo (SMTP, Internet)</text>
+<text x="1576" y="274" font-size="13" text-anchor="end" fill="#1F4E79">respuesta a la dirección registrada de la cuenta</text>
+<path d="M40 118 L848 118 L860 130 L860 206 L40 206 Z" fill="#FBFBF6" stroke="#9A9A9A" stroke-width="1.2"/>
+<path d="M848 118 L848 130 L860 130" fill="none" stroke="#9A9A9A" stroke-width="1.2"/>
+<text x="50" y="140" font-size="14" font-weight="bold" text-anchor="start" fill="#1A1A1A">Mismo artefacto, dos configuraciones</text>
+<text x="50" y="158" font-size="14" text-anchor="start" fill="#1A1A1A">La aplicación procesa el buzón de forma secuencial: lee por POP3 (UIDL/RETR), ejecuta el comando en</text>
+<text x="50" y="176" font-size="14" text-anchor="start" fill="#1A1A1A">PostgreSQL dentro de una transacción y responde por SMTP desde la bandeja de salida (correo_saliente).</text>
+<text x="50" y="194" font-size="14" text-anchor="start" fill="#1A1A1A">Las contraseñas no se guardan en el repositorio (archivo de secretos con permisos restringidos).</text>
+</svg>

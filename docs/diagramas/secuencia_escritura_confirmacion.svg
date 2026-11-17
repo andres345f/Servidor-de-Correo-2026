@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1640" height="2419" viewBox="0 0 1640 2419" font-family="Arial, Helvetica, sans-serif" role="img" aria-labelledby="titulo desc">
+<title id="titulo">Secuencia de una escritura con confirmación — FEDER email-driven</title>
+<desc id="desc">Un comando que modifica datos emite un código de confirmación; el usuario lo devuelve con CONFIRMAR y la operación se ejecuta y confirma.</desc>
+<defs>
+<marker id="flecha" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L12,5 L0,10 z" fill="#3C3C3C" stroke="#3C3C3C" stroke-width="1.3" /></marker>
+<marker id="flechaAcento" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L12,5 L0,10 z" fill="#1F4E79" stroke="#1F4E79" stroke-width="1.3" /></marker>
+<marker id="abierta" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L11,5 L1,9" fill="none" stroke="#3C3C3C" stroke-width="1.3" stroke-linejoin="round"/></marker>
+<marker id="abiertaAcento" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L11,5 L1,9" fill="none" stroke="#1F4E79" stroke-width="1.3" stroke-linejoin="round"/></marker>
+<marker id="triangulo" viewBox="0 0 18 16" refX="17" refY="8" markerWidth="18" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L17,8 L1,15 z" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.3" /></marker>
+<marker id="trianguloAcento" viewBox="0 0 18 16" refX="17" refY="8" markerWidth="18" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L17,8 L1,15 z" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.3" /></marker>
+</defs>
+<rect x="0" y="0" width="1640" height="2419" fill="#FFFFFF"/>
+<text x="40" y="50" font-size="28" font-weight="bold" text-anchor="start" fill="#1F4E79">Diagrama de secuencia — escritura con confirmación en dos pasos</text>
+<text x="40" y="80" font-size="17" text-anchor="start" fill="#5A5A5A">Código de un solo uso, vigencia de 30 minutos, misma cuenta; la escritura ocurre solo al confirmar, dentro de un SAVEPOINT</text>
+<line x1="40" y1="96" x2="1600" y2="96" stroke="#1F4E79" stroke-width="2"/>
+<rect x="554" y="409" width="930" height="622" fill="#F2F6FA" stroke="#1F4E79" stroke-width="1.2" stroke-dasharray="3 3"/>
+<rect x="554" y="1455" width="930" height="825" fill="#F2F6FA" stroke="#1F4E79" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="84" y1="196" x2="84" y2="2389" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 5"/>
+<line x1="254" y1="182" x2="254" y2="2389" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 5"/>
+<line x1="424" y1="182" x2="424" y2="2389" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 5"/>
+<line x1="594" y1="182" x2="594" y2="2389" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 5"/>
+<line x1="764" y1="182" x2="764" y2="2389" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 5"/>
+<line x1="934" y1="182" x2="934" y2="2389" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 5"/>
+<line x1="1104" y1="182" x2="1104" y2="2389" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 5"/>
+<line x1="1274" y1="182" x2="1274" y2="2389" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 5"/>
+<line x1="1444" y1="182" x2="1444" y2="2389" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 5"/>
+
+<circle cx="84" cy="122" r="8" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.6"/>
+<line x1="84" y1="130" x2="84" y2="148" stroke="#3C3C3C" stroke-width="1.6"/>
+<line x1="70" y1="137" x2="98" y2="137" stroke="#3C3C3C" stroke-width="1.6"/>
+<line x1="84" y1="148" x2="73" y2="163" stroke="#3C3C3C" stroke-width="1.6"/>
+<line x1="84" y1="148" x2="95" y2="163" stroke="#3C3C3C" stroke-width="1.6"/>
+<text x="84" y="178.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Usuario</text>
+<text x="84" y="194.1" font-size="12" text-anchor="middle" fill="#5A5A5A">cuenta registrada</text>
+<rect x="184" y="112" width="140" height="70" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.6"/>
+<text x="254" y="135.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Servidor</text>
+<text x="254" y="154.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">de correo</text>
+<text x="254" y="170.6" font-size="12" text-anchor="middle" fill="#5A5A5A">POP3 / SMTP</text>
+<rect x="345" y="112" width="158" height="70" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.6"/>
+<text x="424" y="137.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Presentación</text>
+<text x="424" y="153.6" font-size="12" text-anchor="middle" fill="#5A5A5A">CicloCorreo · Interprete</text>
+<text x="424" y="168.6" font-size="12" text-anchor="middle" fill="#5A5A5A">EnviadorSmtp</text>
+<rect x="524" y="112" width="140" height="70" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.6"/>
+<text x="594" y="143.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Servicio</text>
+<text x="594" y="162.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Mensajeria</text>
+<rect x="689" y="112" width="150" height="70" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.6"/>
+<text x="764" y="135.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Comando</text>
+<text x="764" y="154.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Dispatcher</text>
+<text x="764" y="170.6" font-size="12" text-anchor="middle" fill="#5A5A5A">ServicioIdentidad</text>
+<rect x="859" y="112" width="150" height="70" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.6"/>
+<text x="934" y="143.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Servicio</text>
+<text x="934" y="162.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Confirmacion</text>
+<rect x="1031" y="112" width="146" height="70" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.6"/>
+<text x="1104" y="145.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Servicio del CU</text>
+<text x="1104" y="161.1" font-size="12" text-anchor="middle" fill="#5A5A5A">handler del comando</text>
+<rect x="1204" y="112" width="140" height="70" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.6"/>
+<text x="1274" y="137.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Repositorios</text>
+<text x="1274" y="153.6" font-size="12" text-anchor="middle" fill="#5A5A5A">JDBC</text>
+<text x="1274" y="168.6" font-size="12" text-anchor="middle" fill="#5A5A5A">PreparedStatement</text>
+<rect x="1379" y="112" width="130" height="70" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.6"/>
+<text x="1444" y="152.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">PostgreSQL</text>
+<rect x="928" y="656" width="12" height="143" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.1"/>
+<rect x="758" y="527" width="12" height="301" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.1"/>
+<rect x="588" y="395" width="12" height="646" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.1"/>
+<rect x="418" y="283" width="12" height="833" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.1"/>
+<rect x="928" y="1585" width="12" height="189" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.1"/>
+<rect x="1098" y="1984" width="12" height="118" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.1"/>
+<rect x="758" y="1556" width="12" height="604" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.1"/>
+<rect x="588" y="1441" width="12" height="849" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.1"/>
+<rect x="418" y="1337" width="12" height="1011" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.1"/>
+<rect x="30" y="220" width="1580" height="30" fill="#1F4E79" stroke="#1F4E79" stroke-width="1"/>
+<text x="44" y="241" font-size="16" font-weight="bold" text-anchor="start" fill="#FFFFFF">1. Solicitud: el comando modifica datos, así que no se ejecuta; se emite un código de un solo uso</text>
+<rect x="1256.6" y="413" width="221.4" height="20" fill="#F2F6FA" opacity="1"/><text x="1474" y="427" font-size="13" font-weight="bold" text-anchor="end" fill="#1F4E79">Transacción A · correo de solicitud</text>
+<rect x="30" y="1274" width="1580" height="30" fill="#1F4E79" stroke="#1F4E79" stroke-width="1"/>
+<text x="44" y="1295" font-size="16" font-weight="bold" text-anchor="start" fill="#FFFFFF">2. Confirmación: el código se consume una sola vez y la operación se ejecuta con los datos actuales</text>
+<rect x="1228" y="1459" width="250" height="20" fill="#F2F6FA" opacity="1"/><text x="1474" y="1473" font-size="13" font-weight="bold" text-anchor="end" fill="#1F4E79">Transacción B · correo de confirmación</text>
+<line x1="84" y1="283" x2="254" y2="283" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#abierta)"/>
+<rect x="90" y="262" width="471.4" height="21" fill="#FFFFFF" opacity="0.9"/><text x="94" y="277" font-size="14" text-anchor="start" fill="#1A1A1A">Asunto: MODPRO[&quot;15&quot;,&quot;35.50&quot;]  (ejemplo de comando que modifica datos)</text>
+<line x1="418" y1="312" x2="254" y2="312" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="285.3" y="291" width="101.4" height="21" fill="#FFFFFF" opacity="0.9"/><text x="336" y="306" font-size="14" text-anchor="middle" fill="#1A1A1A">UIDL · RETR n</text>
+<path d="M430 332 L464 332 L464 362 L432 362" fill="none" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)" stroke-linejoin="round"/>
+<rect x="468" y="322" width="280.7" height="38" fill="#FFFFFF" opacity="0.9"/><text x="472" y="337" font-size="14" text-anchor="start" fill="#1A1A1A">EmailMessageParser + CommandParser →</text>
+<text x="472" y="354" font-size="14" text-anchor="start" fill="#1A1A1A">SolicitudCorreo(MODPRO, [&quot;15&quot;,&quot;35.50&quot;])</text>
+<line x1="430" y1="395" x2="594" y2="395" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="436" y="374" width="192.4" height="21" fill="#FFFFFF" opacity="0.9"/><text x="440" y="389" font-size="14" text-anchor="start" fill="#1A1A1A">procesar(solicitud, generador)</text>
+<line x1="600" y1="469" x2="1274" y2="469" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="606" y="431" width="421.9" height="38" fill="#FFFFFF" opacity="0.9"/><text x="610" y="446" font-size="14" text-anchor="start" fill="#1A1A1A">BEGIN · reclamar(buzón, UIDL): INSERT INTO mensaje_correo …</text>
+<text x="610" y="463" font-size="14" text-anchor="start" fill="#1A1A1A">ON CONFLICT (buzon, uidl) DO NOTHING</text>
+<line x1="600" y1="498" x2="1444" y2="498" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="606" y="477" width="88.1" height="21" fill="#FFFFFF" opacity="0.9"/><text x="610" y="492" font-size="14" text-anchor="start" fill="#1A1A1A">SAVEPOINT</text>
+<line x1="600" y1="527" x2="764" y2="527" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="606" y="506" width="310.2" height="21" fill="#FFFFFF" opacity="0.9"/><text x="610" y="521" font-size="14" text-anchor="start" fill="#1A1A1A">despachar(&quot;MODPRO&quot;, [&quot;15&quot;,&quot;35.50&quot;], remitente)</text>
+<path d="M770 547 L804 547 L804 577 L772 577" fill="none" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)" stroke-linejoin="round"/>
+<rect x="808" y="537" width="312.6" height="38" fill="#FFFFFF" opacity="0.9"/><text x="812" y="552" font-size="14" text-anchor="start" fill="#1A1A1A">resolver remitente: cuenta activa + roles vigentes</text>
+<text x="812" y="569" font-size="14" text-anchor="start" fill="#1A1A1A">lista blanca → cantidad y tipos → autorizar(rol)</text>
+<path d="M770 601 L804 601 L804 623 L772 623" fill="none" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)" stroke-linejoin="round"/>
+<rect x="808" y="591" width="324.8" height="21" fill="#FFFFFF" opacity="0.9"/><text x="812" y="606" font-size="14" font-weight="bold" text-anchor="start" fill="#1A1A1A">modificaDatos() = true → NO se ejecuta todavía</text>
+<line x1="770" y1="656" x2="934" y2="656" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="776" y="635" width="243.7" height="21" fill="#FFFFFF" opacity="0.9"/><text x="780" y="650" font-size="14" text-anchor="start" fill="#1A1A1A">solicitar(comando, valores, solicitante)</text>
+<line x1="940" y1="685" x2="1274" y2="685" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="946" y="664" width="365.1" height="21" fill="#FFFFFF" opacity="0.9"/><text x="950" y="679" font-size="14" text-anchor="start" fill="#1A1A1A">contarCreadasDesde(correo, última hora) · límite por hora</text>
+<path d="M940 705 L974 705 L974 735 L942 735" fill="none" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)" stroke-linejoin="round"/>
+<rect x="978" y="695" width="320" height="38" fill="#FFFFFF" opacity="0.9"/><text x="982" y="710" font-size="14" text-anchor="start" fill="#1A1A1A">código aleatorio de 8 caracteres (SecureRandom);</text>
+<text x="982" y="727" font-size="14" text-anchor="start" fill="#1A1A1A">solo se guarda su hash SHA-256</text>
+<line x1="940" y1="785" x2="1274" y2="785" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="946" y="747" width="446.9" height="38" fill="#FFFFFF" opacity="0.9"/><text x="950" y="762" font-size="14" text-anchor="start" fill="#1A1A1A">registrar(): INSERT INTO confirmacion_operacion (codigo_hash,</text>
+<text x="950" y="779" font-size="14" text-anchor="start" fill="#1A1A1A">correo, usuario_id, comando, parametros, expira_en = ahora + 30 min)</text>
+<line x1="934" y1="814" x2="770" y2="814" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="800.5" y="793" width="102.9" height="21" fill="#FFFFFF" opacity="0.9"/><text x="852" y="808" font-size="14" text-anchor="middle" fill="#1A1A1A">código en claro</text>
+<line x1="764" y1="860" x2="600" y2="860" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="632.9" y="822" width="98.2" height="38" fill="#FFFFFF" opacity="0.9"/><text x="682" y="837" font-size="14" text-anchor="middle" fill="#1A1A1A">«Confirmación</text>
+<text x="682" y="854" font-size="14" text-anchor="middle" fill="#1A1A1A">requerida»</text>
+<line x1="600" y1="955" x2="1444" y2="955" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="606" y="934" width="156.6" height="21" fill="#FFFFFF" opacity="0.9"/><text x="610" y="949" font-size="14" text-anchor="start" fill="#1A1A1A">RELEASE SAVEPOINT</text>
+<line x1="600" y1="984" x2="1274" y2="984" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="606" y="963" width="501.2" height="21" fill="#FFFFFF" opacity="0.9"/><text x="610" y="978" font-size="14" text-anchor="start" fill="#1A1A1A">encolar respuesta (correo_saliente) · finalizar(PROCESADO, CONFIRMACION)</text>
+<line x1="600" y1="1013" x2="1444" y2="1013" stroke="#1F4E79" stroke-width="1.4" marker-end="url(#flechaAcento)"/>
+<rect x="987.6" y="992" width="68.7" height="21" fill="#FFFFFF" opacity="0.9"/><text x="1022" y="1007" font-size="14" font-weight="bold" text-anchor="middle" fill="#1F4E79">COMMIT</text>
+<line x1="594" y1="1056" x2="430" y2="1056" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="475.3" y="1035" width="73.4" height="21" fill="#FFFFFF" opacity="0.9"/><text x="512" y="1050" font-size="14" text-anchor="middle" fill="#1A1A1A">procesado</text>
+<line x1="418" y1="1102" x2="254" y2="1102" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="262.7" y="1064" width="146.5" height="38" fill="#FFFFFF" opacity="0.9"/><text x="336" y="1079" font-size="14" text-anchor="middle" fill="#1A1A1A">SMTP · RCPT TO:</text>
+<text x="336" y="1096" font-size="14" text-anchor="middle" fill="#1A1A1A">&lt;dirección registrada&gt;</text>
+<line x1="254" y1="1148" x2="84" y2="1148" stroke="#1F4E79" stroke-width="1.4" marker-end="url(#abiertaAcento)"/>
+<rect x="90" y="1110" width="419.1" height="38" fill="#FFFFFF" opacity="0.9"/><text x="94" y="1125" font-size="14" font-weight="bold" text-anchor="start" fill="#1F4E79">«Confirmación requerida»: envíe CONFIRMAR[&quot;K7PM3QXA&quot;]</text>
+<text x="94" y="1142" font-size="14" font-weight="bold" text-anchor="start" fill="#1F4E79">antes de 30 minutos (un solo uso)</text>
+<line x1="84" y1="1337" x2="254" y2="1337" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#abierta)"/>
+<rect x="90" y="1316" width="396.8" height="21" fill="#FFFFFF" opacity="0.9"/><text x="94" y="1331" font-size="14" text-anchor="start" fill="#1A1A1A">Asunto: CONFIRMAR[&quot;K7PM3QXA&quot;]  (desde la misma cuenta)</text>
+<line x1="418" y1="1366" x2="254" y2="1366" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="285.3" y="1345" width="101.4" height="21" fill="#FFFFFF" opacity="0.9"/><text x="336" y="1360" font-size="14" text-anchor="middle" fill="#1A1A1A">UIDL · RETR n</text>
+<path d="M430 1386 L464 1386 L464 1408 L432 1408" fill="none" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)" stroke-linejoin="round"/>
+<rect x="468" y="1376" width="297.2" height="21" fill="#FFFFFF" opacity="0.9"/><text x="472" y="1391" font-size="14" text-anchor="start" fill="#1A1A1A">SolicitudCorreo(CONFIRMAR, [&quot;K7PM3QXA&quot;])</text>
+<line x1="430" y1="1441" x2="594" y2="1441" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="436" y="1420" width="192.4" height="21" fill="#FFFFFF" opacity="0.9"/><text x="440" y="1435" font-size="14" text-anchor="start" fill="#1A1A1A">procesar(solicitud, generador)</text>
+<line x1="600" y1="1498" x2="1274" y2="1498" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="606" y="1477" width="360.5" height="21" fill="#FFFFFF" opacity="0.9"/><text x="610" y="1492" font-size="14" text-anchor="start" fill="#1A1A1A">BEGIN · reclamar(buzón, UIDL) · contarDesde(remitente)</text>
+<line x1="600" y1="1527" x2="1444" y2="1527" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="606" y="1506" width="88.1" height="21" fill="#FFFFFF" opacity="0.9"/><text x="610" y="1521" font-size="14" text-anchor="start" fill="#1A1A1A">SAVEPOINT</text>
+<line x1="600" y1="1556" x2="764" y2="1556" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="606" y="1535" width="343" height="21" fill="#FFFFFF" opacity="0.9"/><text x="610" y="1550" font-size="14" text-anchor="start" fill="#1A1A1A">despachar(&quot;CONFIRMAR&quot;, [&quot;K7PM3QXA&quot;], remitente)</text>
+<line x1="770" y1="1585" x2="934" y2="1585" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="776" y="1564" width="179.9" height="21" fill="#FFFFFF" opacity="0.9"/><text x="780" y="1579" font-size="14" text-anchor="start" fill="#1A1A1A">consumir(código, remitente)</text>
+<line x1="940" y1="1631" x2="1274" y2="1631" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="946" y="1593" width="425" height="38" fill="#FFFFFF" opacity="0.9"/><text x="950" y="1608" font-size="14" text-anchor="start" fill="#1A1A1A">buscarParaUsar(hash): SELECT … FROM confirmacion_operacion</text>
+<text x="950" y="1625" font-size="14" text-anchor="start" fill="#1A1A1A">WHERE codigo_hash = ? FOR UPDATE</text>
+<path d="M940 1651 L974 1651 L974 1681 L942 1681" fill="none" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)" stroke-linejoin="round"/>
+<rect x="978" y="1641" width="225.1" height="38" fill="#FFFFFF" opacity="0.9"/><text x="982" y="1656" font-size="14" text-anchor="start" fill="#1A1A1A">misma cuenta · usada_en IS NULL</text>
+<text x="982" y="1673" font-size="14" text-anchor="start" fill="#1A1A1A">· expira_en &gt; ahora</text>
+<line x1="940" y1="1731" x2="1274" y2="1731" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="946" y="1693" width="339.1" height="38" fill="#FFFFFF" opacity="0.9"/><text x="950" y="1708" font-size="14" text-anchor="start" fill="#1A1A1A">marcarUsada(id): UPDATE … SET usada_en = now()</text>
+<text x="950" y="1725" font-size="14" text-anchor="start" fill="#1A1A1A">WHERE id = ? AND usada_en IS NULL  → 1 fila</text>
+<line x1="940" y1="1760" x2="1274" y2="1760" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="946" y="1739" width="257" height="21" fill="#FFFFFF" opacity="0.9"/><text x="950" y="1754" font-size="14" text-anchor="start" fill="#1A1A1A">parametros(id) (arreglo JSON guardado)</text>
+<line x1="934" y1="1806" x2="770" y2="1806" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="779.5" y="1768" width="144.9" height="38" fill="#FFFFFF" opacity="0.9"/><text x="852" y="1783" font-size="14" text-anchor="middle" fill="#1A1A1A">OperacionConfirmada</text>
+<text x="852" y="1800" font-size="14" text-anchor="middle" fill="#1A1A1A">(comando, valores)</text>
+<path d="M770 1892 L804 1892 L804 1922 L772 1922" fill="none" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)" stroke-linejoin="round"/>
+<rect x="808" y="1882" width="284.2" height="38" fill="#FFFFFF" opacity="0.9"/><text x="812" y="1897" font-size="14" text-anchor="start" fill="#1A1A1A">se repiten lista blanca, cantidad y tipos;</text>
+<text x="812" y="1914" font-size="14" text-anchor="start" fill="#1A1A1A">re-autorización con los roles vigentes (R088)</text>
+<line x1="770" y1="1955" x2="1444" y2="1955" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="776" y="1934" width="88.1" height="21" fill="#FFFFFF" opacity="0.9"/><text x="780" y="1949" font-size="14" text-anchor="start" fill="#1A1A1A">SAVEPOINT</text>
+<line x1="770" y1="1984" x2="1104" y2="1984" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="776" y="1963" width="298.2" height="21" fill="#FFFFFF" opacity="0.9"/><text x="780" y="1978" font-size="14" text-anchor="start" fill="#1A1A1A">handler.ejecutar(parámetros, solicitante actual)</text>
+<line x1="1110" y1="2013" x2="1274" y2="2013" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="1116" y="1992" width="185.8" height="21" fill="#FFFFFF" opacity="0.9"/><text x="1120" y="2007" font-size="14" text-anchor="start" fill="#1A1A1A">modificar + registrar bitácora</text>
+<line x1="1274" y1="2059" x2="1444" y2="2059" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="1280" y="2021" width="235.6" height="38" fill="#FFFFFF" opacity="0.9"/><text x="1284" y="2036" font-size="14" text-anchor="start" fill="#1A1A1A">UPDATE producto … WHERE id = ?</text>
+<text x="1284" y="2053" font-size="14" text-anchor="start" fill="#1A1A1A">INSERT INTO bitacora …</text>
+<line x1="1444" y1="2088" x2="1274" y2="2088" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="1340.2" y="2067" width="37.6" height="21" fill="#FFFFFF" opacity="0.9"/><text x="1359" y="2082" font-size="14" text-anchor="middle" fill="#1A1A1A">1 fila</text>
+<line x1="1104" y1="2117" x2="770" y2="2117" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="918.2" y="2096" width="37.6" height="21" fill="#FFFFFF" opacity="0.9"/><text x="937" y="2111" font-size="14" text-anchor="middle" fill="#1A1A1A">éxito</text>
+<line x1="770" y1="2146" x2="1444" y2="2146" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="776" y="2125" width="156.6" height="21" fill="#FFFFFF" opacity="0.9"/><text x="780" y="2140" font-size="14" text-anchor="start" fill="#1A1A1A">RELEASE SAVEPOINT</text>
+<line x1="764" y1="2175" x2="600" y2="2175" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="627.8" y="2154" width="108.4" height="21" fill="#FFFFFF" opacity="0.9"/><text x="682" y="2169" font-size="14" text-anchor="middle" fill="#1A1A1A">Despacho(éxito)</text>
+<line x1="600" y1="2204" x2="1444" y2="2204" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="606" y="2183" width="156.6" height="21" fill="#FFFFFF" opacity="0.9"/><text x="610" y="2198" font-size="14" text-anchor="start" fill="#1A1A1A">RELEASE SAVEPOINT</text>
+<line x1="600" y1="2233" x2="1274" y2="2233" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="606" y="2212" width="326.2" height="21" fill="#FFFFFF" opacity="0.9"/><text x="610" y="2227" font-size="14" text-anchor="start" fill="#1A1A1A">encolar respuesta · finalizar(PROCESADO, EXITO)</text>
+<line x1="600" y1="2262" x2="1444" y2="2262" stroke="#1F4E79" stroke-width="1.4" marker-end="url(#flechaAcento)"/>
+<rect x="987.6" y="2241" width="68.7" height="21" fill="#FFFFFF" opacity="0.9"/><text x="1022" y="2256" font-size="14" font-weight="bold" text-anchor="middle" fill="#1F4E79">COMMIT</text>
+<line x1="594" y1="2305" x2="430" y2="2305" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="475.3" y="2284" width="73.4" height="21" fill="#FFFFFF" opacity="0.9"/><text x="512" y="2299" font-size="14" text-anchor="middle" fill="#1A1A1A">procesado</text>
+<line x1="418" y1="2334" x2="254" y2="2334" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="281.8" y="2313" width="108.4" height="21" fill="#FFFFFF" opacity="0.9"/><text x="336" y="2328" font-size="14" text-anchor="middle" fill="#1A1A1A">envío por SMTP</text>
+<line x1="254" y1="2363" x2="84" y2="2363" stroke="#1F4E79" stroke-width="1.4" marker-end="url(#abiertaAcento)"/>
+<rect x="90" y="2342" width="294.4" height="21" fill="#FFFFFF" opacity="0.9"/><text x="94" y="2357" font-size="14" font-weight="bold" text-anchor="start" fill="#1F4E79">«Operación realizada»: MODPRO aplicado</text>
+<path d="M600 878 L820.4 878 L832.4 890 L832.4 928 L600 928 Z" fill="#FBFBF6" stroke="#9A9A9A" stroke-width="1.2"/>
+<path d="M820.4 878 L820.4 890 L832.4 890" fill="none" stroke="#9A9A9A" stroke-width="1.2"/>
+<text x="610" y="899" font-size="13" text-anchor="start" fill="#1A1A1A">destinatario = correo REGISTRADO</text>
+<text x="610" y="916" font-size="13" text-anchor="start" fill="#1A1A1A">de la cuenta (no el From recibido)</text>
+<path d="M34 1166 L462 1166 L474 1178 L474 1254 L34 1254 Z" fill="#FBFBF6" stroke="#9A9A9A" stroke-width="1.2"/>
+<path d="M462 1166 L462 1178 L474 1178" fill="none" stroke="#9A9A9A" stroke-width="1.2"/>
+<text x="44" y="1188" font-size="14" font-weight="bold" text-anchor="start" fill="#1A1A1A">Por qué la confirmación</text>
+<text x="44" y="1206" font-size="14" text-anchor="start" fill="#1A1A1A">El encabezado From puede falsificarse. El código se envía a la</text>
+<text x="44" y="1224" font-size="14" text-anchor="start" fill="#1A1A1A">dirección registrada de la cuenta: solo quien controla ese buzón</text>
+<text x="44" y="1242" font-size="14" text-anchor="start" fill="#1A1A1A">puede devolverlo. En la base solo queda el hash del código.</text>
+<path d="M924 1824 L1335.6 1824 L1347.6 1836 L1347.6 1874 L924 1874 Z" fill="#FBFBF6" stroke="#9A9A9A" stroke-width="1.2"/>
+<path d="M1335.6 1824 L1335.6 1836 L1347.6 1836" fill="none" stroke="#9A9A9A" stroke-width="1.2"/>
+<text x="934" y="1845" font-size="13" text-anchor="start" fill="#1A1A1A">Código inexistente, ya usado, vencido u otra cuenta: «Confirmación</text>
+<text x="934" y="1862" font-size="13" text-anchor="start" fill="#1A1A1A">no válida» (mismo mensaje en todos los casos) y no se ejecuta nada.</text>
+</svg>

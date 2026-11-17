@@ -1,0 +1,33 @@
+# Compilación y herramientas
+target/
+*.class
+.vscode/*.log
+
+# Configuración privada: contiene contraseñas y NUNCA se versiona.
+config/application-local.properties
+config/application-tecnoweb.properties
+config/*.private.properties
+.env
+*.env
+
+# Datos locales de ejecución
+.pgdata/
+logs/
+*.log
+estado/
+
+# Sistema operativo / IDE
+.idea/
+*.iml
+Thumbs.db
+.DS_Store
+.vscode/
+
+# Archivos de herramientas de desarrollo y copias de trabajo (no forman parte del proyecto)
+.claude/
+.codex/
+_trabajo_interno/
+*.pem
+*.key
+*.p12
+*.pfx

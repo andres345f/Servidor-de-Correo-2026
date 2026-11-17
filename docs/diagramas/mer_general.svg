@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="1360" viewBox="0 0 2000 1360" font-family="Arial, Helvetica, sans-serif">
+<title>FEDER — Modelo entidad-relación general (28 tablas)</title>
+<desc>Modelo entidad-relación general de FEDER con las 25 tablas de negocio y las 3 tablas técnicas, agrupadas por módulo.</desc>
+<rect x="0" y="0" width="2000" height="1360" fill="#FFFFFF"/>
+<text x="30" y="38" font-size="20" font-weight="bold" fill="#1F4E79">FEDER — Modelo entidad-relación general (28 tablas)</text>
+<text x="30" y="58" font-size="14" fill="#5A5A5A">Base de datos feder_local, esquema public. Generado desde el catálogo de PostgreSQL (information_schema y pg_catalog). Vista compacta: solo claves primarias y foráneas.</text>
+<g class="bandas">
+<rect x="30" y="90" width="650" height="400" rx="6" fill="#EEF3F8" stroke="#C7D3E0" stroke-width="1"/>
+<text x="42" y="115" font-size="17" font-weight="bold" fill="#1F4E79">CU2-CU3 Productores y producción</text>
+<rect x="30" y="550" width="630" height="370" rx="6" fill="#EEF3F8" stroke="#C7D3E0" stroke-width="1"/>
+<text x="42" y="575" font-size="17" font-weight="bold" fill="#1F4E79">CU1 Usuarios y auditoría</text>
+<rect x="30" y="980" width="610" height="310" rx="6" fill="#EEF3F8" stroke="#C7D3E0" stroke-width="1"/>
+<text x="42" y="1005" font-size="17" font-weight="bold" fill="#1F4E79">Infraestructura del procesador de correo</text>
+<rect x="720" y="90" width="600" height="500" rx="6" fill="#EEF3F8" stroke="#C7D3E0" stroke-width="1"/>
+<text x="732" y="115" font-size="17" font-weight="bold" fill="#1F4E79">CU4 Catálogo, compras e inventario</text>
+<rect x="720" y="670" width="570" height="550" rx="6" fill="#EEF3F8" stroke="#C7D3E0" stroke-width="1"/>
+<text x="732" y="695" font-size="17" font-weight="bold" fill="#1F4E79">CU5 Comercio electrónico</text>
+<rect x="1380" y="230" width="590" height="850" rx="6" fill="#EEF3F8" stroke="#C7D3E0" stroke-width="1"/>
+<text x="1392" y="255" font-size="17" font-weight="bold" fill="#1F4E79">CU6 Pagos, entregas y posventa</text>
+</g>
+<g class="relaciones" stroke="#3A3A3A" stroke-width="1.3" fill="none" stroke-linejoin="round">
+<g class="rel" data-fk="fk_devolucion_devolucion_anulada"><path d="M1680 380 L1710 380 L1710 340 L1680 340" fill="none"/><line x1="1689" y1="373.5" x2="1689" y2="386.5"/><circle cx="1700" cy="380" r="4.2" fill="#FFFFFF"/><line x1="1689" y1="333.5" x2="1689" y2="346.5"/><circle cx="1700" cy="340" r="4.2" fill="#FFFFFF"/></g>
+<g class="rel" data-fk="fk_detalle_compra_compra"><path d="M1240 330 L1270 330 L1270 250 L1220 250 L1220 220" fill="none"/><line x1="1253" y1="330" x2="1240" y2="323"/><line x1="1253" y1="330" x2="1240" y2="337"/><circle cx="1260" cy="330" r="4.2" fill="#FFFFFF"/><line x1="1226.5" y1="228" x2="1213.5" y2="228"/><line x1="1226.5" y1="234" x2="1213.5" y2="234"/></g>
+<g class="rel" data-fk="fk_correo_saliente_mensaje_correo"><path d="M250 1210 L280 1210 L280 1070 L240 1070" fill="none"/><line x1="263" y1="1210" x2="250" y2="1203"/><line x1="263" y1="1210" x2="250" y2="1217"/><circle cx="270" cy="1210" r="4.2" fill="#FFFFFF"/><line x1="249" y1="1063.5" x2="249" y2="1076.5"/><circle cx="260" cy="1070" r="4.2" fill="#FFFFFF"/></g>
+<g class="rel" data-fk="fk_usuario_rol_rol"><path d="M240 800 L290 800 L290 640 L240 640" fill="none"/><line x1="253" y1="800" x2="240" y2="793"/><line x1="253" y1="800" x2="240" y2="807"/><circle cx="260" cy="800" r="4.2" fill="#FFFFFF"/><line x1="248" y1="633.5" x2="248" y2="646.5"/><line x1="254" y1="633.5" x2="254" y2="646.5"/></g>
+<g class="rel" data-fk="fk_lote_feder_detalle_compra"><path d="M1070 490 L1040 490 L1040 400 L1090 400 L1090 370" fill="none"/><line x1="1061" y1="496.5" x2="1061" y2="483.5"/><circle cx="1050" cy="490" r="4.2" fill="#FFFFFF"/><line x1="1096.5" y1="378" x2="1083.5" y2="378"/><line x1="1096.5" y1="384" x2="1083.5" y2="384"/></g>
+<g class="rel" data-fk="fk_reserva_stock_detalle_pedido"><path d="M1070 980 L1020 980 L1020 870 L1090 870 L1090 840" fill="none"/><line x1="1057" y1="980" x2="1070" y2="987"/><line x1="1057" y1="980" x2="1070" y2="973"/><circle cx="1050" cy="980" r="4.2" fill="#FFFFFF"/><line x1="1096.5" y1="848" x2="1083.5" y2="848"/><line x1="1096.5" y1="854" x2="1083.5" y2="854"/></g>
+<g class="rel" data-fk="fk_bitacora_usuario"><path d="M400 660 L370 660 L370 780" fill="none"/><line x1="387" y1="660" x2="400" y2="667"/><line x1="387" y1="660" x2="400" y2="653"/><circle cx="380" cy="660" r="4.2" fill="#FFFFFF"/><line x1="363.5" y1="771" x2="376.5" y2="771"/><circle cx="370" cy="760" r="4.2" fill="#FFFFFF"/></g>
+<g class="rel" data-fk="fk_produccion_comunidad_origen"><path d="M280 430 L330 430 L330 230 L220 230 L220 200" fill="none"/><line x1="293" y1="430" x2="280" y2="423"/><line x1="293" y1="430" x2="280" y2="437"/><circle cx="300" cy="430" r="4.2" fill="#FFFFFF"/><line x1="226.5" y1="208" x2="213.5" y2="208"/><line x1="226.5" y1="214" x2="213.5" y2="214"/></g>
+<g class="rel" data-fk="fk_item_carrito_producto"><path d="M930 800 L980 800 L980 510 L930 510" fill="none"/><line x1="943" y1="800" x2="930" y2="793"/><line x1="943" y1="800" x2="930" y2="807"/><circle cx="950" cy="800" r="4.2" fill="#FFFFFF"/><line x1="938" y1="503.5" x2="938" y2="516.5"/><line x1="944" y1="503.5" x2="944" y2="516.5"/></g>
+<g class="rel" data-fk="fk_confirmacion_operacion_usuario"><path d="M400 1120 L370 1120 L370 1020 L380 1020 L380 880" fill="none"/><line x1="387" y1="1120" x2="400" y2="1127"/><line x1="387" y1="1120" x2="400" y2="1113"/><circle cx="380" cy="1120" r="4.2" fill="#FFFFFF"/><line x1="386.5" y1="889" x2="373.5" y2="889"/><circle cx="380" cy="900" r="4.2" fill="#FFFFFF"/></g>
+<g class="rel" data-fk="fk_reembolso_devolucion"><path d="M1760 380 L1720 380 L1720 430 L1660 430 L1660 400" fill="none"/><line x1="1747" y1="380" x2="1760" y2="387"/><line x1="1747" y1="380" x2="1760" y2="373"/><circle cx="1740" cy="380" r="4.2" fill="#FFFFFF"/><line x1="1666.5" y1="409" x2="1653.5" y2="409"/><circle cx="1660" cy="420" r="4.2" fill="#FFFFFF"/></g>
+<g class="rel" data-fk="fk_historial_pedido_pedido"><path d="M930 1140 L1020 1140 L1020 1120 L1070 1120" fill="none"/><line x1="943" y1="1140" x2="930" y2="1133"/><line x1="943" y1="1140" x2="930" y2="1147"/><circle cx="950" cy="1140" r="4.2" fill="#FFFFFF"/><line x1="1062" y1="1126.5" x2="1062" y2="1113.5"/><line x1="1056" y1="1126.5" x2="1056" y2="1113.5"/></g>
+<g class="rel" data-fk="fk_lote_produccion_produccion"><path d="M400 420 L350 420 L350 370 L280 370" fill="none"/><line x1="387" y1="420" x2="400" y2="427"/><line x1="387" y1="420" x2="400" y2="413"/><circle cx="380" cy="420" r="4.2" fill="#FFFFFF"/><line x1="288" y1="363.5" x2="288" y2="376.5"/><line x1="294" y1="363.5" x2="294" y2="376.5"/></g>
+<g class="rel" data-fk="fk_producto_categoria"><path d="M930 530 L1000 530 L1000 180 L930 180" fill="none"/><line x1="943" y1="530" x2="930" y2="523"/><line x1="943" y1="530" x2="930" y2="537"/><circle cx="950" cy="530" r="4.2" fill="#FFFFFF"/><line x1="938" y1="173.5" x2="938" y2="186.5"/><line x1="944" y1="173.5" x2="944" y2="186.5"/></g>
+<g class="rel" data-fk="fk_detalle_pedido_pedido"><path d="M1070 780 L1000 780 L1000 1050 L1090 1050 L1090 1080" fill="none"/><line x1="1057" y1="780" x2="1070" y2="787"/><line x1="1057" y1="780" x2="1070" y2="773"/><circle cx="1050" cy="780" r="4.2" fill="#FFFFFF"/><line x1="1083.5" y1="1072" x2="1096.5" y2="1072"/><line x1="1083.5" y1="1066" x2="1096.5" y2="1066"/></g>
+<g class="rel" data-fk="fk_usuario_rol_asignado_por"><path d="M240 820 L330 820" fill="none"/><line x1="253" y1="820" x2="240" y2="813"/><line x1="253" y1="820" x2="240" y2="827"/><circle cx="260" cy="820" r="4.2" fill="#FFFFFF"/><line x1="321" y1="826.5" x2="321" y2="813.5"/><circle cx="310" cy="820" r="4.2" fill="#FFFFFF"/></g>
+<g class="rel" data-fk="fk_usuario_rol_revocado_por"><path d="M240 840 L330 840" fill="none"/><line x1="253" y1="840" x2="240" y2="833"/><line x1="253" y1="840" x2="240" y2="847"/><circle cx="260" cy="840" r="4.2" fill="#FFFFFF"/><line x1="321" y1="846.5" x2="321" y2="833.5"/><circle cx="310" cy="840" r="4.2" fill="#FFFFFF"/></g>
+<g class="rel" data-fk="fk_usuario_rol_usuario"><path d="M240 780 L310 780 L310 750 L350 750 L350 780" fill="none"/><line x1="253" y1="780" x2="240" y2="773"/><line x1="253" y1="780" x2="240" y2="787"/><circle cx="260" cy="780" r="4.2" fill="#FFFFFF"/><line x1="343.5" y1="772" x2="356.5" y2="772"/><line x1="343.5" y1="766" x2="356.5" y2="766"/></g>
+<g class="rel" data-fk="fk_reembolso_pago"><path d="M1930 360 L1960 360 L1960 370 L1950 370 L1950 680 L1890 680" fill="none"/><line x1="1943" y1="360" x2="1930" y2="353"/><line x1="1943" y1="360" x2="1930" y2="367"/><circle cx="1950" cy="360" r="4.2" fill="#FFFFFF"/><line x1="1898" y1="673.5" x2="1898" y2="686.5"/><line x1="1904" y1="673.5" x2="1904" y2="686.5"/></g>
+<g class="rel" data-fk="fk_productor_comunidad_agricola"><path d="M400 220 L340 220 L340 180 L240 180" fill="none"/><line x1="387" y1="220" x2="400" y2="227"/><line x1="387" y1="220" x2="400" y2="213"/><circle cx="380" cy="220" r="4.2" fill="#FFFFFF"/><line x1="248" y1="173.5" x2="248" y2="186.5"/><line x1="254" y1="173.5" x2="254" y2="186.5"/></g>
+<g class="rel" data-fk="fk_item_carrito_cliente"><path d="M760 780 L680 780 L680 820 L620 820" fill="none"/><line x1="747" y1="780" x2="760" y2="787"/><line x1="747" y1="780" x2="760" y2="773"/><circle cx="740" cy="780" r="4.2" fill="#FFFFFF"/><line x1="628" y1="813.5" x2="628" y2="826.5"/><line x1="634" y1="813.5" x2="634" y2="826.5"/></g>
+<g class="rel" data-fk="fk_movimiento_inventario_lote_feder"><path d="M950 320 L1020 320 L1020 540 L1090 540 L1090 510" fill="none"/><line x1="963" y1="320" x2="950" y2="313"/><line x1="963" y1="320" x2="950" y2="327"/><circle cx="970" cy="320" r="4.2" fill="#FFFFFF"/><line x1="1096.5" y1="518" x2="1083.5" y2="518"/><line x1="1096.5" y1="524" x2="1083.5" y2="524"/></g>
+<g class="rel" data-fk="fk_factura_pedido"><path d="M1420 1020 L1220 1020 L1220 1080" fill="none"/><line x1="1411" y1="1026.5" x2="1411" y2="1013.5"/><circle cx="1400" cy="1020" r="4.2" fill="#FFFFFF"/><line x1="1213.5" y1="1072" x2="1226.5" y2="1072"/><line x1="1213.5" y1="1066" x2="1226.5" y2="1066"/></g>
+<g class="rel" data-fk="fk_reserva_stock_lote_feder"><path d="M1250 960 L1310 960 L1310 610 L1260 610 L1260 510" fill="none"/><line x1="1263" y1="960" x2="1250" y2="953"/><line x1="1263" y1="960" x2="1250" y2="967"/><circle cx="1270" cy="960" r="4.2" fill="#FFFFFF"/><line x1="1266.5" y1="518" x2="1253.5" y2="518"/><line x1="1266.5" y1="524" x2="1253.5" y2="524"/></g>
+<g class="rel" data-fk="fk_produccion_productor"><path d="M280 390 L380 390 L380 270 L420 270 L420 240" fill="none"/><line x1="293" y1="390" x2="280" y2="383"/><line x1="293" y1="390" x2="280" y2="397"/><circle cx="300" cy="390" r="4.2" fill="#FFFFFF"/><line x1="426.5" y1="248" x2="413.5" y2="248"/><line x1="426.5" y1="254" x2="413.5" y2="254"/></g>
+<g class="rel" data-fk="fk_detalle_pedido_producto"><path d="M1070 800 L1020 800 L1020 610 L910 610 L910 550" fill="none"/><line x1="1057" y1="800" x2="1070" y2="807"/><line x1="1057" y1="800" x2="1070" y2="793"/><circle cx="1050" cy="800" r="4.2" fill="#FFFFFF"/><line x1="916.5" y1="558" x2="903.5" y2="558"/><line x1="916.5" y1="564" x2="903.5" y2="564"/></g>
+<g class="rel" data-fk="fk_compra_feder_productor"><path d="M1070 200 L950 200 L950 220 L700 220 L700 180 L640 180" fill="none"/><line x1="1057" y1="200" x2="1070" y2="207"/><line x1="1057" y1="200" x2="1070" y2="193"/><circle cx="1050" cy="200" r="4.2" fill="#FFFFFF"/><line x1="648" y1="173.5" x2="648" y2="186.5"/><line x1="654" y1="173.5" x2="654" y2="186.5"/></g>
+<g class="rel" data-fk="fk_historial_pedido_usuario"><path d="M760 1160 L680 1160 L680 870 L620 870" fill="none"/><line x1="747" y1="1160" x2="760" y2="1167"/><line x1="747" y1="1160" x2="760" y2="1153"/><circle cx="740" cy="1160" r="4.2" fill="#FFFFFF"/><line x1="629" y1="863.5" x2="629" y2="876.5"/><circle cx="640" cy="870" r="4.2" fill="#FFFFFF"/></g>
+<g class="rel" data-fk="fk_productor_usuario"><path d="M640 200 L670 200 L670 210 L660 210 L660 530 L600 530 L600 780" fill="none"/><line x1="649" y1="193.5" x2="649" y2="206.5"/><circle cx="660" cy="200" r="4.2" fill="#FFFFFF"/><line x1="593.5" y1="772" x2="606.5" y2="772"/><line x1="593.5" y1="766" x2="606.5" y2="766"/></g>
+<g class="rel" data-fk="fk_devolucion_movimiento_inventario"><path d="M1420 360 L1260 360 L1260 410 L970 410 L970 430 L930 430 L930 400" fill="none"/><line x1="1407" y1="360" x2="1420" y2="367"/><line x1="1407" y1="360" x2="1420" y2="353"/><circle cx="1400" cy="360" r="4.2" fill="#FFFFFF"/><line x1="936.5" y1="408" x2="923.5" y2="408"/><line x1="936.5" y1="414" x2="923.5" y2="414"/></g>
+<g class="rel" data-fk="fk_movimiento_inventario_devolucion"><path d="M950 380 L980 380 L980 500 L1010 500 L1010 560 L1440 560 L1440 400" fill="none"/><line x1="963" y1="380" x2="950" y2="373"/><line x1="963" y1="380" x2="950" y2="387"/><circle cx="970" cy="380" r="4.2" fill="#FFFFFF"/><line x1="1446.5" y1="409" x2="1433.5" y2="409"/><circle cx="1440" cy="420" r="4.2" fill="#FFFFFF"/></g>
+<g class="rel" data-fk="fk_detalle_compra_lote_origen"><path d="M1070 350 L1040 350 L1040 240 L700 240 L700 400 L570 400" fill="none"/><line x1="1057" y1="350" x2="1070" y2="357"/><line x1="1057" y1="350" x2="1070" y2="343"/><circle cx="1050" cy="350" r="4.2" fill="#FFFFFF"/><line x1="578" y1="393.5" x2="578" y2="406.5"/><line x1="584" y1="393.5" x2="584" y2="406.5"/></g>
+<g class="rel" data-fk="fk_entrega_pedido"><path d="M1720 1020 L1610 1020 L1610 1060 L1270 1060 L1270 1120 L1240 1120" fill="none"/><line x1="1711" y1="1026.5" x2="1711" y2="1013.5"/><circle cx="1700" cy="1020" r="4.2" fill="#FFFFFF"/><line x1="1248" y1="1113.5" x2="1248" y2="1126.5"/><line x1="1254" y1="1113.5" x2="1254" y2="1126.5"/></g>
+<g class="rel" data-fk="fk_notificacion_pedido"><path d="M1420 720 L1330 720 L1330 1160 L1240 1160" fill="none"/><line x1="1407" y1="720" x2="1420" y2="727"/><line x1="1407" y1="720" x2="1420" y2="713"/><circle cx="1400" cy="720" r="4.2" fill="#FFFFFF"/><line x1="1249" y1="1153.5" x2="1249" y2="1166.5"/><circle cx="1260" cy="1160" r="4.2" fill="#FFFFFF"/></g>
+<g class="rel" data-fk="fk_produccion_producto"><path d="M280 410 L340 410 L340 510 L760 510" fill="none"/><line x1="293" y1="410" x2="280" y2="403"/><line x1="293" y1="410" x2="280" y2="417"/><circle cx="300" cy="410" r="4.2" fill="#FFFFFF"/><line x1="752" y1="516.5" x2="752" y2="503.5"/><line x1="746" y1="516.5" x2="746" y2="503.5"/></g>
+<g class="rel" data-fk="fk_notificacion_producto"><path d="M1420 740 L1350 740 L1350 630 L890 630 L890 550" fill="none"/><line x1="1407" y1="740" x2="1420" y2="747"/><line x1="1407" y1="740" x2="1420" y2="733"/><circle cx="1400" cy="740" r="4.2" fill="#FFFFFF"/><line x1="896.5" y1="559" x2="883.5" y2="559"/><circle cx="890" cy="570" r="4.2" fill="#FFFFFF"/></g>
+<g class="rel" data-fk="fk_movimiento_inventario_usuario"><path d="M760 340 L710 340 L710 420 L700 420 L700 840 L620 840" fill="none"/><line x1="747" y1="340" x2="760" y2="347"/><line x1="747" y1="340" x2="760" y2="333"/><circle cx="740" cy="340" r="4.2" fill="#FFFFFF"/><line x1="628" y1="833.5" x2="628" y2="846.5"/><line x1="634" y1="833.5" x2="634" y2="846.5"/></g>
+<g class="rel" data-fk="fk_movimiento_inventario_reserva"><path d="M950 360 L990 360 L990 560 L1000 560 L1000 770 L1010 770 L1010 830 L1040 830 L1040 940 L1070 940" fill="none"/><line x1="963" y1="360" x2="950" y2="353"/><line x1="963" y1="360" x2="950" y2="367"/><circle cx="970" cy="360" r="4.2" fill="#FFFFFF"/><line x1="1061" y1="946.5" x2="1061" y2="933.5"/><circle cx="1050" cy="940" r="4.2" fill="#FFFFFF"/></g>
+<g class="rel" data-fk="fk_pedido_usuario"><path d="M1070 1140 L1030 1140 L1030 1200 L660 1200 L660 940 L600 940 L600 880" fill="none"/><line x1="1057" y1="1140" x2="1070" y2="1147"/><line x1="1057" y1="1140" x2="1070" y2="1133"/><circle cx="1050" cy="1140" r="4.2" fill="#FFFFFF"/><line x1="606.5" y1="888" x2="593.5" y2="888"/><line x1="606.5" y1="894" x2="593.5" y2="894"/></g>
+<g class="rel" data-fk="fk_pago_pedido"><path d="M1720 700 L1640 700 L1640 940 L1350 940 L1350 1040 L1200 1040 L1200 1080" fill="none"/><line x1="1707" y1="700" x2="1720" y2="707"/><line x1="1707" y1="700" x2="1720" y2="693"/><circle cx="1700" cy="700" r="4.2" fill="#FFFFFF"/><line x1="1193.5" y1="1072" x2="1206.5" y2="1072"/><line x1="1193.5" y1="1066" x2="1206.5" y2="1066"/></g>
+<g class="rel" data-fk="fk_notificacion_usuario"><path d="M1420 700 L1330 700 L1330 650 L620 650 L620 740 L580 740 L580 780" fill="none"/><line x1="1407" y1="700" x2="1420" y2="707"/><line x1="1407" y1="700" x2="1420" y2="693"/><circle cx="1400" cy="700" r="4.2" fill="#FFFFFF"/><line x1="573.5" y1="772" x2="586.5" y2="772"/><line x1="573.5" y1="766" x2="586.5" y2="766"/></g>
+<g class="rel" data-fk="fk_detalle_pedido_produccion"><path d="M1070 820 L950 820 L950 840 L740 840 L740 800 L640 800 L640 570 L260 570 L260 450" fill="none"/><line x1="1057" y1="820" x2="1070" y2="827"/><line x1="1057" y1="820" x2="1070" y2="813"/><circle cx="1050" cy="820" r="4.2" fill="#FFFFFF"/><line x1="266.5" y1="459" x2="253.5" y2="459"/><circle cx="260" cy="470" r="4.2" fill="#FFFFFF"/></g>
+<g class="rel" data-fk="fk_correo_saliente_notificacion"><path d="M250 1230 L710 1230 L710 1240 L1360 1240 L1360 1000 L1400 1000 L1400 790 L1440 790 L1440 760" fill="none"/><line x1="263" y1="1230" x2="250" y2="1223"/><line x1="263" y1="1230" x2="250" y2="1237"/><circle cx="270" cy="1230" r="4.2" fill="#FFFFFF"/><line x1="1446.5" y1="769" x2="1433.5" y2="769"/><circle cx="1440" cy="780" r="4.2" fill="#FFFFFF"/></g>
+</g>
+<g class="tablas">
+<g class="tabla" id="t_comunidad_agricola">
+<rect x="70" y="140" width="170" height="60" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="70" y="140" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="80" y="160.775" font-size="15" font-weight="bold" fill="#FFFFFF">comunidad_agricola</text>
+<text x="78" y="184.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="110" y="185.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+</g>
+<g class="tabla" id="t_productor">
+<rect x="400" y="140" width="240" height="100" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="400" y="140" width="240" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="410" y="160.775" font-size="15" font-weight="bold" fill="#FFFFFF">productor</text>
+<text x="408" y="184.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="460" y="185.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="408" y="204.62" font-size="11" font-weight="bold" fill="#1F4E79">FK UQ</text>
+<text x="460" y="205.25" font-size="15" fill="#1A1A1A" font-weight="bold">usuario_id</text>
+<text x="408" y="224.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="460" y="225.25" font-size="15" fill="#1A1A1A" font-weight="bold">comunidad_agricola_id</text>
+</g>
+<g class="tabla" id="t_produccion">
+<rect x="70" y="330" width="210" height="120" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="70" y="330" width="210" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="80" y="350.775" font-size="15" font-weight="bold" fill="#FFFFFF">produccion</text>
+<text x="78" y="374.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="110" y="375.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="78" y="394.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="110" y="395.25" font-size="15" fill="#1A1A1A" font-weight="bold">productor_id</text>
+<text x="78" y="414.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="110" y="415.25" font-size="15" fill="#1A1A1A" font-weight="bold">producto_id</text>
+<text x="78" y="434.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="110" y="435.25" font-size="15" fill="#1A1A1A" font-weight="bold">comunidad_origen_id</text>
+</g>
+<g class="tabla" id="t_lote_produccion">
+<rect x="400" y="360" width="170" height="80" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="400" y="360" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="410" y="380.775" font-size="15" font-weight="bold" fill="#FFFFFF">lote_produccion</text>
+<text x="408" y="404.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="440" y="405.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="408" y="424.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="440" y="425.25" font-size="15" fill="#1A1A1A" font-weight="bold">produccion_id</text>
+</g>
+<g class="tabla" id="t_rol">
+<rect x="70" y="600" width="170" height="60" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="70" y="600" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="80" y="620.775" font-size="15" font-weight="bold" fill="#FFFFFF">rol</text>
+<text x="78" y="644.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="110" y="645.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+</g>
+<g class="tabla" id="t_usuario_rol">
+<rect x="70" y="720" width="170" height="140" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="70" y="720" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="80" y="740.775" font-size="15" font-weight="bold" fill="#FFFFFF">usuario_rol</text>
+<text x="78" y="764.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="110" y="765.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="78" y="784.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="110" y="785.25" font-size="15" fill="#1A1A1A" font-weight="bold">usuario_id</text>
+<text x="78" y="804.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="110" y="805.25" font-size="15" fill="#1A1A1A" font-weight="bold">rol_id</text>
+<text x="78" y="824.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="110" y="825.25" font-size="15" fill="#1A1A1A">asignado_por_id</text>
+<text x="78" y="844.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="110" y="845.25" font-size="15" fill="#1A1A1A">revocado_por_id</text>
+</g>
+<g class="tabla" id="t_bitacora">
+<rect x="400" y="600" width="170" height="80" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="400" y="600" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="410" y="620.775" font-size="15" font-weight="bold" fill="#FFFFFF">bitacora</text>
+<text x="408" y="644.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="440" y="645.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="408" y="664.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="440" y="665.25" font-size="15" fill="#1A1A1A">usuario_id</text>
+</g>
+<g class="tabla" id="t_usuario">
+<rect x="330" y="780" width="290" height="100" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="330" y="780" width="290" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="340" y="800.775" font-size="15" font-weight="bold" fill="#FFFFFF">usuario</text>
+<text x="338" y="824.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="370" y="825.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+</g>
+<g class="tabla" id="t_mensaje_correo">
+<rect x="70" y="1030" width="170" height="60" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="70" y="1030" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="80" y="1050.775" font-size="15" font-weight="bold" fill="#FFFFFF">mensaje_correo</text>
+<text x="78" y="1074.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="110" y="1075.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+</g>
+<g class="tabla" id="t_correo_saliente">
+<rect x="70" y="1150" width="180" height="100" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="70" y="1150" width="180" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="80" y="1170.775" font-size="15" font-weight="bold" fill="#FFFFFF">correo_saliente</text>
+<text x="78" y="1194.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="110" y="1195.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="78" y="1214.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="110" y="1215.25" font-size="15" fill="#1A1A1A">mensaje_correo_id</text>
+<text x="78" y="1234.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="110" y="1235.25" font-size="15" fill="#1A1A1A">notificacion_id</text>
+</g>
+<g class="tabla" id="t_confirmacion_operacion">
+<rect x="400" y="1060" width="200" height="80" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="400" y="1060" width="200" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="410" y="1080.775" font-size="15" font-weight="bold" fill="#FFFFFF">confirmacion_operacion</text>
+<text x="408" y="1104.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="440" y="1105.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="408" y="1124.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="440" y="1125.25" font-size="15" fill="#1A1A1A">usuario_id</text>
+</g>
+<g class="tabla" id="t_categoria">
+<rect x="760" y="140" width="170" height="60" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="760" y="140" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="770" y="160.775" font-size="15" font-weight="bold" fill="#FFFFFF">categoria</text>
+<text x="768" y="184.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="800" y="185.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+</g>
+<g class="tabla" id="t_producto">
+<rect x="760" y="470" width="170" height="80" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="760" y="470" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="770" y="490.775" font-size="15" font-weight="bold" fill="#FFFFFF">producto</text>
+<text x="768" y="514.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="800" y="515.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="768" y="534.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="800" y="535.25" font-size="15" fill="#1A1A1A" font-weight="bold">categoria_id</text>
+</g>
+<g class="tabla" id="t_compra_feder">
+<rect x="1070" y="140" width="170" height="80" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="1070" y="140" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="1080" y="160.775" font-size="15" font-weight="bold" fill="#FFFFFF">compra_feder</text>
+<text x="1078" y="184.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="1110" y="185.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="1078" y="204.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="1110" y="205.25" font-size="15" fill="#1A1A1A" font-weight="bold">productor_id</text>
+</g>
+<g class="tabla" id="t_detalle_compra">
+<rect x="1070" y="270" width="170" height="100" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="1070" y="270" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="1080" y="290.775" font-size="15" font-weight="bold" fill="#FFFFFF">detalle_compra</text>
+<text x="1078" y="314.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="1110" y="315.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="1078" y="334.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="1110" y="335.25" font-size="15" fill="#1A1A1A" font-weight="bold">compra_id</text>
+<text x="1078" y="354.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="1110" y="355.25" font-size="15" fill="#1A1A1A" font-weight="bold">lote_origen_id</text>
+</g>
+<g class="tabla" id="t_lote_feder">
+<rect x="1070" y="430" width="210" height="80" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="1070" y="430" width="210" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="1080" y="450.775" font-size="15" font-weight="bold" fill="#FFFFFF">lote_feder</text>
+<text x="1078" y="474.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="1130" y="475.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="1078" y="494.62" font-size="11" font-weight="bold" fill="#1F4E79">FK UQ</text>
+<text x="1130" y="495.25" font-size="15" fill="#1A1A1A" font-weight="bold">detalle_compra_id</text>
+</g>
+<g class="tabla" id="t_movimiento_inventario">
+<rect x="760" y="260" width="190" height="140" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="760" y="260" width="190" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="770" y="280.775" font-size="15" font-weight="bold" fill="#FFFFFF">movimiento_inventario</text>
+<text x="768" y="304.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="800" y="305.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="768" y="324.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="800" y="325.25" font-size="15" fill="#1A1A1A" font-weight="bold">lote_feder_id</text>
+<text x="768" y="344.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="800" y="345.25" font-size="15" fill="#1A1A1A" font-weight="bold">usuario_id</text>
+<text x="768" y="364.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="800" y="365.25" font-size="15" fill="#1A1A1A">reserva_id</text>
+<text x="768" y="384.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="800" y="385.25" font-size="15" fill="#1A1A1A">devolucion_id</text>
+</g>
+<g class="tabla" id="t_item_carrito">
+<rect x="760" y="720" width="170" height="100" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="760" y="720" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="770" y="740.775" font-size="15" font-weight="bold" fill="#FFFFFF">item_carrito</text>
+<text x="768" y="764.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="800" y="765.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="768" y="784.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="800" y="785.25" font-size="15" fill="#1A1A1A" font-weight="bold">cliente_id</text>
+<text x="768" y="804.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="800" y="805.25" font-size="15" fill="#1A1A1A" font-weight="bold">producto_id</text>
+</g>
+<g class="tabla" id="t_detalle_pedido">
+<rect x="1070" y="720" width="170" height="120" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="1070" y="720" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="1080" y="740.775" font-size="15" font-weight="bold" fill="#FFFFFF">detalle_pedido</text>
+<text x="1078" y="764.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="1110" y="765.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="1078" y="784.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="1110" y="785.25" font-size="15" fill="#1A1A1A" font-weight="bold">pedido_id</text>
+<text x="1078" y="804.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="1110" y="805.25" font-size="15" fill="#1A1A1A" font-weight="bold">producto_id</text>
+<text x="1078" y="824.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="1110" y="825.25" font-size="15" fill="#1A1A1A">produccion_id</text>
+</g>
+<g class="tabla" id="t_reserva_stock">
+<rect x="1070" y="900" width="180" height="100" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="1070" y="900" width="180" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="1080" y="920.775" font-size="15" font-weight="bold" fill="#FFFFFF">reserva_stock</text>
+<text x="1078" y="944.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="1110" y="945.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="1078" y="964.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="1110" y="965.25" font-size="15" fill="#1A1A1A" font-weight="bold">lote_feder_id</text>
+<text x="1078" y="984.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="1110" y="985.25" font-size="15" fill="#1A1A1A" font-weight="bold">detalle_pedido_id</text>
+</g>
+<g class="tabla" id="t_pedido">
+<rect x="1070" y="1080" width="170" height="100" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="1070" y="1080" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="1080" y="1100.775" font-size="15" font-weight="bold" fill="#FFFFFF">pedido</text>
+<text x="1078" y="1124.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="1110" y="1125.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="1078" y="1144.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="1110" y="1145.25" font-size="15" fill="#1A1A1A" font-weight="bold">usuario_id</text>
+</g>
+<g class="tabla" id="t_historial_pedido">
+<rect x="760" y="1080" width="170" height="100" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="760" y="1080" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="770" y="1100.775" font-size="15" font-weight="bold" fill="#FFFFFF">historial_pedido</text>
+<text x="768" y="1124.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="800" y="1125.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="768" y="1144.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="800" y="1145.25" font-size="15" fill="#1A1A1A" font-weight="bold">pedido_id</text>
+<text x="768" y="1164.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="800" y="1165.25" font-size="15" fill="#1A1A1A">usuario_id</text>
+</g>
+<g class="tabla" id="t_devolucion">
+<rect x="1420" y="300" width="260" height="100" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="1420" y="300" width="260" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="1430" y="320.775" font-size="15" font-weight="bold" fill="#FFFFFF">devolucion</text>
+<text x="1428" y="344.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="1480" y="345.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="1428" y="364.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="1480" y="365.25" font-size="15" fill="#1A1A1A" font-weight="bold">movimiento_inventario_id</text>
+<text x="1428" y="384.62" font-size="11" font-weight="bold" fill="#1F4E79">FK UQ</text>
+<text x="1480" y="385.25" font-size="15" fill="#1A1A1A">devolucion_anulada_id</text>
+</g>
+<g class="tabla" id="t_reembolso">
+<rect x="1760" y="300" width="170" height="100" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="1760" y="300" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="1770" y="320.775" font-size="15" font-weight="bold" fill="#FFFFFF">reembolso</text>
+<text x="1768" y="344.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="1800" y="345.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="1768" y="364.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="1800" y="365.25" font-size="15" fill="#1A1A1A" font-weight="bold">pago_id</text>
+<text x="1768" y="384.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="1800" y="385.25" font-size="15" fill="#1A1A1A">devolucion_id</text>
+</g>
+<g class="tabla" id="t_notificacion">
+<rect x="1420" y="640" width="170" height="120" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="1420" y="640" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="1430" y="660.775" font-size="15" font-weight="bold" fill="#FFFFFF">notificacion</text>
+<text x="1428" y="684.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="1460" y="685.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="1428" y="704.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="1460" y="705.25" font-size="15" fill="#1A1A1A" font-weight="bold">usuario_id</text>
+<text x="1428" y="724.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="1460" y="725.25" font-size="15" fill="#1A1A1A">pedido_id</text>
+<text x="1428" y="744.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="1460" y="745.25" font-size="15" fill="#1A1A1A">producto_id</text>
+</g>
+<g class="tabla" id="t_pago">
+<rect x="1720" y="640" width="170" height="80" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="1720" y="640" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="1730" y="660.775" font-size="15" font-weight="bold" fill="#FFFFFF">pago</text>
+<text x="1728" y="684.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="1760" y="685.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="1728" y="704.62" font-size="11" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="1760" y="705.25" font-size="15" fill="#1A1A1A" font-weight="bold">pedido_id</text>
+</g>
+<g class="tabla" id="t_factura">
+<rect x="1420" y="960" width="170" height="80" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="1420" y="960" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="1430" y="980.775" font-size="15" font-weight="bold" fill="#FFFFFF">factura</text>
+<text x="1428" y="1004.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="1480" y="1005.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="1428" y="1024.62" font-size="11" font-weight="bold" fill="#1F4E79">FK UQ</text>
+<text x="1480" y="1025.25" font-size="15" fill="#1A1A1A" font-weight="bold">pedido_id</text>
+</g>
+<g class="tabla" id="t_entrega">
+<rect x="1720" y="960" width="170" height="80" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="1720" y="960" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="1730" y="980.775" font-size="15" font-weight="bold" fill="#FFFFFF">entrega</text>
+<text x="1728" y="1004.62" font-size="11" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="1780" y="1005.25" font-size="15" fill="#1A1A1A" font-weight="bold">id</text>
+<text x="1728" y="1024.62" font-size="11" font-weight="bold" fill="#1F4E79">FK UQ</text>
+<text x="1780" y="1025.25" font-size="15" fill="#1A1A1A" font-weight="bold">pedido_id</text>
+</g>
+</g>
+<g class="leyenda" transform="translate(1420 1110) scale(1.3)">
+<rect x="0" y="0" width="430" height="136" fill="#FAFBFC" stroke="#9AA5B1" stroke-width="1"/>
+<text x="12" y="21" font-size="12.5" font-weight="bold" fill="#1F4E79">Notación (pata de gallo)</text>
+<line x1="16" y1="44" x2="74" y2="44" stroke="#3A3A3A" stroke-width="1.3"/>
+<line x1="74" y1="35" x2="74" y2="53" stroke="#4A4A4A" stroke-width="2"/>
+<g stroke="#3A3A3A" stroke-width="1.3"><line x1="66" y1="50.5" x2="66" y2="37.5"/><line x1="60" y1="50.5" x2="60" y2="37.5"/></g>
+<text x="90" y="48" font-size="11.5" fill="#1A1A1A">uno y solo uno (FK NOT NULL)</text>
+<line x1="16" y1="68" x2="74" y2="68" stroke="#3A3A3A" stroke-width="1.3"/>
+<line x1="74" y1="59" x2="74" y2="77" stroke="#4A4A4A" stroke-width="2"/>
+<g stroke="#3A3A3A" stroke-width="1.3"><line x1="65" y1="74.5" x2="65" y2="61.5"/><circle cx="54" cy="68" r="4.2" fill="#FFFFFF"/></g>
+<text x="90" y="72" font-size="11.5" fill="#1A1A1A">cero o uno (FK opcional o FK UNIQUE)</text>
+<line x1="16" y1="92" x2="74" y2="92" stroke="#3A3A3A" stroke-width="1.3"/>
+<line x1="74" y1="83" x2="74" y2="101" stroke="#4A4A4A" stroke-width="2"/>
+<g stroke="#3A3A3A" stroke-width="1.3"><line x1="61" y1="92" x2="74" y2="99"/><line x1="61" y1="92" x2="74" y2="85"/><circle cx="54" cy="92" r="4.2" fill="#FFFFFF"/></g>
+<text x="90" y="96" font-size="11.5" fill="#1A1A1A">cero o muchos (lado de la FK)</text>
+<text x="16" y="120" font-size="11.5" fill="#1A1A1A" xml:space="preserve"><tspan font-weight="bold" fill="#1F4E79">PK</tspan> clave primaria   <tspan font-weight="bold" fill="#1F4E79">FK</tspan> clave foránea   <tspan font-weight="bold" fill="#1F4E79">UQ</tspan> valor único   <tspan font-weight="bold">negrita</tspan> = NOT NULL</text>
+</g>
+</svg>

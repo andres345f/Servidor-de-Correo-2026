@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>bo.edu.uagrm.ficct.inf513</groupId>
+  <artifactId>feder-email-driven</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+  <name>FEDER Email-Driven</name>
+  <description>INF513 - Proyecto 1: sistema de procesamiento de comandos por correo para FEDER</description>
+
+  <properties>
+    <maven.compiler.release>17</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <postgresql.version>42.7.14</postgresql.version>
+    <junit.version>5.11.4</junit.version>
+    <!-- Base de datos para las pruebas; se puede cambiar con -Dfeder.test.db.url=... -->
+    <feder.test.db.url>jdbc:postgresql://127.0.0.1:55432/feder_test</feder.test.db.url>
+    <feder.test.db.user>feder_admin</feder.test.db.user>
+    <!-- Base solo con esquema para las pruebas de instalación del primer administrador. -->
+    <feder.test.db.vacia.url>jdbc:postgresql://127.0.0.1:55432/feder_test_vacia</feder.test.db.vacia.url>
+    <!-- Base que recrean las pruebas de extremo a extremo (siempre en el clúster local y con prefijo feder_). -->
+    <feder.test.e2e.base>feder_e2e</feder.test.e2e.base>
+  </properties>
+
+  <dependencies>
+    <!-- Único driver de base de datos: el JDBC oficial de PostgreSQL. -->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${postgresql.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.14.1</version>
+        <configuration>
+          <compilerArgs>
+            <arg>-Xlint:all</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.5.2</version>
+        <configuration>
+          <!-- Las pruebas de base de datos usan el clúster local (scripts/pg-local.ps1).
+               Si no está disponible, esas pruebas se omiten de forma explícita, no fallan en silencio. -->
+          <systemPropertyVariables>
+            <feder.test.db.url>${feder.test.db.url}</feder.test.db.url>
+            <feder.test.db.user>${feder.test.db.user}</feder.test.db.user>
+            <feder.test.db.vacia.url>${feder.test.db.vacia.url}</feder.test.db.vacia.url>
+            <feder.test.e2e.base>${feder.test.e2e.base}</feder.test.e2e.base>
+          </systemPropertyVariables>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.6.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals><goal>shade</goal></goals>
+            <configuration>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
+              <finalName>feder-email-driven</finalName>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>com.feder.Main</mainClass>
+                </transformer>
+              </transformers>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                    <exclude>META-INF/MANIFEST.MF</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="1852" viewBox="0 0 1360 1852" font-family="Arial, Helvetica, sans-serif" role="img" aria-labelledby="titulo desc">
+<title id="titulo">Diagrama de componentes en tres capas — FEDER email-driven</title>
+<desc id="desc">Componentes de las capas de presentación y comunicación, lógica de negocio y acceso a datos, con el servidor de correo y PostgreSQL como nodos externos.</desc>
+<defs>
+<marker id="flecha" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L12,5 L0,10 z" fill="#3C3C3C" stroke="#3C3C3C" stroke-width="1.3" /></marker>
+<marker id="flechaAcento" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L12,5 L0,10 z" fill="#1F4E79" stroke="#1F4E79" stroke-width="1.3" /></marker>
+<marker id="abierta" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L11,5 L1,9" fill="none" stroke="#3C3C3C" stroke-width="1.3" stroke-linejoin="round"/></marker>
+<marker id="abiertaAcento" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L11,5 L1,9" fill="none" stroke="#1F4E79" stroke-width="1.3" stroke-linejoin="round"/></marker>
+<marker id="triangulo" viewBox="0 0 18 16" refX="17" refY="8" markerWidth="18" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L17,8 L1,15 z" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.3" /></marker>
+<marker id="trianguloAcento" viewBox="0 0 18 16" refX="17" refY="8" markerWidth="18" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L17,8 L1,15 z" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.3" /></marker>
+</defs>
+<rect x="0" y="0" width="1360" height="1852" fill="#FFFFFF"/>
+<text x="40" y="50" font-size="28" font-weight="bold" text-anchor="start" fill="#1F4E79">Diagrama de componentes — arquitectura en tres capas</text>
+<text x="40" y="80" font-size="17" text-anchor="start" fill="#5A5A5A">feder-email-driven · paquetes com.feder.* · las dependencias entre capas solo van hacia abajo</text>
+<line x1="40" y1="96" x2="1320" y2="96" stroke="#1F4E79" stroke-width="2"/>
+<path d="M470 122 L484 108 L904 108 L904 178 L890 192 L890 122 Z" fill="#F3F3F3" stroke="#3C3C3C" stroke-width="1.5" stroke-linejoin="round"/>
+<line x1="890" y1="122" x2="904" y2="108" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="470" y="122" width="420" height="70" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<text x="680" y="151.4" font-size="13" text-anchor="middle" fill="#5A5A5A">«dispositivo» Servidor de correo</text>
+<text x="680" y="171.5" font-size="17" font-weight="bold" text-anchor="middle" fill="#1A1A1A">POP3 (recepción) / SMTP (envío)</text>
+<rect x="40" y="112" width="350" height="86" rx="3" fill="#F3F3F3" stroke="#9A9A9A" stroke-width="1.4"/><text x="215" y="134.4" font-size="13" text-anchor="middle" fill="#5A5A5A">«arranque»</text>
+<text x="215" y="152.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Main · Aplicacion</text>
+<text x="215" y="169.4" font-size="13" text-anchor="middle" fill="#5A5A5A">raíz de composición: lee config (APP_ENV),</text>
+<text x="215" y="185.4" font-size="13" text-anchor="middle" fill="#5A5A5A">crea y conecta las tres capas</text>
+<rect x="1000" y="106" width="320" height="100" rx="3" fill="#FFFFFF" stroke="#9A9A9A" stroke-width="1.1"/>
+<text x="1012" y="126" font-size="14" font-weight="bold" text-anchor="start" fill="#1A1A1A">Leyenda</text>
+<line x1="1014" y1="144" x2="1074" y2="144" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<text x="1084" y="149" font-size="13" text-anchor="start" fill="#1A1A1A">dependencia «use»</text>
+<line x1="1014" y1="166" x2="1074" y2="166" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#triangulo)"/>
+<text x="1084" y="171" font-size="13" text-anchor="start" fill="#1A1A1A">realización de interfaz</text>
+<line x1="1014" y1="188" x2="1074" y2="188" stroke="#1F4E79" stroke-width="1.6"/>
+<text x="1084" y="193" font-size="13" text-anchor="start" fill="#1A1A1A">comunicación (protocolo / JDBC)</text>
+<rect x="40" y="290" width="1280" height="380" rx="6" fill="#FAFAFA" stroke="#1F4E79" stroke-width="1.8"/>
+<rect x="40" y="290" width="1280" height="34" rx="6" fill="#1F4E79" stroke="#1F4E79" stroke-width="1.8"/>
+<rect x="40" y="310" width="1280" height="14" fill="#1F4E79" stroke="#1F4E79" stroke-width="0"/>
+<text x="196" y="313" font-size="18" font-weight="bold" text-anchor="start" fill="#FFFFFF">Capa de Presentación y Comunicación</text>
+<text x="542.9" y="313" font-size="14" text-anchor="start" fill="#FFFFFF">· com.feder.presentacion</text>
+<rect x="52" y="340" width="196" height="72" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="226" y="347" width="14" height="17" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="222" y="350" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="222" y="357" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<text x="150" y="380.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Pop3Client</text>
+<text x="150" y="396.9" font-size="13" text-anchor="middle" fill="#5A5A5A">correo.pop3</text>
+<rect x="262" y="340" width="196" height="72" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="436" y="347" width="14" height="17" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="432" y="350" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="432" y="357" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<text x="360" y="380.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">EmailMessageParser</text>
+<text x="360" y="396.9" font-size="13" text-anchor="middle" fill="#5A5A5A">correo.mime · From/Subject</text>
+<rect x="472" y="340" width="196" height="72" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="646" y="347" width="14" height="17" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="642" y="350" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="642" y="357" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<text x="570" y="380.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">CommandParser</text>
+<text x="570" y="396.9" font-size="13" text-anchor="middle" fill="#5A5A5A">comandos · LexerComando</text>
+<rect x="682" y="340" width="196" height="72" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="856" y="347" width="14" height="17" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="852" y="350" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="852" y="357" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<text x="780" y="380.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">ResponseFormatter</text>
+<text x="780" y="396.9" font-size="13" text-anchor="middle" fill="#5A5A5A">respuesta · texto y HTML</text>
+<rect x="892" y="340" width="196" height="72" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="1066" y="347" width="14" height="17" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="1062" y="350" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="1062" y="357" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<text x="990" y="380.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">EmailResponseBuilder</text>
+<text x="990" y="396.9" font-size="13" text-anchor="middle" fill="#5A5A5A">correo.mime · MIME</text>
+<rect x="1102" y="340" width="196" height="72" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="1276" y="347" width="14" height="17" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="1272" y="350" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="1272" y="357" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<text x="1200" y="380.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">SmtpClient</text>
+<text x="1200" y="396.9" font-size="13" text-anchor="middle" fill="#5A5A5A">correo.smtp</text>
+<rect x="355" y="452" width="220" height="72" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="553" y="459" width="14" height="17" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="549" y="462" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="549" y="469" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<text x="465" y="492.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">InterpreteCorreo</text>
+<text x="465" y="508.9" font-size="13" text-anchor="middle" fill="#5A5A5A">procesamiento</text>
+<rect x="1050" y="452" width="240" height="72" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="1268" y="459" width="14" height="17" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="1264" y="462" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="1264" y="469" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<text x="1170" y="492.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">EnviadorSmtp</text>
+<text x="1170" y="508.9" font-size="13" text-anchor="middle" fill="#5A5A5A">procesamiento</text>
+<rect x="52" y="564" width="196" height="72" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="226" y="571" width="14" height="17" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="222" y="574" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="222" y="581" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<text x="150" y="604.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">ProcesadorContinuo</text>
+<text x="150" y="620.9" font-size="13" text-anchor="middle" fill="#5A5A5A">bucle con espera creciente</text>
+<rect x="355" y="564" width="220" height="72" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="2"/>
+<rect x="553" y="571" width="14" height="17" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1"/>
+<rect x="549" y="574" width="8" height="4" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1"/>
+<rect x="549" y="581" width="8" height="4" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1"/>
+<text x="465" y="604.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">CicloCorreo</text>
+<text x="465" y="620.9" font-size="13" text-anchor="middle" fill="#5A5A5A">un ciclo: enviar · recibir · enviar</text>
+<rect x="745" y="564" width="270" height="72" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="993" y="571" width="14" height="17" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="989" y="574" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="989" y="581" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<text x="880" y="604.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">GeneradorRespuestaCorreo</text>
+<text x="880" y="620.9" font-size="13" text-anchor="middle" fill="#5A5A5A">procesamiento</text>
+<path d="M150 340 L150 226 L530 226 L530 192" fill="none" stroke="#1F4E79" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M1200 340 L1200 226 L830 226 L830 192" fill="none" stroke="#1F4E79" stroke-width="1.8" stroke-linejoin="round"/>
+<rect x="158" y="235" width="308.3" height="22" fill="#FFFFFF" opacity="0.92"/><text x="162" y="250" font-size="14" text-anchor="start" fill="#1F4E79">POP3: USER, PASS, UIDL, RETR, DELE, QUIT</text>
+<rect x="774" y="235" width="418" height="22" fill="#FFFFFF" opacity="0.92"/><text x="1188" y="250" font-size="14" text-anchor="end" fill="#1F4E79">SMTP: EHLO, STARTTLS, AUTH, MAIL FROM, RCPT TO, DATA</text>
+<line x1="248" y1="600" x2="355" y2="600" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<line x1="377" y1="564" x2="180" y2="412" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<line x1="465" y1="564" x2="465" y2="524" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<line x1="575" y1="600" x2="745" y2="600" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<path d="M525 636 L525 654 L1120 654 L1120 524" fill="none" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)" stroke-linejoin="round"/>
+<line x1="405" y1="452" x2="380" y2="412" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<line x1="525" y1="452" x2="550" y2="412" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<line x1="840" y1="564" x2="790" y2="412" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<line x1="920" y1="564" x2="960" y2="412" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<line x1="1090" y1="452" x2="1020" y2="412" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<line x1="1200" y1="452" x2="1200" y2="412" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<rect x="40" y="734" width="1280" height="598" rx="6" fill="#FAFAFA" stroke="#1F4E79" stroke-width="1.8"/>
+<rect x="40" y="734" width="1280" height="34" rx="6" fill="#1F4E79" stroke="#1F4E79" stroke-width="1.8"/>
+<rect x="40" y="754" width="1280" height="14" fill="#1F4E79" stroke="#1F4E79" stroke-width="0"/>
+<text x="58" y="757" font-size="18" font-weight="bold" text-anchor="start" fill="#FFFFFF">Capa de Lógica de Negocio</text>
+<text x="309.7" y="757" font-size="14" text-anchor="start" fill="#FFFFFF">· com.feder.negocio</text>
+<rect x="330" y="786" width="270" height="92" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="2"/>
+<rect x="578" y="793" width="14" height="17" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1"/>
+<rect x="574" y="796" width="8" height="4" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1"/>
+<rect x="574" y="803" width="8" height="4" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1"/>
+<text x="465" y="828.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">ServicioMensajeria</text>
+<text x="465" y="844.9" font-size="13" text-anchor="middle" fill="#5A5A5A">mensajeria · una transacción por correo</text>
+<text x="465" y="860.9" font-size="13" text-anchor="middle" fill="#5A5A5A">reclamo buzón+UIDL · bandeja de salida</text>
+<rect x="760" y="786" width="240" height="52" rx="3" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.6"/><text x="880" y="806.9" font-size="13" text-anchor="middle" fill="#1F4E79">«interface»</text>
+<text x="880" y="826.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1F4E79">GeneradorRespuesta</text>
+<rect x="1060" y="786" width="240" height="52" rx="3" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.6"/><text x="1180" y="806.9" font-size="13" text-anchor="middle" fill="#1F4E79">«interface»</text>
+<text x="1180" y="826.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1F4E79">EnviadorCorreo</text>
+<rect x="330" y="914" width="270" height="72" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="2"/>
+<rect x="578" y="921" width="14" height="17" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1"/>
+<rect x="574" y="924" width="8" height="4" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1"/>
+<rect x="574" y="931" width="8" height="4" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1"/>
+<text x="465" y="946.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">ComandoDispatcher</text>
+<text x="465" y="962.9" font-size="13" text-anchor="middle" fill="#5A5A5A">lista blanca → validar → autorizar</text>
+<text x="465" y="978.9" font-size="13" text-anchor="middle" fill="#5A5A5A">→ confirmar → ejecutar (SAVEPOINT)</text>
+<rect x="50" y="914" width="200" height="72" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="228" y="921" width="14" height="17" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="224" y="924" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="224" y="931" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<text x="150" y="954.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">ValidadorParametros</text>
+<text x="150" y="970.9" font-size="13" text-anchor="middle" fill="#5A5A5A">cantidad y tipos</text>
+<rect x="695" y="914" width="230" height="72" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="903" y="921" width="14" height="17" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="899" y="924" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="899" y="931" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<text x="810" y="954.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">ServicioIdentidad</text>
+<text x="810" y="970.9" font-size="13" text-anchor="middle" fill="#5A5A5A">remitente → cuenta y roles</text>
+<rect x="1045" y="914" width="230" height="72" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="1253" y="921" width="14" height="17" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="1249" y="924" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="1249" y="931" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<text x="1160" y="954.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">ServicioBitacora</text>
+<text x="1160" y="970.9" font-size="13" text-anchor="middle" fill="#5A5A5A">auditoria · bitácora</text>
+<rect x="50" y="1026" width="200" height="72" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="228" y="1033" width="14" height="17" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="224" y="1036" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="224" y="1043" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<text x="150" y="1066.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">TraductorErrores</text>
+<text x="150" y="1082.9" font-size="13" text-anchor="middle" fill="#5A5A5A">respuesta segura, sin SQL</text>
+<rect x="330" y="1026" width="270" height="72" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="578" y="1033" width="14" height="17" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="574" y="1036" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="574" y="1043" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<text x="465" y="1066.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">CatalogoComandos</text>
+<text x="465" y="1082.9" font-size="13" text-anchor="middle" fill="#5A5A5A">lista blanca de ComandoSpec</text>
+<rect x="695" y="1026" width="230" height="72" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="903" y="1033" width="14" height="17" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="899" y="1036" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="899" y="1043" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<text x="810" y="1066.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">ServicioConfirmacion</text>
+<text x="810" y="1082.9" font-size="13" text-anchor="middle" fill="#5A5A5A">código de un solo uso</text>
+<rect x="1045" y="1026" width="230" height="72" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="1253" y="1033" width="14" height="17" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="1249" y="1036" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="1249" y="1043" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<text x="1160" y="1066.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">ServicioNotificaciones</text>
+<text x="1160" y="1082.9" font-size="13" text-anchor="middle" fill="#5A5A5A">notificaciones al usuario</text>
+<rect x="56" y="1144" width="1248" height="168" rx="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<text x="70" y="1168" font-size="16" font-weight="bold" text-anchor="start" fill="#1A1A1A">Módulos de comandos por caso de uso</text>
+<text x="378.8" y="1168" font-size="14" text-anchor="start" fill="#5A5A5A">— implementan ModuloComandos (ComandoSpec + handler) y Aplicacion.modulos() los registra todos</text>
+<rect x="70" y="1182" width="130" height="66" rx="3" fill="#F3F3F3" stroke="#9A9A9A" stroke-width="1.2"/>
+<text x="135" y="1213.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">ModuloAyuda</text>
+<text x="135" y="1229.1" font-size="12" text-anchor="middle" fill="#1A1A1A">HELP</text>
+<rect x="206.3" y="1182" width="130" height="66" rx="3" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.2"/>
+<text x="271.3" y="1213.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1F4E79">CU1</text>
+<text x="271.3" y="1229.1" font-size="12" text-anchor="middle" fill="#1A1A1A">Usuarios</text>
+<rect x="342.5" y="1182" width="130" height="66" rx="3" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.2"/>
+<text x="407.5" y="1205.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1F4E79">CU2</text>
+<text x="407.5" y="1221.6" font-size="12" text-anchor="middle" fill="#1A1A1A">Productores y</text>
+<text x="407.5" y="1236.6" font-size="12" text-anchor="middle" fill="#1A1A1A">comunidades</text>
+<rect x="478.8" y="1182" width="130" height="66" rx="3" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.2"/>
+<text x="543.8" y="1205.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1F4E79">CU3</text>
+<text x="543.8" y="1221.6" font-size="12" text-anchor="middle" fill="#1A1A1A">Producción, lotes</text>
+<text x="543.8" y="1236.6" font-size="12" text-anchor="middle" fill="#1A1A1A">y trazabilidad</text>
+<rect x="615" y="1182" width="130" height="66" rx="3" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.2"/>
+<text x="680" y="1205.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1F4E79">CU4</text>
+<text x="680" y="1221.6" font-size="12" text-anchor="middle" fill="#1A1A1A">Catálogo, inventario</text>
+<text x="680" y="1236.6" font-size="12" text-anchor="middle" fill="#1A1A1A">y alertas</text>
+<rect x="751.3" y="1182" width="130" height="66" rx="3" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.2"/>
+<text x="816.3" y="1205.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1F4E79">CU5</text>
+<text x="816.3" y="1221.6" font-size="12" text-anchor="middle" fill="#1A1A1A">Comercio, carrito</text>
+<text x="816.3" y="1236.6" font-size="12" text-anchor="middle" fill="#1A1A1A">y encargos</text>
+<rect x="887.5" y="1182" width="130" height="66" rx="3" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.2"/>
+<text x="952.5" y="1205.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1F4E79">CU6</text>
+<text x="952.5" y="1221.6" font-size="12" text-anchor="middle" fill="#1A1A1A">Pedidos, pagos</text>
+<text x="952.5" y="1236.6" font-size="12" text-anchor="middle" fill="#1A1A1A">y entregas</text>
+<rect x="1023.8" y="1182" width="130" height="66" rx="3" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.2"/>
+<text x="1088.8" y="1205.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1F4E79">CU7</text>
+<text x="1088.8" y="1221.6" font-size="12" text-anchor="middle" fill="#1A1A1A">Indicadores</text>
+<text x="1088.8" y="1236.6" font-size="12" text-anchor="middle" fill="#1A1A1A">financieros</text>
+<rect x="1160" y="1182" width="130" height="66" rx="3" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.2"/>
+<text x="1225" y="1205.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1F4E79">CU8</text>
+<text x="1225" y="1221.6" font-size="12" text-anchor="middle" fill="#1A1A1A">Reportes y</text>
+<text x="1225" y="1236.6" font-size="12" text-anchor="middle" fill="#1A1A1A">estadísticas</text>
+<rect x="70" y="1260" width="1220" height="38" rx="3" fill="#F3F3F3" stroke="#9A9A9A" stroke-width="1.1"/>
+<text x="680" y="1284.3" font-size="14" text-anchor="middle" fill="#1A1A1A">Servicios de los casos de uso (reglas de negocio) · reciben ContextoNegocio: GestorTransacciones, reloj, ServicioBitacora, ServicioNotificaciones</text>
+<line x1="459" y1="636" x2="459" y2="786" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<rect x="176" y="694" width="279" height="20" fill="#FFFFFF" opacity="0.92"/><text x="451" y="708" font-size="13" text-anchor="end" fill="#1A1A1A">procesar(solicitud) · enviarSiguientePendiente()</text>
+<line x1="880" y1="636" x2="880" y2="786" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#triangulo)"/>
+<line x1="1240" y1="524" x2="1240" y2="786" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#triangulo)"/>
+<rect x="884" y="694" width="82.4" height="20" fill="#FFFFFF" opacity="0.92"/><text x="888" y="708" font-size="13" text-anchor="start" fill="#1A1A1A">implementan</text>
+<line x1="600" y1="812" x2="760" y2="812" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<path d="M600 864 L1170 864 L1170 838" fill="none" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)" stroke-linejoin="round"/>
+<line x1="465" y1="878" x2="465" y2="914" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<line x1="330" y1="950" x2="250" y2="950" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<line x1="600" y1="950" x2="695" y2="950" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<line x1="465" y1="986" x2="465" y2="1026" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<line x1="360" y1="986" x2="230" y2="1026" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<line x1="570" y1="986" x2="715" y2="1026" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<line x1="465" y1="1098" x2="465" y2="1144" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<rect x="469" y="1118" width="104.1" height="20" fill="#FFFFFF" opacity="0.92"/><text x="473" y="1132" font-size="13" text-anchor="start" fill="#1A1A1A">registra módulos</text>
+<line x1="1160" y1="1144" x2="1160" y2="1098" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<path d="M1279 1144 L1279 1006 L1200 1006 L1200 986" fill="none" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)" stroke-linejoin="round"/>
+<rect x="40" y="1396" width="1280" height="250" rx="6" fill="#FAFAFA" stroke="#1F4E79" stroke-width="1.8"/>
+<rect x="40" y="1396" width="1280" height="34" rx="6" fill="#1F4E79" stroke="#1F4E79" stroke-width="1.8"/>
+<rect x="40" y="1416" width="1280" height="14" fill="#1F4E79" stroke="#1F4E79" stroke-width="0"/>
+<text x="58" y="1419" font-size="18" font-weight="bold" text-anchor="start" fill="#FFFFFF">Capa de Acceso a Datos</text>
+<text x="285" y="1419" font-size="14" text-anchor="start" fill="#FFFFFF">· com.feder.datos</text>
+<rect x="100" y="1448" width="300" height="72" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="378" y="1455" width="14" height="17" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="374" y="1458" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="374" y="1465" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<text x="250" y="1488.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">RepositorioJdbc</text>
+<text x="250" y="1504.9" font-size="13" text-anchor="middle" fill="#5A5A5A">abstracta · PreparedStatement con ?</text>
+<rect x="540" y="1448" width="320" height="72" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="2"/>
+<rect x="838" y="1455" width="14" height="17" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1"/>
+<rect x="834" y="1458" width="8" height="4" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1"/>
+<rect x="834" y="1465" width="8" height="4" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1"/>
+<text x="700" y="1488.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">GestorTransacciones</text>
+<text x="700" y="1504.9" font-size="13" text-anchor="middle" fill="#5A5A5A">enTransaccion · conPuntoDeGuardado</text>
+<rect x="1010" y="1448" width="240" height="72" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="1228" y="1455" width="14" height="17" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="1224" y="1458" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<rect x="1224" y="1465" width="8" height="4" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1"/>
+<text x="1130" y="1488.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1A1A1A">ConexionBD</text>
+<text x="1130" y="1504.9" font-size="13" text-anchor="middle" fill="#5A5A5A">JDBC · DriverManager</text>
+<line x1="400" y1="1484" x2="540" y2="1484" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<rect x="418.3" y="1462" width="103.4" height="20" fill="#FFFFFF" opacity="0.92"/><text x="470" y="1476" font-size="13" text-anchor="middle" fill="#1A1A1A">conexionActual()</text>
+<line x1="860" y1="1484" x2="1010" y2="1484" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<rect x="914.4" y="1462" width="41.2" height="20" fill="#FFFFFF" opacity="0.92"/><text x="935" y="1476" font-size="13" text-anchor="middle" fill="#1A1A1A">abrir()</text>
+<rect x="56" y="1552" width="900" height="82" rx="3" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.4"/>
+<text x="70" y="1574" font-size="15" font-weight="bold" text-anchor="start" fill="#1A1A1A">Repositorios JDBC (extienden RepositorioJdbc)</text>
+<text x="70" y="1596" font-size="14" text-anchor="start" fill="#1A1A1A">MensajeCorreoRepositorio · CorreoSalienteRepositorio · IdentidadRepositorio</text>
+<text x="70" y="1615" font-size="14" text-anchor="start" fill="#1A1A1A">ConfirmacionRepositorio · BitacoraRepositorio · NotificacionRepositorio · repositorios de cada caso de uso (CU1–CU8)</text>
+<line x1="250" y1="1552" x2="250" y2="1520" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#triangulo)"/>
+<line x1="250" y1="1332" x2="250" y2="1396" stroke="#3C3C3C" stroke-width="1.8" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<rect x="258" y="1356" width="99.8" height="20" fill="#FFFFFF" opacity="0.92"/><text x="262" y="1370" font-size="13" text-anchor="start" fill="#1A1A1A">usa repositorios</text>
+<line x1="700" y1="1332" x2="700" y2="1396" stroke="#3C3C3C" stroke-width="1.8" stroke-dasharray="7 5" marker-end="url(#abierta)"/>
+<rect x="708" y="1356" width="224.7" height="20" fill="#FFFFFF" opacity="0.92"/><text x="712" y="1370" font-size="13" text-anchor="start" fill="#1A1A1A">delimita transacciones y SAVEPOINT</text>
+<path d="M990 1716 L1004 1702 L1304 1702 L1304 1778 L1290 1792 L1290 1716 Z" fill="#F3F3F3" stroke="#3C3C3C" stroke-width="1.5" stroke-linejoin="round"/>
+<line x1="1290" y1="1716" x2="1304" y2="1702" stroke="#3C3C3C" stroke-width="1.5"/>
+<rect x="990" y="1716" width="300" height="76" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.5"/>
+<text x="1140" y="1739.4" font-size="13" text-anchor="middle" fill="#5A5A5A">«servidor de BD»</text>
+<text x="1140" y="1760.8" font-size="18" font-weight="bold" text-anchor="middle" fill="#1A1A1A">PostgreSQL</text>
+<text x="1140" y="1778.4" font-size="13" text-anchor="middle" fill="#5A5A5A">feder_local · db_grupo29sa</text>
+<line x1="1130" y1="1520" x2="1130" y2="1716" stroke="#1F4E79" stroke-width="1.8"/>
+<rect x="1136" y="1672" width="158.3" height="20" fill="#FFFFFF" opacity="0.92"/><text x="1140" y="1686" font-size="13" text-anchor="start" fill="#1F4E79">JDBC (TCP 5432 / 55432)</text>
+<path d="M56 1692 L474 1692 L486 1704 L486 1798 L56 1798 Z" fill="#FBFBF6" stroke="#9A9A9A" stroke-width="1.2"/>
+<path d="M474 1692 L474 1704 L486 1704" fill="none" stroke="#9A9A9A" stroke-width="1.2"/>
+<text x="66" y="1714" font-size="14" font-weight="bold" text-anchor="start" fill="#1A1A1A">Inversión de dependencias</text>
+<text x="66" y="1732" font-size="14" text-anchor="start" fill="#1A1A1A">GeneradorRespuesta y EnviadorCorreo se definen en</text>
+<text x="66" y="1750" font-size="14" text-anchor="start" fill="#1A1A1A">negocio.mensajeria y los implementan GeneradorRespuesta-</text>
+<text x="66" y="1768" font-size="14" text-anchor="start" fill="#1A1A1A">Correo y EnviadorSmtp (presentación): negocio no</text>
+<text x="66" y="1786" font-size="14" text-anchor="start" fill="#1A1A1A">conoce MIME, POP3 ni SMTP.</text>
+<path d="M506 1692 L944 1692 L956 1704 L956 1798 L506 1798 Z" fill="#FBFBF6" stroke="#9A9A9A" stroke-width="1.2"/>
+<path d="M944 1692 L944 1704 L956 1704" fill="none" stroke="#9A9A9A" stroke-width="1.2"/>
+<text x="516" y="1714" font-size="14" font-weight="bold" text-anchor="start" fill="#1A1A1A">Reglas de la arquitectura</text>
+<text x="516" y="1732" font-size="14" text-anchor="start" fill="#1A1A1A">Las dependencias entre capas solo van hacia abajo.</text>
+<text x="516" y="1750" font-size="14" text-anchor="start" fill="#1A1A1A">Ningún valor recibido por correo se concatena en SQL:</text>
+<text x="516" y="1768" font-size="14" text-anchor="start" fill="#1A1A1A">todo pasa por PreparedStatement con parámetros &quot;?&quot;.</text>
+<text x="516" y="1786" font-size="14" text-anchor="start" fill="#1A1A1A">Solo se ejecutan comandos de la lista blanca.</text>
+</svg>

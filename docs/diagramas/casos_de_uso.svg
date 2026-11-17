@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1440" viewBox="0 0 1800 1440" font-family="Arial, Helvetica, sans-serif" role="img" aria-labelledby="titulo desc">
+<title id="titulo">Diagrama de casos de uso — Sistema FEDER (Email-Driven)</title>
+<desc id="desc">Actores Administrador, Personal FEDER, Productor/Agricultor, Cliente y Visitante, y los ocho casos de uso CU1 a CU8.</desc>
+<defs>
+<marker id="flecha" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L12,5 L0,10 z" fill="#3C3C3C" stroke="#3C3C3C" stroke-width="1.3" /></marker>
+<marker id="flechaAcento" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L12,5 L0,10 z" fill="#1F4E79" stroke="#1F4E79" stroke-width="1.3" /></marker>
+<marker id="abierta" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L11,5 L1,9" fill="none" stroke="#3C3C3C" stroke-width="1.3" stroke-linejoin="round"/></marker>
+<marker id="abiertaAcento" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L11,5 L1,9" fill="none" stroke="#1F4E79" stroke-width="1.3" stroke-linejoin="round"/></marker>
+<marker id="triangulo" viewBox="0 0 18 16" refX="17" refY="8" markerWidth="18" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L17,8 L1,15 z" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.3" /></marker>
+<marker id="trianguloAcento" viewBox="0 0 18 16" refX="17" refY="8" markerWidth="18" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L17,8 L1,15 z" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.3" /></marker>
+</defs>
+<rect x="0" y="0" width="1800" height="1440" fill="#FFFFFF"/>
+<text x="40" y="50" font-size="28" font-weight="bold" text-anchor="start" fill="#1F4E79">Diagrama de casos de uso — Sistema FEDER (Email-Driven)</text>
+<text x="40" y="80" font-size="17" text-anchor="start" fill="#5A5A5A">Cuatro roles de negocio (ADMINISTRADOR, PERSONAL_FEDER, PRODUCTOR, CLIENTE) y el visitante sin cuenta, que solo usa comandos públicos</text>
+<line x1="40" y1="96" x2="1760" y2="96" stroke="#1F4E79" stroke-width="2"/>
+<rect x="320" y="130" width="1160" height="1120" rx="6" fill="#FBFCFD" stroke="#1F4E79" stroke-width="2"/>
+<text x="900" y="162" font-size="20" font-weight="bold" text-anchor="middle" fill="#1F4E79">Sistema FEDER (Email-Driven)</text>
+<line x1="204" y1="256" x2="450.2" y2="259.4" stroke="#3C3C3C" stroke-width="1.6"/>
+<rect x="208.5" y="270.8" width="109.2" height="36" fill="#FBFCFD" opacity="1"/><text x="263.1" y="284.8" font-size="13" font-style="italic" text-anchor="middle" fill="#5A5A5A">todas las cuentas</text>
+<text x="263.1" y="300.8" font-size="13" font-style="italic" text-anchor="middle" fill="#5A5A5A">y roles</text>
+<line x1="204" y1="714" x2="583" y2="321.1" stroke="#3C3C3C" stroke-width="1.6"/>
+<rect x="395.6" y="460.4" width="86.8" height="20" fill="#FBFCFD" opacity="1"/><text x="439" y="474.4" font-size="13" font-style="italic" text-anchor="middle" fill="#5A5A5A">cuenta propia</text>
+<line x1="204" y1="714" x2="444.1" y2="670.2" stroke="#3C3C3C" stroke-width="1.6"/>
+<line x1="204" y1="714" x2="403.9" y2="863.2" stroke="#3C3C3C" stroke-width="1.6"/>
+<rect x="291.9" y="803.4" width="232" height="20" fill="#FBFCFD" opacity="1"/><text x="407.9" y="817.4" font-size="13" font-style="italic" text-anchor="middle" fill="#5A5A5A">pedidos, pagos y devoluciones propios</text>
+<line x1="1606" y1="256" x2="830" y2="260.8" stroke="#3C3C3C" stroke-width="1.6"/>
+<rect x="1163.2" y="238.2" width="187.2" height="20" fill="#FBFCFD" opacity="1"/><text x="1256.8" y="252.2" font-size="13" font-style="italic" text-anchor="middle" fill="#5A5A5A">registro como cliente (REGCLI)</text>
+<line x1="1606" y1="256" x2="1120.1" y2="424.8" stroke="#3C3C3C" stroke-width="1.6"/>
+<rect x="1263.5" y="347.3" width="101.9" height="20" fill="#FBFCFD" opacity="1"/><text x="1314.4" y="361.3" font-size="13" font-style="italic" text-anchor="middle" fill="#5A5A5A">catálogo público</text>
+<line x1="1606" y1="714" x2="1110.8" y2="517.9" stroke="#3C3C3C" stroke-width="1.6"/>
+<rect x="1219.4" y="580.2" width="198.7" height="20" fill="#FBFCFD" opacity="1"/><text x="1318.8" y="594.2" font-size="13" font-style="italic" text-anchor="middle" fill="#5A5A5A">consulta de sus ventas a FEDER</text>
+<line x1="1606" y1="714" x2="1379" y2="706.4" stroke="#3C3C3C" stroke-width="1.6"/>
+<line x1="1606" y1="714" x2="1355.4" y2="903.1" stroke="#3C3C3C" stroke-width="1.6"/>
+<rect x="1397.6" y="842.6" width="75.9" height="20" fill="#FBFCFD" opacity="1"/><text x="1435.6" y="856.6" font-size="13" font-style="italic" text-anchor="middle" fill="#5A5A5A">perfil propio</text>
+<line x1="900" y1="1308" x2="636.7" y2="701.4" stroke="#3C3C3C" stroke-width="1.6"/>
+<line x1="900" y1="1308" x2="543.3" y2="978.5" stroke="#3C3C3C" stroke-width="1.6"/>
+<line x1="900" y1="1308" x2="637.3" y2="1198.8" stroke="#3C3C3C" stroke-width="1.6"/>
+<line x1="900" y1="1308" x2="983.3" y2="532" stroke="#3C3C3C" stroke-width="1.6"/>
+<line x1="900" y1="1308" x2="1160.8" y2="761.3" stroke="#3C3C3C" stroke-width="1.6"/>
+<line x1="900" y1="1308" x2="1216.2" y2="1018.4" stroke="#3C3C3C" stroke-width="1.6"/>
+<line x1="900" y1="1308" x2="1144.9" y2="1216.7" stroke="#3C3C3C" stroke-width="1.6"/>
+<ellipse cx="640" cy="262" rx="190" ry="62" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.6"/><text x="640" y="258.6" font-size="16" font-weight="bold" text-anchor="middle" fill="#1F4E79">CU1</text>
+<text x="640" y="277.7" font-size="15" text-anchor="middle" fill="#1A1A1A">Gestión de Usuarios</text>
+<ellipse cx="610" cy="640" rx="190" ry="62" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.6"/><text x="610" y="627.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1F4E79">CU5</text>
+<text x="610" y="646.2" font-size="15" text-anchor="middle" fill="#1A1A1A">Gestión de Comercio Electrónico, Carrito de</text>
+<text x="610" y="665.2" font-size="15" text-anchor="middle" fill="#1A1A1A">Compras, Ventas Inmediatas y Encargos</text>
+<ellipse cx="480" cy="920" rx="190" ry="62" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.6"/><text x="480" y="897.6" font-size="16" font-weight="bold" text-anchor="middle" fill="#1F4E79">CU6</text>
+<text x="480" y="916.7" font-size="15" text-anchor="middle" fill="#1A1A1A">Gestión de Procesar Pedidos, Pagos</text>
+<text x="480" y="935.7" font-size="15" text-anchor="middle" fill="#1A1A1A">Multicanal, Entregas y Notificaciones al</text>
+<text x="480" y="954.7" font-size="15" text-anchor="middle" fill="#1A1A1A">Cliente</text>
+<ellipse cx="520" cy="1150" rx="190" ry="62" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.6"/><text x="520" y="1146.6" font-size="16" font-weight="bold" text-anchor="middle" fill="#1F4E79">CU7</text>
+<text x="520" y="1165.7" font-size="15" text-anchor="middle" fill="#1A1A1A">Gestión de Indicadores Financieros</text>
+<ellipse cx="990" cy="470" rx="190" ry="62" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.6"/><text x="990" y="457.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1F4E79">CU4</text>
+<text x="990" y="476.2" font-size="15" text-anchor="middle" fill="#1A1A1A">Gestión de Catálogo Unificado, Inventarios,</text>
+<text x="990" y="495.2" font-size="15" text-anchor="middle" fill="#1A1A1A">Alertas y Control de Concurrencia</text>
+<ellipse cx="1190" cy="700" rx="190" ry="62" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.6"/><text x="1190" y="687.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1F4E79">CU3</text>
+<text x="1190" y="706.2" font-size="15" text-anchor="middle" fill="#1A1A1A">Gestión de Producción Agrícola, Asignar</text>
+<text x="1190" y="725.2" font-size="15" text-anchor="middle" fill="#1A1A1A">Lotes y Controlar Trazabilidad de Origen</text>
+<ellipse cx="1280" cy="960" rx="190" ry="62" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.6"/><text x="1280" y="947.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1F4E79">CU2</text>
+<text x="1280" y="966.2" font-size="15" text-anchor="middle" fill="#1A1A1A">Gestión de Productores y Comunidades</text>
+<text x="1280" y="985.2" font-size="15" text-anchor="middle" fill="#1A1A1A">Agrícolas</text>
+<ellipse cx="1270" cy="1170" rx="190" ry="62" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.6"/><text x="1270" y="1166.6" font-size="16" font-weight="bold" text-anchor="middle" fill="#1F4E79">CU8</text>
+<text x="1270" y="1185.7" font-size="15" text-anchor="middle" fill="#1A1A1A">Reportes y Estadísticas</text>
+<circle cx="170" cy="224" r="11" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="170" y1="235" x2="170" y2="274" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="148" y1="250" x2="192" y2="250" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="170" y1="274" x2="152" y2="302" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="170" y1="274" x2="188" y2="302" stroke="#3C3C3C" stroke-width="1.8"/>
+<text x="170" y="324" font-size="17" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Administrador</text>
+<circle cx="170" cy="682" r="11" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="170" y1="693" x2="170" y2="732" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="148" y1="708" x2="192" y2="708" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="170" y1="732" x2="152" y2="760" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="170" y1="732" x2="188" y2="760" stroke="#3C3C3C" stroke-width="1.8"/>
+<text x="170" y="782" font-size="17" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Cliente</text>
+<circle cx="900" cy="1292" r="11" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="900" y1="1303" x2="900" y2="1342" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="878" y1="1318" x2="922" y2="1318" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="900" y1="1342" x2="882" y2="1370" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="900" y1="1342" x2="918" y2="1370" stroke="#3C3C3C" stroke-width="1.8"/>
+<text x="900" y="1392" font-size="17" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Personal FEDER</text>
+<circle cx="1640" cy="224" r="11" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="1640" y1="235" x2="1640" y2="274" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="1618" y1="250" x2="1662" y2="250" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="1640" y1="274" x2="1622" y2="302" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="1640" y1="274" x2="1658" y2="302" stroke="#3C3C3C" stroke-width="1.8"/>
+<text x="1640" y="324" font-size="17" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Visitante</text>
+<text x="1640" y="345" font-size="14" text-anchor="middle" fill="#5A5A5A">(sin cuenta)</text>
+<circle cx="1640" cy="682" r="11" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="1640" y1="693" x2="1640" y2="732" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="1618" y1="708" x2="1662" y2="708" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="1640" y1="732" x2="1622" y2="760" stroke="#3C3C3C" stroke-width="1.8"/>
+<line x1="1640" y1="732" x2="1658" y2="760" stroke="#3C3C3C" stroke-width="1.8"/>
+<text x="1640" y="782" font-size="17" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Productor / Agricultor</text>
+<path d="M148 250 L56 250 L56 1322 L858 1322" fill="none" stroke="#3C3C3C" stroke-width="1.6" marker-end="url(#triangulo)" stroke-linejoin="round"/>
+<text x="72" y="1300" font-size="14" text-anchor="start" fill="#1A1A1A">generalización: el Administrador hereda los casos de uso</text>
+<text x="72" y="1318" font-size="14" text-anchor="start" fill="#1A1A1A">del Personal FEDER (CU2–CU8) y además administra CU1</text>
+<path d="M1500 1000 L1774 1000 L1786 1012 L1786 1214 L1500 1214 Z" fill="#FBFBF6" stroke="#9A9A9A" stroke-width="1.2"/>
+<path d="M1774 1000 L1774 1012 L1786 1012" fill="none" stroke="#9A9A9A" stroke-width="1.2"/>
+<text x="1510" y="1022" font-size="14" font-weight="bold" text-anchor="start" fill="#1A1A1A">Alcance de cada actor</text>
+<text x="1510" y="1040" font-size="14" text-anchor="start" fill="#1A1A1A">Personal FEDER: CU2–CU8</text>
+<text x="1510" y="1058" font-size="14" text-anchor="start" fill="#1A1A1A">(operación diaria).</text>
+<text x="1510" y="1076" font-size="14" text-anchor="start" fill="#1A1A1A">Productor: su perfil (CU2),</text>
+<text x="1510" y="1094" font-size="14" text-anchor="start" fill="#1A1A1A">producción y lotes (CU3) y</text>
+<text x="1510" y="1112" font-size="14" text-anchor="start" fill="#1A1A1A">consulta de sus ventas a</text>
+<text x="1510" y="1130" font-size="14" text-anchor="start" fill="#1A1A1A">FEDER (CU4).</text>
+<text x="1510" y="1148" font-size="14" text-anchor="start" fill="#1A1A1A">Cliente: su cuenta (CU1), CU5</text>
+<text x="1510" y="1166" font-size="14" text-anchor="start" fill="#1A1A1A">y sus pedidos/pagos (CU6).</text>
+<text x="1510" y="1184" font-size="14" text-anchor="start" fill="#1A1A1A">Visitante: catálogo público y</text>
+<text x="1510" y="1202" font-size="14" text-anchor="start" fill="#1A1A1A">registro como cliente.</text>
+</svg>

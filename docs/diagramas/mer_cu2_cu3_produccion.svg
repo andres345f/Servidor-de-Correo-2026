@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="860" viewBox="0 0 1400 860" font-family="Arial, Helvetica, sans-serif">
+<title>FEDER — MER detallado: CU2-CU3 — Productores y producción</title>
+<desc>Modelo entidad-relación detallado del módulo CU2-CU3 Productores y producción, con todas sus columnas y tipos.</desc>
+<rect x="0" y="0" width="1400" height="860" fill="#FFFFFF"/>
+<text x="30" y="38" font-size="20" font-weight="bold" fill="#1F4E79">FEDER — MER detallado: CU2-CU3 — Productores y producción</text>
+<text x="30" y="58" font-size="12" fill="#5A5A5A">Base de datos feder_local, esquema public. Generado desde el catálogo de PostgreSQL (information_schema y pg_catalog). Cajas punteadas: tablas de otros módulos.</text>
+<g class="bandas">
+</g>
+<g class="relaciones" stroke="#3A3A3A" stroke-width="1.3" fill="none" stroke-linejoin="round">
+<g class="rel" data-fk="fk_productor_usuario"><path d="M60 320 L30 320 L30 150 L60 150" fill="none"/><line x1="51" y1="326.5" x2="51" y2="313.5"/><circle cx="40" cy="320" r="4.2" fill="#FFFFFF"/><line x1="52" y1="156.5" x2="52" y2="143.5"/><line x1="46" y1="156.5" x2="46" y2="143.5"/></g>
+<g class="rel" data-fk="fk_produccion_comunidad_origen"><path d="M520 440 L470 440 L470 300 L540 300 L540 270" fill="none"/><line x1="507" y1="440" x2="520" y2="447"/><line x1="507" y1="440" x2="520" y2="433"/><circle cx="500" cy="440" r="4.2" fill="#FFFFFF"/><line x1="546.5" y1="278" x2="533.5" y2="278"/><line x1="546.5" y1="284" x2="533.5" y2="284"/></g>
+<g class="rel" data-fk="fk_produccion_producto"><path d="M810 420 L970 420 L970 380 L1000 380" fill="none"/><line x1="823" y1="420" x2="810" y2="413"/><line x1="823" y1="420" x2="810" y2="427"/><circle cx="830" cy="420" r="4.2" fill="#FFFFFF"/><line x1="992" y1="386.5" x2="992" y2="373.5"/><line x1="986" y1="386.5" x2="986" y2="373.5"/></g>
+<g class="rel" data-fk="fk_lote_produccion_produccion"><path d="M1000 540 L830 540 L830 690 L790 690 L790 660" fill="none"/><line x1="987" y1="540" x2="1000" y2="547"/><line x1="987" y1="540" x2="1000" y2="533"/><circle cx="980" cy="540" r="4.2" fill="#FFFFFF"/><line x1="796.5" y1="668" x2="783.5" y2="668"/><line x1="796.5" y1="674" x2="783.5" y2="674"/></g>
+<g class="rel" data-fk="fk_produccion_productor"><path d="M520 400 L370 400 L370 300 L320 300" fill="none"/><line x1="507" y1="400" x2="520" y2="407"/><line x1="507" y1="400" x2="520" y2="393"/><circle cx="500" cy="400" r="4.2" fill="#FFFFFF"/><line x1="328" y1="293.5" x2="328" y2="306.5"/><line x1="334" y1="293.5" x2="334" y2="306.5"/></g>
+<g class="rel" data-fk="fk_productor_comunidad_agricola"><path d="M320 340 L450 340 L450 150 L520 150" fill="none"/><line x1="333" y1="340" x2="320" y2="333"/><line x1="333" y1="340" x2="320" y2="347"/><circle cx="340" cy="340" r="4.2" fill="#FFFFFF"/><line x1="512" y1="156.5" x2="512" y2="143.5"/><line x1="506" y1="156.5" x2="506" y2="143.5"/></g>
+</g>
+<g class="tablas">
+<g class="tabla" id="t_usuario">
+<rect x="60" y="110" width="110" height="60" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2" stroke-dasharray="5 3"/>
+<rect x="60" y="110" width="110" height="30" fill="#E4E9EF" stroke="#4A4A4A" stroke-width="1.2" stroke-dasharray="5 3"/>
+<text x="70" y="130.005" font-size="13" font-weight="bold" fill="#1A1A1A">usuario</text>
+<text x="162" y="129.5" font-size="10.5" fill="#5A5A5A" text-anchor="end">CU1</text>
+<text x="68" y="154.2" font-size="10" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="90" y="154.2" font-size="12" fill="#1A1A1A" font-weight="bold">id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+</g>
+<g class="tabla" id="t_comunidad_agricola">
+<rect x="520" y="110" width="200" height="160" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="520" y="110" width="200" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="530" y="130.005" font-size="13" font-weight="bold" fill="#FFFFFF">comunidad_agricola</text>
+<text x="528" y="154.2" font-size="10" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="550" y="154.2" font-size="12" fill="#1A1A1A" font-weight="bold">id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="550" y="174.2" font-size="12" fill="#1A1A1A" font-weight="bold">nombre<tspan font-weight="normal" fill="#5A5A5A"> : varchar(120)</tspan></text>
+<text x="550" y="194.2" font-size="12" fill="#1A1A1A" font-weight="bold">municipio<tspan font-weight="normal" fill="#5A5A5A"> : varchar(80)</tspan></text>
+<text x="550" y="214.2" font-size="12" fill="#1A1A1A" font-weight="bold">departamento<tspan font-weight="normal" fill="#5A5A5A"> : varchar(40)</tspan></text>
+<text x="550" y="234.2" font-size="12" fill="#1A1A1A">descripcion<tspan font-weight="normal" fill="#5A5A5A"> : text</tspan></text>
+<text x="550" y="254.2" font-size="12" fill="#1A1A1A" font-weight="bold">activa<tspan font-weight="normal" fill="#5A5A5A"> : boolean</tspan></text>
+<line x1="520" y1="160" x2="720" y2="160" stroke="#B8C2CC" stroke-width="0.8"/>
+</g>
+<g class="tabla" id="t_productor">
+<rect x="60" y="260" width="260" height="260" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="60" y="260" width="260" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="70" y="280.005" font-size="13" font-weight="bold" fill="#FFFFFF">productor</text>
+<text x="68" y="304.2" font-size="10" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="110" y="304.2" font-size="12" fill="#1A1A1A" font-weight="bold">id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="68" y="324.2" font-size="10" font-weight="bold" fill="#1F4E79">FK UQ</text>
+<text x="110" y="324.2" font-size="12" fill="#1A1A1A" font-weight="bold">usuario_id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="68" y="344.2" font-size="10" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="110" y="344.2" font-size="12" fill="#1A1A1A" font-weight="bold">comunidad_agricola_id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="68" y="364.2" font-size="10" font-weight="bold" fill="#1F4E79">UQ</text>
+<text x="110" y="364.2" font-size="12" fill="#1A1A1A">codigo_productor<tspan font-weight="normal" fill="#5A5A5A"> : varchar(20)</tspan></text>
+<text x="110" y="384.2" font-size="12" fill="#1A1A1A" font-weight="bold">estado_solicitud<tspan font-weight="normal" fill="#5A5A5A"> : varchar(10)</tspan></text>
+<text x="110" y="404.2" font-size="12" fill="#1A1A1A" font-weight="bold">fecha_solicitud<tspan font-weight="normal" fill="#5A5A5A"> : timestamptz</tspan></text>
+<text x="110" y="424.2" font-size="12" fill="#1A1A1A">fecha_revision<tspan font-weight="normal" fill="#5A5A5A"> : timestamptz</tspan></text>
+<text x="110" y="444.2" font-size="12" fill="#1A1A1A">motivo_rechazo<tspan font-weight="normal" fill="#5A5A5A"> : varchar(255)</tspan></text>
+<text x="110" y="464.2" font-size="12" fill="#1A1A1A" font-weight="bold">ubicacion_actividad<tspan font-weight="normal" fill="#5A5A5A"> : varchar(200)</tspan></text>
+<text x="110" y="484.2" font-size="12" fill="#1A1A1A">fecha_afiliacion<tspan font-weight="normal" fill="#5A5A5A"> : date</tspan></text>
+<text x="110" y="504.2" font-size="12" fill="#1A1A1A" font-weight="bold">activo<tspan font-weight="normal" fill="#5A5A5A"> : boolean</tspan></text>
+<line x1="60" y1="310" x2="320" y2="310" stroke="#B8C2CC" stroke-width="0.8"/>
+</g>
+<g class="tabla" id="t_produccion">
+<rect x="520" y="340" width="290" height="320" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="520" y="340" width="290" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="530" y="360.005" font-size="13" font-weight="bold" fill="#FFFFFF">produccion</text>
+<text x="528" y="384.2" font-size="10" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="560" y="384.2" font-size="12" fill="#1A1A1A" font-weight="bold">id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="528" y="404.2" font-size="10" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="560" y="404.2" font-size="12" fill="#1A1A1A" font-weight="bold">productor_id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="528" y="424.2" font-size="10" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="560" y="424.2" font-size="12" fill="#1A1A1A" font-weight="bold">producto_id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="528" y="444.2" font-size="10" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="560" y="444.2" font-size="12" fill="#1A1A1A" font-weight="bold">comunidad_origen_id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="528" y="464.2" font-size="10" font-weight="bold" fill="#1F4E79">UQ</text>
+<text x="560" y="464.2" font-size="12" fill="#1A1A1A" font-weight="bold">codigo<tspan font-weight="normal" fill="#5A5A5A"> : varchar(30)</tspan></text>
+<text x="560" y="484.2" font-size="12" fill="#1A1A1A">fecha_inicio<tspan font-weight="normal" fill="#5A5A5A"> : date</tspan></text>
+<text x="560" y="504.2" font-size="12" fill="#1A1A1A">fecha_disponibilidad_estimada<tspan font-weight="normal" fill="#5A5A5A"> : date</tspan></text>
+<text x="560" y="524.2" font-size="12" fill="#1A1A1A">cantidad_estimada<tspan font-weight="normal" fill="#5A5A5A"> : numeric(12,3)</tspan></text>
+<text x="560" y="544.2" font-size="12" fill="#1A1A1A">ubicacion_produccion<tspan font-weight="normal" fill="#5A5A5A"> : varchar(200)</tspan></text>
+<text x="560" y="564.2" font-size="12" fill="#1A1A1A" font-weight="bold">estado<tspan font-weight="normal" fill="#5A5A5A"> : varchar(20)</tspan></text>
+<text x="560" y="584.2" font-size="12" fill="#1A1A1A">observacion<tspan font-weight="normal" fill="#5A5A5A"> : text</tspan></text>
+<text x="560" y="604.2" font-size="12" fill="#1A1A1A" font-weight="bold">nombre_comunidad_origen<tspan font-weight="normal" fill="#5A5A5A"> : varchar(120)</tspan></text>
+<text x="560" y="624.2" font-size="12" fill="#1A1A1A" font-weight="bold">municipio_origen<tspan font-weight="normal" fill="#5A5A5A"> : varchar(80)</tspan></text>
+<text x="560" y="644.2" font-size="12" fill="#1A1A1A" font-weight="bold">departamento_origen<tspan font-weight="normal" fill="#5A5A5A"> : varchar(40)</tspan></text>
+<line x1="520" y1="390" x2="810" y2="390" stroke="#B8C2CC" stroke-width="0.8"/>
+</g>
+<g class="tabla" id="t_producto">
+<rect x="1000" y="340" width="120" height="60" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2" stroke-dasharray="5 3"/>
+<rect x="1000" y="340" width="120" height="30" fill="#E4E9EF" stroke="#4A4A4A" stroke-width="1.2" stroke-dasharray="5 3"/>
+<text x="1010" y="360.005" font-size="13" font-weight="bold" fill="#1A1A1A">producto</text>
+<text x="1112" y="359.5" font-size="10.5" fill="#5A5A5A" text-anchor="end">CU4</text>
+<text x="1008" y="384.2" font-size="10" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="1030" y="384.2" font-size="12" fill="#1A1A1A" font-weight="bold">id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+</g>
+<g class="tabla" id="t_lote_produccion">
+<rect x="1000" y="480" width="260" height="220" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="1000" y="480" width="260" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="1010" y="500.005" font-size="13" font-weight="bold" fill="#FFFFFF">lote_produccion</text>
+<text x="1008" y="524.2" font-size="10" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="1040" y="524.2" font-size="12" fill="#1A1A1A" font-weight="bold">id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="1008" y="544.2" font-size="10" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="1040" y="544.2" font-size="12" fill="#1A1A1A" font-weight="bold">produccion_id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="1008" y="564.2" font-size="10" font-weight="bold" fill="#1F4E79">UQ</text>
+<text x="1040" y="564.2" font-size="12" fill="#1A1A1A" font-weight="bold">codigo_lote<tspan font-weight="normal" fill="#5A5A5A"> : varchar(30)</tspan></text>
+<text x="1040" y="584.2" font-size="12" fill="#1A1A1A">fecha_elaboracion<tspan font-weight="normal" fill="#5A5A5A"> : date</tspan></text>
+<text x="1040" y="604.2" font-size="12" fill="#1A1A1A">fecha_vencimiento<tspan font-weight="normal" fill="#5A5A5A"> : date</tspan></text>
+<text x="1040" y="624.2" font-size="12" fill="#1A1A1A" font-weight="bold">cantidad_producida<tspan font-weight="normal" fill="#5A5A5A"> : numeric(12,3)</tspan></text>
+<text x="1040" y="644.2" font-size="12" fill="#1A1A1A" font-weight="bold">cantidad_ofrecida<tspan font-weight="normal" fill="#5A5A5A"> : numeric(12,3)</tspan></text>
+<text x="1040" y="664.2" font-size="12" fill="#1A1A1A">precio_ofrecido<tspan font-weight="normal" fill="#5A5A5A"> : numeric(12,2)</tspan></text>
+<text x="1040" y="684.2" font-size="12" fill="#1A1A1A" font-weight="bold">estado<tspan font-weight="normal" fill="#5A5A5A"> : varchar(20)</tspan></text>
+<line x1="1000" y1="530" x2="1260" y2="530" stroke="#B8C2CC" stroke-width="0.8"/>
+</g>
+</g>
+<g class="leyenda" transform="translate(60 680)">
+<rect x="0" y="0" width="430" height="136" fill="#FAFBFC" stroke="#9AA5B1" stroke-width="1"/>
+<text x="12" y="21" font-size="12.5" font-weight="bold" fill="#1F4E79">Notación (pata de gallo)</text>
+<line x1="16" y1="44" x2="74" y2="44" stroke="#3A3A3A" stroke-width="1.3"/>
+<line x1="74" y1="35" x2="74" y2="53" stroke="#4A4A4A" stroke-width="2"/>
+<g stroke="#3A3A3A" stroke-width="1.3"><line x1="66" y1="50.5" x2="66" y2="37.5"/><line x1="60" y1="50.5" x2="60" y2="37.5"/></g>
+<text x="90" y="48" font-size="11.5" fill="#1A1A1A">uno y solo uno (FK NOT NULL)</text>
+<line x1="16" y1="68" x2="74" y2="68" stroke="#3A3A3A" stroke-width="1.3"/>
+<line x1="74" y1="59" x2="74" y2="77" stroke="#4A4A4A" stroke-width="2"/>
+<g stroke="#3A3A3A" stroke-width="1.3"><line x1="65" y1="74.5" x2="65" y2="61.5"/><circle cx="54" cy="68" r="4.2" fill="#FFFFFF"/></g>
+<text x="90" y="72" font-size="11.5" fill="#1A1A1A">cero o uno (FK opcional o FK UNIQUE)</text>
+<line x1="16" y1="92" x2="74" y2="92" stroke="#3A3A3A" stroke-width="1.3"/>
+<line x1="74" y1="83" x2="74" y2="101" stroke="#4A4A4A" stroke-width="2"/>
+<g stroke="#3A3A3A" stroke-width="1.3"><line x1="61" y1="92" x2="74" y2="99"/><line x1="61" y1="92" x2="74" y2="85"/><circle cx="54" cy="92" r="4.2" fill="#FFFFFF"/></g>
+<text x="90" y="96" font-size="11.5" fill="#1A1A1A">cero o muchos (lado de la FK)</text>
+<text x="16" y="120" font-size="11.5" fill="#1A1A1A" xml:space="preserve"><tspan font-weight="bold" fill="#1F4E79">PK</tspan> clave primaria   <tspan font-weight="bold" fill="#1F4E79">FK</tspan> clave foránea   <tspan font-weight="bold" fill="#1F4E79">UQ</tspan> valor único   <tspan font-weight="bold">negrita</tspan> = NOT NULL</text>
+</g>
+<g class="notas">
+<rect x="60" y="580" width="400" height="80" fill="#FAFBFC" stroke="#9AA5B1" stroke-width="1"/>
+<text x="72" y="601" font-size="12.5" font-weight="bold" fill="#1F4E79">Restricciones de integridad adicionales</text>
+<text x="72" y="620" font-size="11" fill="#1A1A1A" font-weight="bold" xml:space="preserve">comunidad_agricola.uq_comunidad_agricola_nombre_municipio</text>
+<text x="72" y="635.5" font-size="11" fill="#5A5A5A" xml:space="preserve">UNIQUE (nombre, municipio)</text>
+</g>
+<g class="notas">
+<rect x="900" y="110" width="460" height="140" fill="#FAFBFC" stroke="#9AA5B1" stroke-width="1"/>
+<text x="912" y="131" font-size="12.5" font-weight="bold" fill="#1F4E79">Referencias desde otros módulos (no dibujadas)</text>
+<text x="912" y="150" font-size="11" fill="#1A1A1A" font-weight="bold" xml:space="preserve">productor ←</text>
+<text x="912" y="165.5" font-size="11" fill="#5A5A5A" xml:space="preserve">compra_feder.productor_id (CU4)</text>
+<text x="912" y="181" font-size="11" fill="#1A1A1A" font-weight="bold" xml:space="preserve">produccion ←</text>
+<text x="912" y="196.5" font-size="11" fill="#5A5A5A" xml:space="preserve">detalle_pedido.produccion_id (CU5)</text>
+<text x="912" y="212" font-size="11" fill="#1A1A1A" font-weight="bold" xml:space="preserve">lote_produccion ←</text>
+<text x="912" y="227.5" font-size="11" fill="#5A5A5A" xml:space="preserve">detalle_compra.lote_origen_id (CU4)</text>
+</g>
+</svg>

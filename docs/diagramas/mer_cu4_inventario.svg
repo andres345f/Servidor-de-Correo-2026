@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1000" viewBox="0 0 1500 1000" font-family="Arial, Helvetica, sans-serif">
+<title>FEDER — MER detallado: CU4 — Catálogo, compras e inventario</title>
+<desc>Modelo entidad-relación detallado del módulo CU4 Catálogo, compras e inventario, con todas sus columnas y tipos.</desc>
+<rect x="0" y="0" width="1500" height="1000" fill="#FFFFFF"/>
+<text x="30" y="38" font-size="20" font-weight="bold" fill="#1F4E79">FEDER — MER detallado: CU4 — Catálogo, compras e inventario</text>
+<text x="30" y="58" font-size="12" fill="#5A5A5A">Base de datos feder_local, esquema public. Generado desde el catálogo de PostgreSQL (information_schema y pg_catalog). Cajas punteadas: tablas de otros módulos.</text>
+<g class="bandas">
+</g>
+<g class="relaciones" stroke="#3A3A3A" stroke-width="1.3" fill="none" stroke-linejoin="round">
+<g class="rel" data-fk="fk_compra_feder_productor"><path d="M60 310 L30 310 L30 150 L60 150" fill="none"/><line x1="47" y1="310" x2="60" y2="317"/><line x1="47" y1="310" x2="60" y2="303"/><circle cx="40" cy="310" r="4.2" fill="#FFFFFF"/><line x1="52" y1="156.5" x2="52" y2="143.5"/><line x1="46" y1="156.5" x2="46" y2="143.5"/></g>
+<g class="rel" data-fk="fk_movimiento_inventario_reserva"><path d="M860 660 L810 660 L810 440 L860 440" fill="none"/><line x1="847" y1="660" x2="860" y2="667"/><line x1="847" y1="660" x2="860" y2="653"/><circle cx="840" cy="660" r="4.2" fill="#FFFFFF"/><line x1="851" y1="446.5" x2="851" y2="433.5"/><circle cx="840" cy="440" r="4.2" fill="#FFFFFF"/></g>
+<g class="rel" data-fk="fk_lote_feder_detalle_compra"><path d="M440 620 L410 620 L410 480 L460 480 L460 450" fill="none"/><line x1="431" y1="626.5" x2="431" y2="613.5"/><circle cx="420" cy="620" r="4.2" fill="#FFFFFF"/><line x1="466.5" y1="458" x2="453.5" y2="458"/><line x1="466.5" y1="464" x2="453.5" y2="464"/></g>
+<g class="rel" data-fk="fk_detalle_compra_compra"><path d="M440 310 L340 310 L340 290 L310 290" fill="none"/><line x1="427" y1="310" x2="440" y2="317"/><line x1="427" y1="310" x2="440" y2="303"/><circle cx="420" cy="310" r="4.2" fill="#FFFFFF"/><line x1="318" y1="283.5" x2="318" y2="296.5"/><line x1="324" y1="283.5" x2="324" y2="296.5"/></g>
+<g class="rel" data-fk="fk_producto_categoria"><path d="M1160 170 L1060 170 L1060 150 L1030 150" fill="none"/><line x1="1147" y1="170" x2="1160" y2="177"/><line x1="1147" y1="170" x2="1160" y2="163"/><circle cx="1140" cy="170" r="4.2" fill="#FFFFFF"/><line x1="1038" y1="143.5" x2="1038" y2="156.5"/><line x1="1044" y1="143.5" x2="1044" y2="156.5"/></g>
+<g class="rel" data-fk="fk_movimiento_inventario_lote_feder"><path d="M860 620 L740 620 L740 600 L710 600" fill="none"/><line x1="847" y1="620" x2="860" y2="627"/><line x1="847" y1="620" x2="860" y2="613"/><circle cx="840" cy="620" r="4.2" fill="#FFFFFF"/><line x1="718" y1="593.5" x2="718" y2="606.5"/><line x1="724" y1="593.5" x2="724" y2="606.5"/></g>
+<g class="rel" data-fk="fk_movimiento_inventario_usuario"><path d="M1080 640 L1190 640 L1190 800 L1220 800" fill="none"/><line x1="1093" y1="640" x2="1080" y2="633"/><line x1="1093" y1="640" x2="1080" y2="647"/><circle cx="1100" cy="640" r="4.2" fill="#FFFFFF"/><line x1="1212" y1="806.5" x2="1212" y2="793.5"/><line x1="1206" y1="806.5" x2="1206" y2="793.5"/></g>
+<g class="rel" data-fk="fk_devolucion_movimiento_inventario"><path d="M1220 620 L1110 620 L1110 600 L1080 600" fill="none"/><line x1="1207" y1="620" x2="1220" y2="627"/><line x1="1207" y1="620" x2="1220" y2="613"/><circle cx="1200" cy="620" r="4.2" fill="#FFFFFF"/><line x1="1088" y1="593.5" x2="1088" y2="606.5"/><line x1="1094" y1="593.5" x2="1094" y2="606.5"/></g>
+<g class="rel" data-fk="fk_movimiento_inventario_devolucion"><path d="M1080 680 L1240 680 L1240 640" fill="none"/><line x1="1093" y1="680" x2="1080" y2="673"/><line x1="1093" y1="680" x2="1080" y2="687"/><circle cx="1100" cy="680" r="4.2" fill="#FFFFFF"/><line x1="1246.5" y1="649" x2="1233.5" y2="649"/><circle cx="1240" cy="660" r="4.2" fill="#FFFFFF"/></g>
+<g class="rel" data-fk="fk_reserva_stock_lote_feder"><path d="M860 460 L710 460 L710 530 L690 530 L690 560" fill="none"/><line x1="847" y1="460" x2="860" y2="467"/><line x1="847" y1="460" x2="860" y2="453"/><circle cx="840" cy="460" r="4.2" fill="#FFFFFF"/><line x1="683.5" y1="552" x2="696.5" y2="552"/><line x1="683.5" y1="546" x2="696.5" y2="546"/></g>
+<g class="rel" data-fk="fk_detalle_compra_lote_origen"><path d="M440 330 L330 330 L330 600 L250 600" fill="none"/><line x1="427" y1="330" x2="440" y2="337"/><line x1="427" y1="330" x2="440" y2="323"/><circle cx="420" cy="330" r="4.2" fill="#FFFFFF"/><line x1="258" y1="593.5" x2="258" y2="606.5"/><line x1="264" y1="593.5" x2="264" y2="606.5"/></g>
+</g>
+<g class="tablas">
+<g class="tabla" id="t_productor">
+<rect x="60" y="110" width="150" height="60" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2" stroke-dasharray="5 3"/>
+<rect x="60" y="110" width="150" height="30" fill="#E4E9EF" stroke="#4A4A4A" stroke-width="1.2" stroke-dasharray="5 3"/>
+<text x="70" y="130.005" font-size="13" font-weight="bold" fill="#1A1A1A">productor</text>
+<text x="202" y="129.5" font-size="10.5" fill="#5A5A5A" text-anchor="end">CU2-CU3</text>
+<text x="68" y="154.2" font-size="10" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="90" y="154.2" font-size="12" fill="#1A1A1A" font-weight="bold">id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+</g>
+<g class="tabla" id="t_compra_feder">
+<rect x="60" y="250" width="250" height="200" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="60" y="250" width="250" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="70" y="270.005" font-size="13" font-weight="bold" fill="#FFFFFF">compra_feder</text>
+<text x="68" y="294.2" font-size="10" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="100" y="294.2" font-size="12" fill="#1A1A1A" font-weight="bold">id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="68" y="314.2" font-size="10" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="100" y="314.2" font-size="12" fill="#1A1A1A" font-weight="bold">productor_id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="68" y="334.2" font-size="10" font-weight="bold" fill="#1F4E79">UQ</text>
+<text x="100" y="334.2" font-size="12" fill="#1A1A1A" font-weight="bold">codigo<tspan font-weight="normal" fill="#5A5A5A"> : varchar(30)</tspan></text>
+<text x="100" y="354.2" font-size="12" fill="#1A1A1A" font-weight="bold">fecha_compra<tspan font-weight="normal" fill="#5A5A5A"> : timestamptz</tspan></text>
+<text x="100" y="374.2" font-size="12" fill="#1A1A1A" font-weight="bold">estado<tspan font-weight="normal" fill="#5A5A5A"> : varchar(20)</tspan></text>
+<text x="100" y="394.2" font-size="12" fill="#1A1A1A" font-weight="bold">total<tspan font-weight="normal" fill="#5A5A5A"> : numeric(14,2)</tspan></text>
+<text x="100" y="414.2" font-size="12" fill="#1A1A1A">fecha_pago_productor<tspan font-weight="normal" fill="#5A5A5A"> : timestamptz</tspan></text>
+<text x="100" y="434.2" font-size="12" fill="#1A1A1A">observacion<tspan font-weight="normal" fill="#5A5A5A"> : text</tspan></text>
+<line x1="60" y1="300" x2="310" y2="300" stroke="#B8C2CC" stroke-width="0.8"/>
+</g>
+<g class="tabla" id="t_lote_produccion">
+<rect x="60" y="560" width="190" height="60" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2" stroke-dasharray="5 3"/>
+<rect x="60" y="560" width="190" height="30" fill="#E4E9EF" stroke="#4A4A4A" stroke-width="1.2" stroke-dasharray="5 3"/>
+<text x="70" y="580.005" font-size="13" font-weight="bold" fill="#1A1A1A">lote_produccion</text>
+<text x="242" y="579.5" font-size="10.5" fill="#5A5A5A" text-anchor="end">CU2-CU3</text>
+<text x="68" y="604.2" font-size="10" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="90" y="604.2" font-size="12" fill="#1A1A1A" font-weight="bold">id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+</g>
+<g class="tabla" id="t_detalle_compra">
+<rect x="440" y="250" width="250" height="200" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="440" y="250" width="250" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="450" y="270.005" font-size="13" font-weight="bold" fill="#FFFFFF">detalle_compra</text>
+<text x="448" y="294.2" font-size="10" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="470" y="294.2" font-size="12" fill="#1A1A1A" font-weight="bold">id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="448" y="314.2" font-size="10" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="470" y="314.2" font-size="12" fill="#1A1A1A" font-weight="bold">compra_id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="448" y="334.2" font-size="10" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="470" y="334.2" font-size="12" fill="#1A1A1A" font-weight="bold">lote_origen_id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="470" y="354.2" font-size="12" fill="#1A1A1A" font-weight="bold">cantidad_comprada<tspan font-weight="normal" fill="#5A5A5A"> : numeric(12,3)</tspan></text>
+<text x="470" y="374.2" font-size="12" fill="#1A1A1A" font-weight="bold">precio_unitario<tspan font-weight="normal" fill="#5A5A5A"> : numeric(12,2)</tspan></text>
+<text x="470" y="394.2" font-size="12" fill="#1A1A1A" font-weight="bold">cantidad_recibida<tspan font-weight="normal" fill="#5A5A5A"> : numeric(12,3)</tspan></text>
+<text x="470" y="414.2" font-size="12" fill="#1A1A1A" font-weight="bold">cantidad_rechazada<tspan font-weight="normal" fill="#5A5A5A"> : numeric(12,3)</tspan></text>
+<text x="470" y="434.2" font-size="12" fill="#1A1A1A" font-weight="bold">cantidad_cancelada<tspan font-weight="normal" fill="#5A5A5A"> : numeric(12,3)</tspan></text>
+<line x1="440" y1="300" x2="690" y2="300" stroke="#B8C2CC" stroke-width="0.8"/>
+</g>
+<g class="tabla" id="t_lote_feder">
+<rect x="440" y="560" width="270" height="200" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="440" y="560" width="270" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="450" y="580.005" font-size="13" font-weight="bold" fill="#FFFFFF">lote_feder</text>
+<text x="448" y="604.2" font-size="10" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="490" y="604.2" font-size="12" fill="#1A1A1A" font-weight="bold">id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="448" y="624.2" font-size="10" font-weight="bold" fill="#1F4E79">FK UQ</text>
+<text x="490" y="624.2" font-size="12" fill="#1A1A1A" font-weight="bold">detalle_compra_id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="448" y="644.2" font-size="10" font-weight="bold" fill="#1F4E79">UQ</text>
+<text x="490" y="644.2" font-size="12" fill="#1A1A1A" font-weight="bold">codigo<tspan font-weight="normal" fill="#5A5A5A"> : varchar(30)</tspan></text>
+<text x="490" y="664.2" font-size="12" fill="#1A1A1A" font-weight="bold">fecha_ingreso<tspan font-weight="normal" fill="#5A5A5A"> : timestamptz</tspan></text>
+<text x="490" y="684.2" font-size="12" fill="#1A1A1A" font-weight="bold">cantidad_disponible<tspan font-weight="normal" fill="#5A5A5A"> : numeric(12,3)</tspan></text>
+<text x="490" y="704.2" font-size="12" fill="#1A1A1A" font-weight="bold">cantidad_reservada<tspan font-weight="normal" fill="#5A5A5A"> : numeric(12,3)</tspan></text>
+<text x="490" y="724.2" font-size="12" fill="#1A1A1A">ubicacion_almacen<tspan font-weight="normal" fill="#5A5A5A"> : varchar(60)</tspan></text>
+<text x="490" y="744.2" font-size="12" fill="#1A1A1A" font-weight="bold">estado<tspan font-weight="normal" fill="#5A5A5A"> : varchar(20)</tspan></text>
+<line x1="440" y1="610" x2="710" y2="610" stroke="#B8C2CC" stroke-width="0.8"/>
+</g>
+<g class="tabla" id="t_reserva_stock">
+<rect x="860" y="400" width="160" height="80" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2" stroke-dasharray="5 3"/>
+<rect x="860" y="400" width="160" height="30" fill="#E4E9EF" stroke="#4A4A4A" stroke-width="1.2" stroke-dasharray="5 3"/>
+<text x="870" y="420.005" font-size="13" font-weight="bold" fill="#1A1A1A">reserva_stock</text>
+<text x="1012" y="419.5" font-size="10.5" fill="#5A5A5A" text-anchor="end">CU5</text>
+<text x="868" y="444.2" font-size="10" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="890" y="444.2" font-size="12" fill="#1A1A1A" font-weight="bold">id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="868" y="464.2" font-size="10" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="890" y="464.2" font-size="12" fill="#1A1A1A" font-weight="bold">lote_feder_id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+</g>
+<g class="tabla" id="t_movimiento_inventario">
+<rect x="860" y="560" width="220" height="240" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="860" y="560" width="220" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="870" y="580.005" font-size="13" font-weight="bold" fill="#FFFFFF">movimiento_inventario</text>
+<text x="868" y="604.2" font-size="10" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="900" y="604.2" font-size="12" fill="#1A1A1A" font-weight="bold">id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="868" y="624.2" font-size="10" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="900" y="624.2" font-size="12" fill="#1A1A1A" font-weight="bold">lote_feder_id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="868" y="644.2" font-size="10" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="900" y="644.2" font-size="12" fill="#1A1A1A" font-weight="bold">usuario_id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="868" y="664.2" font-size="10" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="900" y="664.2" font-size="12" fill="#1A1A1A">reserva_id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="868" y="684.2" font-size="10" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="900" y="684.2" font-size="12" fill="#1A1A1A">devolucion_id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="900" y="704.2" font-size="12" fill="#1A1A1A" font-weight="bold">tipo<tspan font-weight="normal" fill="#5A5A5A"> : varchar(25)</tspan></text>
+<text x="900" y="724.2" font-size="12" fill="#1A1A1A" font-weight="bold">cantidad<tspan font-weight="normal" fill="#5A5A5A"> : numeric(12,3)</tspan></text>
+<text x="900" y="744.2" font-size="12" fill="#1A1A1A" font-weight="bold">fecha<tspan font-weight="normal" fill="#5A5A5A"> : timestamptz</tspan></text>
+<text x="900" y="764.2" font-size="12" fill="#1A1A1A">motivo<tspan font-weight="normal" fill="#5A5A5A"> : varchar(255)</tspan></text>
+<text x="868" y="784.2" font-size="10" font-weight="bold" fill="#1F4E79">UQ</text>
+<text x="900" y="784.2" font-size="12" fill="#1A1A1A" font-weight="bold">clave_operacion<tspan font-weight="normal" fill="#5A5A5A"> : varchar(64)</tspan></text>
+<line x1="860" y1="610" x2="1080" y2="610" stroke="#B8C2CC" stroke-width="0.8"/>
+</g>
+<g class="tabla" id="t_devolucion">
+<rect x="1220" y="560" width="230" height="80" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2" stroke-dasharray="5 3"/>
+<rect x="1220" y="560" width="230" height="30" fill="#E4E9EF" stroke="#4A4A4A" stroke-width="1.2" stroke-dasharray="5 3"/>
+<text x="1230" y="580.005" font-size="13" font-weight="bold" fill="#1A1A1A">devolucion</text>
+<text x="1442" y="579.5" font-size="10.5" fill="#5A5A5A" text-anchor="end">CU6</text>
+<text x="1228" y="604.2" font-size="10" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="1250" y="604.2" font-size="12" fill="#1A1A1A" font-weight="bold">id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="1228" y="624.2" font-size="10" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="1250" y="624.2" font-size="12" fill="#1A1A1A" font-weight="bold">movimiento_inventario_id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+</g>
+<g class="tabla" id="t_usuario">
+<rect x="1220" y="760" width="110" height="60" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2" stroke-dasharray="5 3"/>
+<rect x="1220" y="760" width="110" height="30" fill="#E4E9EF" stroke="#4A4A4A" stroke-width="1.2" stroke-dasharray="5 3"/>
+<text x="1230" y="780.005" font-size="13" font-weight="bold" fill="#1A1A1A">usuario</text>
+<text x="1322" y="779.5" font-size="10.5" fill="#5A5A5A" text-anchor="end">CU1</text>
+<text x="1228" y="804.2" font-size="10" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="1250" y="804.2" font-size="12" fill="#1A1A1A" font-weight="bold">id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+</g>
+<g class="tabla" id="t_categoria">
+<rect x="860" y="110" width="170" height="120" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="860" y="110" width="170" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="870" y="130.005" font-size="13" font-weight="bold" fill="#FFFFFF">categoria</text>
+<text x="868" y="154.2" font-size="10" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="900" y="154.2" font-size="12" fill="#1A1A1A" font-weight="bold">id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="868" y="174.2" font-size="10" font-weight="bold" fill="#1F4E79">UQ</text>
+<text x="900" y="174.2" font-size="12" fill="#1A1A1A" font-weight="bold">nombre<tspan font-weight="normal" fill="#5A5A5A"> : varchar(60)</tspan></text>
+<text x="900" y="194.2" font-size="12" fill="#1A1A1A">descripcion<tspan font-weight="normal" fill="#5A5A5A"> : text</tspan></text>
+<text x="900" y="214.2" font-size="12" fill="#1A1A1A" font-weight="bold">activa<tspan font-weight="normal" fill="#5A5A5A"> : boolean</tspan></text>
+<line x1="860" y1="160" x2="1030" y2="160" stroke="#B8C2CC" stroke-width="0.8"/>
+</g>
+<g class="tabla" id="t_producto">
+<rect x="1160" y="110" width="220" height="280" fill="#FFFFFF" stroke="#4A4A4A" stroke-width="1.2"/>
+<rect x="1160" y="110" width="220" height="30" fill="#1F4E79" stroke="#4A4A4A" stroke-width="1.2"/>
+<text x="1170" y="130.005" font-size="13" font-weight="bold" fill="#FFFFFF">producto</text>
+<text x="1168" y="154.2" font-size="10" font-weight="bold" fill="#1F4E79">PK</text>
+<text x="1200" y="154.2" font-size="12" fill="#1A1A1A" font-weight="bold">id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="1168" y="174.2" font-size="10" font-weight="bold" fill="#1F4E79">FK</text>
+<text x="1200" y="174.2" font-size="12" fill="#1A1A1A" font-weight="bold">categoria_id<tspan font-weight="normal" fill="#5A5A5A"> : bigint</tspan></text>
+<text x="1168" y="194.2" font-size="10" font-weight="bold" fill="#1F4E79">UQ</text>
+<text x="1200" y="194.2" font-size="12" fill="#1A1A1A" font-weight="bold">codigo<tspan font-weight="normal" fill="#5A5A5A"> : varchar(30)</tspan></text>
+<text x="1200" y="214.2" font-size="12" fill="#1A1A1A" font-weight="bold">nombre<tspan font-weight="normal" fill="#5A5A5A"> : varchar(120)</tspan></text>
+<text x="1200" y="234.2" font-size="12" fill="#1A1A1A">descripcion<tspan font-weight="normal" fill="#5A5A5A"> : text</tspan></text>
+<text x="1200" y="254.2" font-size="12" fill="#1A1A1A" font-weight="bold">presentacion<tspan font-weight="normal" fill="#5A5A5A"> : varchar(60)</tspan></text>
+<text x="1200" y="274.2" font-size="12" fill="#1A1A1A" font-weight="bold">unidad_medida<tspan font-weight="normal" fill="#5A5A5A"> : varchar(20)</tspan></text>
+<text x="1200" y="294.2" font-size="12" fill="#1A1A1A" font-weight="bold">precio_venta<tspan font-weight="normal" fill="#5A5A5A"> : numeric(12,2)</tspan></text>
+<text x="1200" y="314.2" font-size="12" fill="#1A1A1A" font-weight="bold">stock_minimo<tspan font-weight="normal" fill="#5A5A5A"> : numeric(12,3)</tspan></text>
+<text x="1200" y="334.2" font-size="12" fill="#1A1A1A">imagen_url<tspan font-weight="normal" fill="#5A5A5A"> : varchar(255)</tspan></text>
+<text x="1200" y="354.2" font-size="12" fill="#1A1A1A" font-weight="bold">permite_encargo<tspan font-weight="normal" fill="#5A5A5A"> : boolean</tspan></text>
+<text x="1200" y="374.2" font-size="12" fill="#1A1A1A" font-weight="bold">activo<tspan font-weight="normal" fill="#5A5A5A"> : boolean</tspan></text>
+<line x1="1160" y1="160" x2="1380" y2="160" stroke="#B8C2CC" stroke-width="0.8"/>
+</g>
+</g>
+<g class="leyenda" transform="translate(640 830)">
+<rect x="0" y="0" width="430" height="136" fill="#FAFBFC" stroke="#9AA5B1" stroke-width="1"/>
+<text x="12" y="21" font-size="12.5" font-weight="bold" fill="#1F4E79">Notación (pata de gallo)</text>
+<line x1="16" y1="44" x2="74" y2="44" stroke="#3A3A3A" stroke-width="1.3"/>
+<line x1="74" y1="35" x2="74" y2="53" stroke="#4A4A4A" stroke-width="2"/>
+<g stroke="#3A3A3A" stroke-width="1.3"><line x1="66" y1="50.5" x2="66" y2="37.5"/><line x1="60" y1="50.5" x2="60" y2="37.5"/></g>
+<text x="90" y="48" font-size="11.5" fill="#1A1A1A">uno y solo uno (FK NOT NULL)</text>
+<line x1="16" y1="68" x2="74" y2="68" stroke="#3A3A3A" stroke-width="1.3"/>
+<line x1="74" y1="59" x2="74" y2="77" stroke="#4A4A4A" stroke-width="2"/>
+<g stroke="#3A3A3A" stroke-width="1.3"><line x1="65" y1="74.5" x2="65" y2="61.5"/><circle cx="54" cy="68" r="4.2" fill="#FFFFFF"/></g>
+<text x="90" y="72" font-size="11.5" fill="#1A1A1A">cero o uno (FK opcional o FK UNIQUE)</text>
+<line x1="16" y1="92" x2="74" y2="92" stroke="#3A3A3A" stroke-width="1.3"/>
+<line x1="74" y1="83" x2="74" y2="101" stroke="#4A4A4A" stroke-width="2"/>
+<g stroke="#3A3A3A" stroke-width="1.3"><line x1="61" y1="92" x2="74" y2="99"/><line x1="61" y1="92" x2="74" y2="85"/><circle cx="54" cy="92" r="4.2" fill="#FFFFFF"/></g>
+<text x="90" y="96" font-size="11.5" fill="#1A1A1A">cero o muchos (lado de la FK)</text>
+<text x="16" y="120" font-size="11.5" fill="#1A1A1A" xml:space="preserve"><tspan font-weight="bold" fill="#1F4E79">PK</tspan> clave primaria   <tspan font-weight="bold" fill="#1F4E79">FK</tspan> clave foránea   <tspan font-weight="bold" fill="#1F4E79">UQ</tspan> valor único   <tspan font-weight="bold">negrita</tspan> = NOT NULL</text>
+</g>
+<g class="notas">
+<rect x="60" y="790" width="520" height="140" fill="#FAFBFC" stroke="#9AA5B1" stroke-width="1"/>
+<text x="72" y="811" font-size="12.5" font-weight="bold" fill="#1F4E79">Restricciones de integridad adicionales</text>
+<text x="72" y="830" font-size="11" fill="#1A1A1A" font-weight="bold" xml:space="preserve">detalle_compra.uq_detalle_compra_compra_lote_origen</text>
+<text x="72" y="845.5" font-size="11" fill="#5A5A5A" xml:space="preserve">UNIQUE (compra_id, lote_origen_id)</text>
+<text x="72" y="861" font-size="11" fill="#1A1A1A" font-weight="bold" xml:space="preserve">movimiento_inventario.uq_movimiento_inventario_salida_venta_reserva</text>
+<text x="72" y="876.5" font-size="11" fill="#5A5A5A" xml:space="preserve">UNIQUE (reserva_id) WHERE (tipo = 'SALIDA_VENTA')</text>
+<text x="72" y="892" font-size="11" fill="#1A1A1A" font-weight="bold" xml:space="preserve">movimiento_inventario.fk_movimiento_inventario_reserva_lote</text>
+<text x="72" y="907.5" font-size="11" fill="#5A5A5A" xml:space="preserve">FK (reserva_id, lote_feder_id) → reserva_stock (id, lote_feder_id)</text>
+</g>
+<g class="notas">
+<rect x="440" y="110" width="360" height="110" fill="#FAFBFC" stroke="#9AA5B1" stroke-width="1"/>
+<text x="452" y="131" font-size="12.5" font-weight="bold" fill="#1F4E79">Referencias desde otros módulos (no dibujadas)</text>
+<text x="452" y="150" font-size="11" fill="#1A1A1A" font-weight="bold" xml:space="preserve">producto ←</text>
+<text x="452" y="165.5" font-size="11" fill="#5A5A5A" xml:space="preserve">detalle_pedido.producto_id (CU5), item_carrito.producto_id (CU5),</text>
+<text x="452" y="181" font-size="11" fill="#5A5A5A" xml:space="preserve">    notificacion.producto_id (CU6), produccion.producto_id</text>
+<text x="452" y="196.5" font-size="11" fill="#5A5A5A" xml:space="preserve">    (CU2-CU3)</text>
+</g>
+</svg>

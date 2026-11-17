@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1418" viewBox="0 0 1800 1418" font-family="Arial, Helvetica, sans-serif" role="img" aria-labelledby="titulo desc">
+<title id="titulo">Autómata del analizador de comandos — FEDER email-driven</title>
+<desc id="desc">Estados y transiciones reales de LexerComando y CommandParser, con ejemplos de error, y la secuencia de validación posterior.</desc>
+<defs>
+<marker id="flecha" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L12,5 L0,10 z" fill="#3C3C3C" stroke="#3C3C3C" stroke-width="1.3" /></marker>
+<marker id="flechaAcento" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L12,5 L0,10 z" fill="#1F4E79" stroke="#1F4E79" stroke-width="1.3" /></marker>
+<marker id="abierta" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L11,5 L1,9" fill="none" stroke="#3C3C3C" stroke-width="1.3" stroke-linejoin="round"/></marker>
+<marker id="abiertaAcento" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L11,5 L1,9" fill="none" stroke="#1F4E79" stroke-width="1.3" stroke-linejoin="round"/></marker>
+<marker id="triangulo" viewBox="0 0 18 16" refX="17" refY="8" markerWidth="18" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L17,8 L1,15 z" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.3" /></marker>
+<marker id="trianguloAcento" viewBox="0 0 18 16" refX="17" refY="8" markerWidth="18" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L17,8 L1,15 z" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.3" /></marker>
+</defs>
+<rect x="0" y="0" width="1800" height="1418" fill="#FFFFFF"/>
+<text x="40" y="50" font-size="28" font-weight="bold" text-anchor="start" fill="#1F4E79">Analizador del asunto — autómata y validación</text>
+<text x="40" y="80" font-size="17" text-anchor="start" fill="#5A5A5A">presentacion.comandos.LexerComando y CommandParser (sintaxis) · negocio.comandos.ComandoDispatcher (validación)</text>
+<line x1="40" y1="96" x2="1760" y2="96" stroke="#1F4E79" stroke-width="2"/>
+<rect x="30" y="110" width="1740" height="36" fill="#1F4E79" stroke="#1F4E79" stroke-width="1"/><text x="46" y="135" font-size="18" font-weight="bold" text-anchor="start" fill="#FFFFFF">1. Analizador léxico (LexerComando): un token por llamada</text><text x="1754" y="135" font-size="14" text-anchor="end" fill="#FFFFFF">máquina de estados sobre puntos de código Unicode · posiciones contadas desde 1</text>
+<rect x="170" y="317" width="240" height="70" rx="18" fill="#EAF0F6" stroke="#1F4E79" stroke-width="2"/><text x="290" y="350.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1F4E79">ENTRE_TOKENS</text>
+<text x="290" y="366.9" font-size="13" text-anchor="middle" fill="#1A1A1A">estado inicial de cada token</text>
+<rect x="640" y="197" width="240" height="70" rx="18" fill="#EAF0F6" stroke="#1F4E79" stroke-width="2"/><text x="760" y="230.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1F4E79">EN_NOMBRE</text>
+<text x="760" y="246.9" font-size="13" text-anchor="middle" fill="#1A1A1A">acumula letras</text>
+<rect x="640" y="457" width="240" height="70" rx="18" fill="#EAF0F6" stroke="#1F4E79" stroke-width="2"/><text x="760" y="490.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1F4E79">EN_CADENA</text>
+<text x="760" y="506.9" font-size="13" text-anchor="middle" fill="#1A1A1A">dentro de comillas</text>
+<rect x="1090" y="457" width="240" height="70" rx="18" fill="#EAF0F6" stroke="#1F4E79" stroke-width="2"/><text x="1210" y="490.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1F4E79">EN_ESCAPE</text>
+<text x="1210" y="506.9" font-size="13" text-anchor="middle" fill="#1A1A1A">después de \</text>
+<circle cx="70" cy="352" r="9" fill="#3C3C3C"/>
+<line x1="79" y1="352" x2="170" y2="352" stroke="#3C3C3C" stroke-width="1.5" marker-end="url(#flecha)"/>
+<path d="M260 387 C250 433 320 433 310 387" fill="none" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)" stroke-linejoin="round"/>
+<rect x="252.8" y="435" width="64.4" height="52" fill="#FFFFFF" opacity="0.92"/><text x="285" y="449" font-size="13" text-anchor="middle" fill="#1A1A1A">espacio o</text>
+<text x="285" y="465" font-size="13" text-anchor="middle" fill="#1A1A1A">tabulador</text>
+<text x="285" y="481" font-size="13" text-anchor="middle" fill="#1A1A1A">/ se omite</text>
+<rect x="40" y="158" width="350" height="106" rx="4" fill="#F4F4F4" stroke="#3C3C3C" stroke-width="1.4"/>
+<text x="50" y="178" font-size="13" font-weight="bold" text-anchor="start" fill="#1A1A1A">ErrorSintaxisException</text>
+<text x="50" y="198" font-size="13" text-anchor="start" fill="#1A1A1A">carácter de control (U+0000–U+001F, U+007F) o</text>
+<text x="50" y="215" font-size="13" text-anchor="start" fill="#1A1A1A">sustituto suelto:</text>
+<text x="50" y="232" font-size="13" text-anchor="start" fill="#1F4E79">«Carácter de control no permitido (U+0007) en la</text>
+<text x="50" y="249" font-size="13" text-anchor="start" fill="#1F4E79">posición n»</text>
+<line x1="230" y1="317" x2="230" y2="264" stroke="#3C3C3C" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#flecha)"/>
+<line x1="220" y1="387" x2="220" y2="588" stroke="#3C3C3C" stroke-width="1.5" marker-end="url(#flecha)"/>
+<circle cx="220" cy="600" r="12" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.6"/><circle cx="220" cy="600" r="7" fill="#3C3C3C"/>
+<text x="220" y="636" font-size="14" font-weight="bold" text-anchor="middle" fill="#1A1A1A">token FIN</text>
+<rect x="141.5" y="456" width="74.5" height="20" fill="#FFFFFF" opacity="0.92"/><text x="212" y="470" font-size="13" text-anchor="end" fill="#1A1A1A">fin del texto</text>
+<line x1="350" y1="387" x2="350" y2="588" stroke="#3C3C3C" stroke-width="1.5" marker-end="url(#flecha)"/>
+<circle cx="350" cy="600" r="12" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.6"/><circle cx="350" cy="600" r="7" fill="#3C3C3C"/>
+<text x="370" y="597" font-size="14" font-weight="bold" text-anchor="start" fill="#1A1A1A">token ABRE «[» · CIERRA «]»</text>
+<text x="370" y="615" font-size="14" font-weight="bold" text-anchor="start" fill="#1A1A1A">COMA «,» · OTRO (otro carácter)</text>
+<rect x="354" y="456" width="135.9" height="36" fill="#FFFFFF" opacity="0.92"/><text x="358" y="470" font-size="13" text-anchor="start" fill="#1A1A1A">«[» «]» «,» u otro</text>
+<text x="358" y="486" font-size="13" text-anchor="start" fill="#1A1A1A">carácter / se consume</text>
+<line x1="410" y1="330" x2="640" y2="242" stroke="#3C3C3C" stroke-width="1.5" marker-end="url(#flecha)"/>
+<rect x="466.8" y="252" width="126.5" height="36" fill="#FFFFFF" opacity="0.92"/><text x="530" y="266" font-size="13" text-anchor="middle" fill="#1A1A1A">letra ASCII A–Z, a–z</text>
+<text x="530" y="282" font-size="13" text-anchor="middle" fill="#1A1A1A">/ inicia nombre</text>
+<line x1="410" y1="374" x2="640" y2="482" stroke="#3C3C3C" stroke-width="1.5" marker-end="url(#flecha)"/>
+<rect x="451.8" y="438" width="156.4" height="20" fill="#FFFFFF" opacity="0.92"/><text x="530" y="452" font-size="13" text-anchor="middle" fill="#1A1A1A">comilla &quot; / abre parámetro</text>
+<path d="M730 197 C720 151 800 151 790 197" fill="none" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)" stroke-linejoin="round"/>
+<rect x="802" y="153" width="130.8" height="20" fill="#FFFFFF" opacity="0.92"/><text x="806" y="167" font-size="13" text-anchor="start" fill="#1A1A1A">letra ASCII / acumula</text>
+<line x1="880" y1="232" x2="1186" y2="232" stroke="#3C3C3C" stroke-width="1.5" marker-end="url(#flecha)"/>
+<circle cx="1198" cy="232" r="12" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.6"/><circle cx="1198" cy="232" r="7" fill="#3C3C3C"/>
+<text x="1220" y="237" font-size="14" font-weight="bold" text-anchor="start" fill="#1A1A1A">token NOMBRE</text>
+<rect x="920" y="208" width="180" height="20" fill="#FFFFFF" opacity="0.92"/><text x="1010" y="222" font-size="13" text-anchor="middle" fill="#1A1A1A">otro carácter (no se consume)</text>
+<rect x="967.3" y="242" width="85.3" height="20" fill="#FFFFFF" opacity="0.92"/><text x="1010" y="256" font-size="13" text-anchor="middle" fill="#1A1A1A">o fin del texto</text>
+<path d="M670 457 C660 411 740 411 730 457" fill="none" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)" stroke-linejoin="round"/>
+<rect x="736" y="409" width="140.9" height="20" fill="#FFFFFF" opacity="0.92"/><text x="740" y="423" font-size="13" text-anchor="start" fill="#1A1A1A">otro carácter / acumula</text>
+<line x1="880" y1="476" x2="1090" y2="476" stroke="#3C3C3C" stroke-width="1.5" marker-end="url(#flecha)"/>
+<rect x="932.2" y="454" width="105.5" height="20" fill="#FFFFFF" opacity="0.92"/><text x="985" y="468" font-size="13" text-anchor="middle" fill="#1A1A1A">\ (barra invertida)</text>
+<line x1="1090" y1="508" x2="880" y2="508" stroke="#3C3C3C" stroke-width="1.5" marker-end="url(#flecha)"/>
+<rect x="902.1" y="518" width="165.8" height="20" fill="#FFFFFF" opacity="0.92"/><text x="985" y="532" font-size="13" text-anchor="middle" fill="#1A1A1A">&quot; o \ / acumula ese carácter</text>
+<line x1="700" y1="527" x2="700" y2="588" stroke="#3C3C3C" stroke-width="1.5" marker-end="url(#flecha)"/>
+<circle cx="700" cy="600" r="12" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.6"/><circle cx="700" cy="600" r="7" fill="#3C3C3C"/>
+<text x="700" y="636" font-size="14" font-weight="bold" text-anchor="middle" fill="#1A1A1A">token CADENA</text>
+<rect x="596" y="548" width="100" height="20" fill="#FFFFFF" opacity="0.92"/><text x="692" y="562" font-size="13" text-anchor="end" fill="#1A1A1A">comilla &quot; / cierra</text>
+<rect x="830" y="590" width="470" height="123" rx="4" fill="#F4F4F4" stroke="#3C3C3C" stroke-width="1.4"/>
+<text x="840" y="610" font-size="13" font-weight="bold" text-anchor="start" fill="#1A1A1A">ErrorSintaxisException</text>
+<text x="840" y="630" font-size="13" text-anchor="start" fill="#1A1A1A">carácter de control:</text>
+<text x="840" y="647" font-size="13" text-anchor="start" fill="#1F4E79">«Carácter de control no permitido (U+000A) dentro del parámetro, en la</text>
+<text x="840" y="664" font-size="13" text-anchor="start" fill="#1F4E79">posición n»</text>
+<text x="840" y="681" font-size="13" text-anchor="start" fill="#1A1A1A">fin del texto sin cerrar la comilla:</text>
+<text x="840" y="698" font-size="13" text-anchor="start" fill="#1F4E79">«Falta la comilla de cierre del parámetro que empieza en la posición n»</text>
+<line x1="810" y1="527" x2="880" y2="590" stroke="#3C3C3C" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#flecha)"/>
+<rect x="852" y="538" width="71.6" height="20" fill="#FFFFFF" opacity="0.92"/><text x="856" y="552" font-size="13" text-anchor="start" fill="#1A1A1A">control · fin</text>
+<rect x="1400" y="410" width="360" height="106" rx="4" fill="#F4F4F4" stroke="#3C3C3C" stroke-width="1.4"/>
+<text x="1410" y="430" font-size="13" font-weight="bold" text-anchor="start" fill="#1A1A1A">ErrorSintaxisException</text>
+<text x="1410" y="450" font-size="13" text-anchor="start" fill="#1A1A1A">cualquier otro carácter:</text>
+<text x="1410" y="467" font-size="13" text-anchor="start" fill="#1F4E79">«Secuencia de escape no válida '\n' en la posición n; solo</text>
+<text x="1410" y="484" font-size="13" text-anchor="start" fill="#1F4E79">se admiten \&quot; y \\»</text>
+<text x="1410" y="501" font-size="13" text-anchor="start" fill="#1A1A1A">fin del texto: «Falta la comilla de cierre…»</text>
+<line x1="1330" y1="492" x2="1400" y2="492" stroke="#3C3C3C" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#flecha)"/>
+<rect x="1332.5" y="468" width="55" height="20" fill="#FFFFFF" opacity="0.92"/><text x="1360" y="482" font-size="13" text-anchor="middle" fill="#1A1A1A">otro · fin</text>
+<rect x="1400" y="160" width="360" height="206" rx="3" fill="#FFFFFF" stroke="#9A9A9A" stroke-width="1.1"/>
+<text x="1414" y="184" font-size="14" font-weight="bold" text-anchor="start" fill="#1A1A1A">Lectura del autómata</text>
+<text x="1414" y="206" font-size="14" text-anchor="start" fill="#1A1A1A">evento / acción → estado destino</text>
+<text x="1414" y="228" font-size="14" text-anchor="start" fill="#1A1A1A">flecha continua: transición válida</text>
+<text x="1414" y="250" font-size="14" text-anchor="start" fill="#1A1A1A">flecha discontinua: error de sintaxis</text>
+<text x="1414" y="272" font-size="14" text-anchor="start" fill="#1A1A1A">círculo doble: devuelve el token y el</text>
+<text x="1414" y="294" font-size="14" text-anchor="start" fill="#1A1A1A">siguiente token empieza en ENTRE_TOKENS</text>
+<text x="1414" y="316" font-size="14" text-anchor="start" fill="#1A1A1A">nombres: solo letras ASCII; el parser</text>
+<text x="1414" y="338" font-size="14" text-anchor="start" fill="#1A1A1A">exige de 3 a 12 y los pasa a mayúsculas</text>
+<rect x="30" y="730" width="1740" height="36" fill="#1F4E79" stroke="#1F4E79" stroke-width="1"/><text x="46" y="755" font-size="18" font-weight="bold" text-anchor="start" fill="#FFFFFF">2. Analizador sintáctico (CommandParser): secuencia de tokens</text><text x="1754" y="755" font-size="14" text-anchor="end" fill="#FFFFFF">comando := NOMBRE &quot;[&quot; CADENA (&quot;,&quot; CADENA)* &quot;]&quot; FIN</text>
+<circle cx="70" cy="880" r="9" fill="#3C3C3C"/>
+<line x1="79" y1="880" x2="212" y2="880" stroke="#3C3C3C" stroke-width="1.5" marker-end="url(#flecha)"/>
+<rect x="78.7" y="834" width="122.5" height="36" fill="#FFFFFF" opacity="0.92"/><text x="140" y="848" font-size="13" text-anchor="middle" fill="#1A1A1A">asunto no vacío</text>
+<text x="140" y="864" font-size="13" text-anchor="middle" fill="#1A1A1A">y ≤ 1000 caracteres</text>
+<rect x="212" y="850" width="176" height="60" rx="18" fill="#EAF0F6" stroke="#1F4E79" stroke-width="2"/><text x="300" y="886.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1F4E79">espera NOMBRE</text>
+<rect x="512" y="850" width="176" height="60" rx="18" fill="#EAF0F6" stroke="#1F4E79" stroke-width="2"/><text x="600" y="886.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1F4E79">espera «[»</text>
+<rect x="812" y="850" width="176" height="60" rx="18" fill="#EAF0F6" stroke="#1F4E79" stroke-width="2"/><text x="900" y="886.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1F4E79">espera parámetro</text>
+<rect x="1112" y="850" width="176" height="60" rx="18" fill="#EAF0F6" stroke="#1F4E79" stroke-width="2"/><text x="1200" y="886.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1F4E79">espera «,» o «]»</text>
+<rect x="1412" y="850" width="176" height="60" rx="18" fill="#EAF0F6" stroke="#1F4E79" stroke-width="2"/><text x="1500" y="886.1" font-size="16" font-weight="bold" text-anchor="middle" fill="#1F4E79">espera FIN</text>
+<line x1="388" y1="880" x2="512" y2="880" stroke="#3C3C3C" stroke-width="1.5" marker-end="url(#flecha)"/>
+<rect x="413.8" y="840" width="72.3" height="36" fill="#FFFFFF" opacity="0.92"/><text x="450" y="854" font-size="13" text-anchor="middle" fill="#1A1A1A">NOMBRE</text>
+<text x="450" y="870" font-size="13" text-anchor="middle" fill="#1A1A1A">3–12 letras</text>
+<line x1="688" y1="880" x2="812" y2="880" stroke="#3C3C3C" stroke-width="1.5" marker-end="url(#flecha)"/>
+<rect x="737" y="856" width="26.1" height="20" fill="#FFFFFF" opacity="0.92"/><text x="750" y="870" font-size="13" text-anchor="middle" fill="#1A1A1A">«[»</text>
+<line x1="988" y1="880" x2="1112" y2="880" stroke="#3C3C3C" stroke-width="1.5" marker-end="url(#flecha)"/>
+<rect x="1018.9" y="856" width="62.2" height="20" fill="#FFFFFF" opacity="0.92"/><text x="1050" y="870" font-size="13" text-anchor="middle" fill="#1A1A1A">CADENA</text>
+<line x1="1288" y1="880" x2="1412" y2="880" stroke="#3C3C3C" stroke-width="1.5" marker-end="url(#flecha)"/>
+<rect x="1337" y="856" width="26.1" height="20" fill="#FFFFFF" opacity="0.92"/><text x="1350" y="870" font-size="13" text-anchor="middle" fill="#1A1A1A">«]»</text>
+<path d="M1160 850 C1140 780 960 780 940 850" fill="none" stroke="#3C3C3C" stroke-width="1.5" marker-end="url(#flecha)" stroke-linejoin="round"/>
+<rect x="959.3" y="786" width="181.4" height="20" fill="#FFFFFF" opacity="0.92"/><text x="1050" y="800" font-size="13" text-anchor="middle" fill="#1A1A1A">«,» (COMA) → otro parámetro</text>
+<line x1="1588" y1="880" x2="1680" y2="880" stroke="#3C3C3C" stroke-width="1.5" marker-end="url(#flecha)"/>
+<rect x="1625.5" y="856" width="28.9" height="20" fill="#FFFFFF" opacity="0.92"/><text x="1640" y="870" font-size="13" text-anchor="middle" fill="#1A1A1A">FIN</text>
+<circle cx="1692" cy="880" r="12" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.6"/><circle cx="1692" cy="880" r="7" fill="#3C3C3C"/>
+<text x="1692" y="918" font-size="13" font-weight="bold" text-anchor="middle" fill="#1A1A1A">ComandoAnalizado</text>
+<text x="1692" y="935" font-size="13" text-anchor="middle" fill="#1A1A1A">(NOMBRE en mayúsculas,</text>
+<text x="1692" y="952" font-size="13" text-anchor="middle" fill="#1A1A1A">parámetros sin comillas)</text>
+<rect x="160" y="990" width="280" height="140" rx="4" fill="#F4F4F4" stroke="#3C3C3C" stroke-width="1.4"/>
+<text x="170" y="1010" font-size="13" font-weight="bold" text-anchor="start" fill="#1A1A1A">ErrorSintaxisException</text>
+<text x="170" y="1030" font-size="13" text-anchor="start" fill="#1A1A1A">otro token o nombre fuera de rango:</text>
+<text x="170" y="1047" font-size="13" text-anchor="start" fill="#1F4E79">[&quot;*&quot;] → «Se esperaba el nombre del</text>
+<text x="170" y="1064" font-size="13" text-anchor="start" fill="#1F4E79">comando (solo letras) en la posición 1, pero</text>
+<text x="170" y="1081" font-size="13" text-anchor="start" fill="#1F4E79">se encontró '['»</text>
+<text x="170" y="1098" font-size="13" text-anchor="start" fill="#1F4E79">HE[&quot;*&quot;] → «… debe tener entre 3 y 12 letras</text>
+<text x="170" y="1115" font-size="13" text-anchor="start" fill="#1F4E79">y 'HE' tiene 2 (posición 1)»</text>
+<line x1="300" y1="910" x2="300" y2="990" stroke="#3C3C3C" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#flecha)"/>
+<rect x="460" y="990" width="280" height="140" rx="4" fill="#F4F4F4" stroke="#3C3C3C" stroke-width="1.4"/>
+<text x="470" y="1010" font-size="13" font-weight="bold" text-anchor="start" fill="#1A1A1A">ErrorSintaxisException</text>
+<text x="470" y="1030" font-size="13" text-anchor="start" fill="#1A1A1A">cualquier token distinto de «[»:</text>
+<text x="470" y="1047" font-size="13" text-anchor="start" fill="#1F4E79">LIS2PRO[&quot;*&quot;] → «Se esperaba '[' después</text>
+<text x="470" y="1064" font-size="13" text-anchor="start" fill="#1F4E79">del nombre del comando en la posición 4,</text>
+<text x="470" y="1081" font-size="13" text-anchor="start" fill="#1F4E79">pero se encontró '2'»</text>
+<text x="470" y="1098" font-size="13" text-anchor="start" fill="#1F4E79">HELP &quot;*&quot; → «… se encontró un texto entre</text>
+<text x="470" y="1115" font-size="13" text-anchor="start" fill="#1F4E79">comillas»</text>
+<line x1="600" y1="910" x2="600" y2="990" stroke="#3C3C3C" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#flecha)"/>
+<rect x="760" y="990" width="280" height="140" rx="4" fill="#F4F4F4" stroke="#3C3C3C" stroke-width="1.4"/>
+<text x="770" y="1010" font-size="13" font-weight="bold" text-anchor="start" fill="#1A1A1A">ErrorSintaxisException</text>
+<text x="770" y="1030" font-size="13" text-anchor="start" fill="#1A1A1A">«]» sin parámetros, otro token o más de 60:</text>
+<text x="770" y="1047" font-size="13" text-anchor="start" fill="#1F4E79">HELP[] → «… los corchetes vacíos no están</text>
+<text x="770" y="1064" font-size="13" text-anchor="start" fill="#1F4E79">permitidos (use, por ejemplo, [&quot;*&quot;])»</text>
+<text x="770" y="1081" font-size="13" text-anchor="start" fill="#1F4E79">HELP[*] → «Se esperaba un parámetro</text>
+<text x="770" y="1098" font-size="13" text-anchor="start" fill="#1F4E79">entre comillas en la posición 6, pero se</text>
+<text x="770" y="1115" font-size="13" text-anchor="start" fill="#1F4E79">encontró '*'»</text>
+<line x1="900" y1="910" x2="900" y2="990" stroke="#3C3C3C" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#flecha)"/>
+<rect x="1060" y="990" width="280" height="123" rx="4" fill="#F4F4F4" stroke="#3C3C3C" stroke-width="1.4"/>
+<text x="1070" y="1010" font-size="13" font-weight="bold" text-anchor="start" fill="#1A1A1A">ErrorSintaxisException</text>
+<text x="1070" y="1030" font-size="13" text-anchor="start" fill="#1A1A1A">cualquier token distinto de «,» o «]»:</text>
+<text x="1070" y="1047" font-size="13" text-anchor="start" fill="#1F4E79">LISPRO[&quot;*&quot;;&quot;x&quot;] → «Se esperaba ',' o ']' en la</text>
+<text x="1070" y="1064" font-size="13" text-anchor="start" fill="#1F4E79">posición 11, pero se encontró ';'»</text>
+<text x="1070" y="1081" font-size="13" text-anchor="start" fill="#1F4E79">HELP[&quot;*&quot; → «… en la posición 9, pero se</text>
+<text x="1070" y="1098" font-size="13" text-anchor="start" fill="#1F4E79">encontró el final del texto»</text>
+<line x1="1200" y1="910" x2="1200" y2="990" stroke="#3C3C3C" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#flecha)"/>
+<rect x="1360" y="990" width="280" height="106" rx="4" fill="#F4F4F4" stroke="#3C3C3C" stroke-width="1.4"/>
+<text x="1370" y="1010" font-size="13" font-weight="bold" text-anchor="start" fill="#1A1A1A">ErrorSintaxisException</text>
+<text x="1370" y="1030" font-size="13" text-anchor="start" fill="#1A1A1A">cualquier token después de «]»:</text>
+<text x="1370" y="1047" font-size="13" text-anchor="start" fill="#1F4E79">HELP[&quot;*&quot;] x → «Texto inesperado después</text>
+<text x="1370" y="1064" font-size="13" text-anchor="start" fill="#1F4E79">de ']' en la posición 11: el comando debe</text>
+<text x="1370" y="1081" font-size="13" text-anchor="start" fill="#1F4E79">terminar en ']'»</text>
+<line x1="1500" y1="910" x2="1500" y2="990" stroke="#3C3C3C" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#flecha)"/>
+<text x="46" y="1158" font-size="13" text-anchor="start" fill="#5A5A5A">Antes del análisis: asunto vacío → «El asunto está vacío: se esperaba un comando, por ejemplo HELP[&quot;*&quot;]»; más de 1000 caracteres → «El asunto tiene N caracteres y el máximo es 1000». Los textos entre comillas son los mensajes reales que recibe el remitente.</text>
+<rect x="30" y="1186" width="1740" height="36" fill="#1F4E79" stroke="#1F4E79" stroke-width="1"/><text x="46" y="1211" font-size="18" font-weight="bold" text-anchor="start" fill="#FFFFFF">3. Validación en la capa de negocio (ComandoDispatcher), en este orden</text><text x="1754" y="1211" font-size="14" text-anchor="end" fill="#FFFFFF">ningún dato de negocio se toca antes del paso 5</text>
+<rect x="46" y="1246" width="316" height="118" rx="6" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.8"/>
+<text x="60" y="1272" font-size="16" font-weight="bold" text-anchor="start" fill="#1F4E79">1 · Lista blanca</text>
+<text x="60" y="1298" font-size="13.5" text-anchor="start" fill="#1A1A1A">CatalogoComandos.buscar(nombre)</text>
+<text x="60" y="1318" font-size="13.5" text-anchor="start" fill="#1A1A1A">Error: «El comando X no existe» + sugerencia</text>
+<text x="60" y="1338" font-size="13.5" text-anchor="start" fill="#1A1A1A">del más parecido + HELP[&quot;*&quot;]</text>
+<line x1="362" y1="1305" x2="392" y2="1305" stroke="#1F4E79" stroke-width="2" marker-end="url(#flechaAcento)"/>
+<rect x="392" y="1246" width="316" height="118" rx="6" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.8"/>
+<text x="406" y="1272" font-size="16" font-weight="bold" text-anchor="start" fill="#1F4E79">2 · Cantidad</text>
+<text x="406" y="1298" font-size="13.5" text-anchor="start" fill="#1A1A1A">ValidadorParametros</text>
+<text x="406" y="1318" font-size="13.5" text-anchor="start" fill="#1A1A1A">Error: «El comando X espera N</text>
+<text x="406" y="1338" font-size="13.5" text-anchor="start" fill="#1A1A1A">parámetro(s) y recibió M» + sintaxis</text>
+<line x1="708" y1="1305" x2="738" y2="1305" stroke="#1F4E79" stroke-width="2" marker-end="url(#flechaAcento)"/>
+<rect x="738" y="1246" width="316" height="118" rx="6" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.8"/>
+<text x="752" y="1272" font-size="16" font-weight="bold" text-anchor="start" fill="#1F4E79">3 · Tipos</text>
+<text x="752" y="1298" font-size="13.5" text-anchor="start" fill="#1A1A1A">TEXTO, CODIGO, ENTERO, DECIMAL, FECHA,</text>
+<text x="752" y="1318" font-size="13.5" text-anchor="start" fill="#1A1A1A">FECHA_HORA, BOOLEANO, CORREO,</text>
+<text x="752" y="1338" font-size="13.5" text-anchor="start" fill="#1A1A1A">ENUMERACION · obligatorio · long. máx. · &quot;*&quot;</text>
+<line x1="1054" y1="1305" x2="1084" y2="1305" stroke="#1F4E79" stroke-width="2" marker-end="url(#flechaAcento)"/>
+<rect x="1084" y="1246" width="316" height="118" rx="6" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.8"/>
+<text x="1098" y="1272" font-size="16" font-weight="bold" text-anchor="start" fill="#1F4E79">4 · Acceso</text>
+<text x="1098" y="1298" font-size="13.5" text-anchor="start" fill="#1A1A1A">PUBLICO · REGISTRADO (cuenta activa)</text>
+<text x="1098" y="1318" font-size="13.5" text-anchor="start" fill="#1A1A1A">· ROLES (rol vigente, consultado en</text>
+<text x="1098" y="1338" font-size="13.5" text-anchor="start" fill="#1A1A1A">cada petición). Error: «Acceso denegado»</text>
+<line x1="1400" y1="1305" x2="1430" y2="1305" stroke="#1F4E79" stroke-width="2" marker-end="url(#flechaAcento)"/>
+<rect x="1430" y="1246" width="316" height="118" rx="6" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.8"/>
+<text x="1444" y="1272" font-size="16" font-weight="bold" text-anchor="start" fill="#1F4E79">5 · Confirmación</text>
+<text x="1444" y="1298" font-size="13.5" text-anchor="start" fill="#1A1A1A">modificaDatos → código de un solo uso</text>
+<text x="1444" y="1318" font-size="13.5" text-anchor="start" fill="#1A1A1A">(30 min) a la dirección registrada;</text>
+<text x="1444" y="1338" font-size="13.5" text-anchor="start" fill="#1A1A1A">si no, ejecuta el handler en SAVEPOINT</text>
+<text x="46" y="1394" font-size="13" text-anchor="start" fill="#5A5A5A">Cualquier fallo en los pasos 1–4 produce NegocioException → TraductorErrores → respuesta de error clara; CONFIRMAR[&quot;código&quot;] repite los pasos 1–4 con los datos actuales antes de ejecutar.</text>
+</svg>

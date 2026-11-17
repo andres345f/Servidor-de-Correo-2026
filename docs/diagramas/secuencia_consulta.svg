@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1640" height="2205" viewBox="0 0 1640 2205" font-family="Arial, Helvetica, sans-serif" role="img" aria-labelledby="titulo desc">
+<title id="titulo">Secuencia de una consulta válida — FEDER email-driven</title>
+<desc id="desc">Recepción por POP3, análisis del asunto, despacho del comando, consulta a PostgreSQL, bandeja de salida y envío por SMTP.</desc>
+<defs>
+<marker id="flecha" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L12,5 L0,10 z" fill="#3C3C3C" stroke="#3C3C3C" stroke-width="1.3" /></marker>
+<marker id="flechaAcento" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L12,5 L0,10 z" fill="#1F4E79" stroke="#1F4E79" stroke-width="1.3" /></marker>
+<marker id="abierta" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L11,5 L1,9" fill="none" stroke="#3C3C3C" stroke-width="1.3" stroke-linejoin="round"/></marker>
+<marker id="abiertaAcento" viewBox="0 0 12 10" refX="11" refY="5" markerWidth="12" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L11,5 L1,9" fill="none" stroke="#1F4E79" stroke-width="1.3" stroke-linejoin="round"/></marker>
+<marker id="triangulo" viewBox="0 0 18 16" refX="17" refY="8" markerWidth="18" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L17,8 L1,15 z" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.3" /></marker>
+<marker id="trianguloAcento" viewBox="0 0 18 16" refX="17" refY="8" markerWidth="18" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1,1 L17,8 L1,15 z" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.3" /></marker>
+</defs>
+<rect x="0" y="0" width="1640" height="2205" fill="#FFFFFF"/>
+<text x="40" y="50" font-size="28" font-weight="bold" text-anchor="start" fill="#1F4E79">Diagrama de secuencia — consulta válida (LISPRO[&quot;*&quot;])</text>
+<text x="40" y="80" font-size="17" text-anchor="start" fill="#5A5A5A">Comando de solo lectura: se valida, se ejecuta dentro de la transacción del correo y la respuesta sale por la bandeja de salida</text>
+<line x1="40" y1="96" x2="1600" y2="96" stroke="#1F4E79" stroke-width="2"/>
+<rect x="844" y="793" width="720" height="808" fill="#F2F6FA" stroke="#1F4E79" stroke-width="1.2" stroke-dasharray="3 3"/>
+<rect x="844" y="1772" width="720" height="323" fill="#F2F6FA" stroke="#1F4E79" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="84" y1="196" x2="84" y2="2175" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 5"/>
+<line x1="244" y1="182" x2="244" y2="2175" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 5"/>
+<line x1="404" y1="182" x2="404" y2="2175" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 5"/>
+<line x1="564" y1="182" x2="564" y2="2175" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 5"/>
+<line x1="724" y1="182" x2="724" y2="2175" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 5"/>
+<line x1="884" y1="182" x2="884" y2="2175" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 5"/>
+<line x1="1044" y1="182" x2="1044" y2="2175" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 5"/>
+<line x1="1204" y1="182" x2="1204" y2="2175" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 5"/>
+<line x1="1364" y1="182" x2="1364" y2="2175" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 5"/>
+<line x1="1524" y1="182" x2="1524" y2="2175" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 5"/>
+<rect x="194" y="510" width="1380" height="1136" fill="none" stroke="#3C3C3C" stroke-width="1.3"/>
+<path d="M194 510 L240.3 510 L240.3 525 L232.3 534 L194 534 Z" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.3"/>
+<text x="202" y="528" font-size="14" font-weight="bold" text-anchor="start" fill="#1A1A1A">loop</text>
+<circle cx="84" cy="122" r="8" fill="#FFFFFF" stroke="#3C3C3C" stroke-width="1.6"/>
+<line x1="84" y1="130" x2="84" y2="148" stroke="#3C3C3C" stroke-width="1.6"/>
+<line x1="70" y1="137" x2="98" y2="137" stroke="#3C3C3C" stroke-width="1.6"/>
+<line x1="84" y1="148" x2="73" y2="163" stroke="#3C3C3C" stroke-width="1.6"/>
+<line x1="84" y1="148" x2="95" y2="163" stroke="#3C3C3C" stroke-width="1.6"/>
+<text x="84" y="185.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Usuario</text>
+<rect x="174" y="112" width="140" height="70" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.6"/>
+<text x="244" y="135.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Servidor</text>
+<text x="244" y="154.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">de correo</text>
+<text x="244" y="170.6" font-size="12" text-anchor="middle" fill="#5A5A5A">POP3 / SMTP</text>
+<rect x="334" y="112" width="140" height="70" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.6"/>
+<text x="404" y="145.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">CicloCorreo</text>
+<text x="404" y="161.1" font-size="12" text-anchor="middle" fill="#5A5A5A">Pop3Client</text>
+<rect x="491" y="112" width="146" height="70" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.6"/>
+<text x="564" y="137.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">EnviadorSmtp</text>
+<text x="564" y="153.6" font-size="12" text-anchor="middle" fill="#5A5A5A">SmtpClient</text>
+<text x="564" y="168.6" font-size="12" text-anchor="middle" fill="#5A5A5A">EmailResponseBuilder</text>
+<rect x="651" y="112" width="146" height="70" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.6"/>
+<text x="724" y="137.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">InterpreteCorreo</text>
+<text x="724" y="153.6" font-size="12" text-anchor="middle" fill="#5A5A5A">EmailMessageParser</text>
+<text x="724" y="168.6" font-size="12" text-anchor="middle" fill="#5A5A5A">CommandParser</text>
+<rect x="814" y="112" width="140" height="70" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.6"/>
+<text x="884" y="143.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Servicio</text>
+<text x="884" y="162.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Mensajeria</text>
+<rect x="974" y="112" width="140" height="70" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.6"/>
+<text x="1044" y="143.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Comando</text>
+<text x="1044" y="162.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Dispatcher</text>
+<rect x="1134" y="112" width="140" height="70" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.6"/>
+<text x="1204" y="145.2" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Servicio del CU</text>
+<text x="1204" y="161.1" font-size="12" text-anchor="middle" fill="#5A5A5A">handler del comando</text>
+<rect x="1294" y="112" width="140" height="70" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.6"/>
+<text x="1364" y="137.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">Repositorios</text>
+<text x="1364" y="153.6" font-size="12" text-anchor="middle" fill="#5A5A5A">JDBC</text>
+<text x="1364" y="168.6" font-size="12" text-anchor="middle" fill="#5A5A5A">PreparedStatement</text>
+<rect x="1459" y="112" width="130" height="70" rx="3" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.6"/>
+<text x="1524" y="152.7" font-size="15" font-weight="bold" text-anchor="middle" fill="#1A1A1A">PostgreSQL</text>
+<rect x="718" y="613" width="12" height="122" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.1"/>
+<rect x="1198" y="1210" width="12" height="130" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.1"/>
+<rect x="1038" y="998" width="12" height="400" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.1"/>
+<rect x="878" y="779" width="12" height="832" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.1"/>
+<rect x="558" y="1861" width="12" height="143" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.1"/>
+<rect x="878" y="1758" width="12" height="347" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.1"/>
+<rect x="398" y="283" width="12" height="1851" fill="#EAF0F6" stroke="#1F4E79" stroke-width="1.1"/>
+<rect x="30" y="220" width="1580" height="30" fill="#1F4E79" stroke="#1F4E79" stroke-width="1"/>
+<text x="44" y="241" font-size="16" font-weight="bold" text-anchor="start" fill="#FFFFFF">1. Recepción: el usuario envía el comando y el ciclo lee el buzón por POP3</text>
+<rect x="1360.6" y="797" width="197.4" height="20" fill="#F2F6FA" opacity="1"/><text x="1554" y="811" font-size="13" font-weight="bold" text-anchor="end" fill="#1F4E79">Transacción 1 · una por correo</text>
+<rect x="30" y="1695" width="1580" height="30" fill="#1F4E79" stroke="#1F4E79" stroke-width="1"/>
+<text x="44" y="1716" font-size="16" font-weight="bold" text-anchor="start" fill="#FFFFFF">2. Envío: la bandeja de salida (correo_saliente) se envía por SMTP</text>
+<rect x="1338.9" y="1776" width="219.1" height="20" fill="#F2F6FA" opacity="1"/><text x="1554" y="1790" font-size="13" font-weight="bold" text-anchor="end" fill="#1F4E79">Transacción 2 · una por respuesta</text>
+<line x1="84" y1="283" x2="244" y2="283" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#abierta)"/>
+<rect x="90" y="262" width="203.9" height="21" fill="#FFFFFF" opacity="0.9"/><text x="94" y="277" font-size="14" text-anchor="start" fill="#1A1A1A">correo con Asunto: LISPRO[&quot;*&quot;]</text>
+<line x1="398" y1="378" x2="244" y2="378" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="251.3" y="357" width="139.5" height="21" fill="#FFFFFF" opacity="0.9"/><text x="321" y="372" font-size="14" text-anchor="middle" fill="#1A1A1A">USER / PASS · UIDL</text>
+<line x1="244" y1="407" x2="398" y2="407" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="265.7" y="386" width="110.5" height="21" fill="#FFFFFF" opacity="0.9"/><text x="321" y="401" font-size="14" text-anchor="middle" fill="#1A1A1A">lista n.º → UIDL</text>
+<line x1="410" y1="436" x2="884" y2="436" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="568.3" y="415" width="157.4" height="21" fill="#FFFFFF" opacity="0.9"/><text x="647" y="430" font-size="14" text-anchor="middle" fill="#1A1A1A">uidlsRegistrados(buzón)</text>
+<line x1="884" y1="465" x2="1364" y2="465" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="890" y="444" width="359.3" height="21" fill="#FFFFFF" opacity="0.9"/><text x="894" y="459" font-size="14" text-anchor="start" fill="#1A1A1A">SELECT uidl FROM mensaje_correo WHERE buzon = ?</text>
+<line x1="884" y1="494" x2="410" y2="494" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="543.4" y="473" width="207.2" height="21" fill="#FFFFFF" opacity="0.9"/><text x="647" y="488" font-size="14" text-anchor="middle" fill="#1A1A1A">UIDL ya procesados (se omiten)</text>
+<rect x="248.3" y="514" width="309.1" height="22" fill="#FFFFFF" opacity="0.95"/><text x="252.3" y="529" font-size="14" text-anchor="start" fill="#1A1A1A">[por cada UIDL no registrado · máx. 20 por ciclo]</text>
+<line x1="398" y1="555" x2="244" y2="555" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="292.1" y="534" width="57.8" height="21" fill="#FFFFFF" opacity="0.9"/><text x="321" y="549" font-size="14" text-anchor="middle" fill="#1A1A1A">RETR n</text>
+<line x1="244" y1="584" x2="398" y2="584" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="260.6" y="563" width="120.8" height="21" fill="#FFFFFF" opacity="0.9"/><text x="321" y="578" font-size="14" text-anchor="middle" fill="#1A1A1A">bytes del mensaje</text>
+<line x1="410" y1="613" x2="724" y2="613" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="495.7" y="592" width="142.6" height="21" fill="#FFFFFF" opacity="0.9"/><text x="567" y="607" font-size="14" text-anchor="middle" fill="#1A1A1A">interpretar(uidl, bytes)</text>
+<path d="M730 633 L764 633 L764 663 L732 663" fill="none" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)" stroke-linejoin="round"/>
+<rect x="768" y="623" width="323.1" height="38" fill="#FFFFFF" opacity="0.9"/><text x="772" y="638" font-size="14" text-anchor="start" fill="#1A1A1A">EmailMessageParser: From, Subject, Message-ID;</text>
+<text x="772" y="655" font-size="14" text-anchor="start" fill="#1A1A1A">descarta rebotes y respuestas automáticas</text>
+<path d="M730 687 L764 687 L764 717 L732 717" fill="none" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)" stroke-linejoin="round"/>
+<rect x="768" y="677" width="220.3" height="38" fill="#FFFFFF" opacity="0.9"/><text x="772" y="692" font-size="14" text-anchor="start" fill="#1A1A1A">CommandParser: LISPRO[&quot;*&quot;] →</text>
+<text x="772" y="709" font-size="14" text-anchor="start" fill="#1A1A1A">ComandoAnalizado(LISPRO, [&quot;*&quot;])</text>
+<line x1="724" y1="750" x2="410" y2="750" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="515.2" y="729" width="103.7" height="21" fill="#FFFFFF" opacity="0.9"/><text x="567" y="744" font-size="14" text-anchor="middle" fill="#1A1A1A">SolicitudCorreo</text>
+<line x1="410" y1="779" x2="884" y2="779" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="550.8" y="758" width="192.4" height="21" fill="#FFFFFF" opacity="0.9"/><text x="647" y="773" font-size="14" text-anchor="middle" fill="#1A1A1A">procesar(solicitud, generador)</text>
+<line x1="890" y1="836" x2="1524" y2="836" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="896" y="815" width="292" height="21" fill="#FFFFFF" opacity="0.9"/><text x="900" y="830" font-size="14" text-anchor="start" fill="#1A1A1A">BEGIN (GestorTransacciones.enTransaccion)</text>
+<line x1="890" y1="865" x2="1364" y2="865" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="896" y="844" width="341.8" height="21" fill="#FFFFFF" opacity="0.9"/><text x="900" y="859" font-size="14" text-anchor="start" fill="#1A1A1A">bloquearRemitente(remitente): pg_advisory_xact_lock</text>
+<line x1="890" y1="911" x2="1364" y2="911" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="896" y="873" width="377.5" height="38" fill="#FFFFFF" opacity="0.9"/><text x="900" y="888" font-size="14" text-anchor="start" fill="#1A1A1A">reclamar(buzón, UIDL): INSERT INTO mensaje_correo …</text>
+<text x="900" y="905" font-size="14" text-anchor="start" fill="#1A1A1A">ON CONFLICT (buzon, uidl) DO NOTHING RETURNING id</text>
+<line x1="890" y1="940" x2="1364" y2="940" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="896" y="919" width="330.9" height="21" fill="#FFFFFF" opacity="0.9"/><text x="900" y="934" font-size="14" text-anchor="start" fill="#1A1A1A">contarDesde(remitente, última hora) · límite por hora</text>
+<line x1="890" y1="969" x2="1524" y2="969" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="896" y="948" width="88.1" height="21" fill="#FFFFFF" opacity="0.9"/><text x="900" y="963" font-size="14" text-anchor="start" fill="#1A1A1A">SAVEPOINT</text>
+<line x1="890" y1="998" x2="1044" y2="998" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="896" y="977" width="239.5" height="21" fill="#FFFFFF" opacity="0.9"/><text x="900" y="992" font-size="14" text-anchor="start" fill="#1A1A1A">despachar(&quot;LISPRO&quot;, [&quot;*&quot;], remitente)</text>
+<path d="M1050 1018 L1084 1018 L1084 1048 L1052 1048" fill="none" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)" stroke-linejoin="round"/>
+<rect x="1088" y="1008" width="239.1" height="38" fill="#FFFFFF" opacity="0.9"/><text x="1092" y="1023" font-size="14" text-anchor="start" fill="#1A1A1A">ServicioIdentidad.resolver(remitente):</text>
+<text x="1092" y="1040" font-size="14" text-anchor="start" fill="#1A1A1A">cuenta activa y roles vigentes</text>
+<path d="M1050 1072 L1084 1072 L1084 1102 L1052 1102" fill="none" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)" stroke-linejoin="round"/>
+<rect x="1088" y="1062" width="332.5" height="38" fill="#FFFFFF" opacity="0.9"/><text x="1092" y="1077" font-size="14" text-anchor="start" fill="#1A1A1A">lista blanca (CatalogoComandos) → cantidad y tipos</text>
+<text x="1092" y="1094" font-size="14" text-anchor="start" fill="#1A1A1A">(ValidadorParametros) → autorizar(acceso, roles)</text>
+<path d="M1050 1126 L1084 1126 L1084 1148 L1052 1148" fill="none" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)" stroke-linejoin="round"/>
+<rect x="1088" y="1116" width="340.6" height="21" fill="#FFFFFF" opacity="0.9"/><text x="1092" y="1131" font-size="14" text-anchor="start" fill="#1A1A1A">modificaDatos() = false → se ejecuta sin confirmación</text>
+<line x1="1050" y1="1181" x2="1524" y2="1181" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="1056" y="1160" width="88.1" height="21" fill="#FFFFFF" opacity="0.9"/><text x="1060" y="1175" font-size="14" text-anchor="start" fill="#1A1A1A">SAVEPOINT</text>
+<line x1="1050" y1="1210" x2="1204" y2="1210" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="1056" y="1189" width="257" height="21" fill="#FFFFFF" opacity="0.9"/><text x="1060" y="1204" font-size="14" text-anchor="start" fill="#1A1A1A">handler.ejecutar(parámetros, solicitante)</text>
+<line x1="1210" y1="1239" x2="1364" y2="1239" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="1235.5" y="1218" width="102.9" height="21" fill="#FFFFFF" opacity="0.9"/><text x="1287" y="1233" font-size="14" text-anchor="middle" fill="#1A1A1A">listar productos</text>
+<line x1="1364" y1="1268" x2="1524" y2="1268" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="1370" y="1247" width="178" height="21" fill="#FFFFFF" opacity="0.9"/><text x="1374" y="1262" font-size="14" text-anchor="start" fill="#1A1A1A">SELECT … WHERE … = ?</text>
+<line x1="1524" y1="1297" x2="1364" y2="1297" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="1427.6" y="1276" width="32.9" height="21" fill="#FFFFFF" opacity="0.9"/><text x="1444" y="1291" font-size="14" text-anchor="middle" fill="#1A1A1A">filas</text>
+<line x1="1364" y1="1326" x2="1210" y2="1326" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="1228.1" y="1305" width="117.7" height="21" fill="#FFFFFF" opacity="0.9"/><text x="1287" y="1320" font-size="14" text-anchor="middle" fill="#1A1A1A">lista de productos</text>
+<line x1="1204" y1="1355" x2="1050" y2="1355" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="1073.2" y="1334" width="107.6" height="21" fill="#FFFFFF" opacity="0.9"/><text x="1127" y="1349" font-size="14" text-anchor="middle" fill="#1A1A1A">resultado (tabla)</text>
+<line x1="1050" y1="1384" x2="1524" y2="1384" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="1056" y="1363" width="156.6" height="21" fill="#FFFFFF" opacity="0.9"/><text x="1060" y="1378" font-size="14" text-anchor="start" fill="#1A1A1A">RELEASE SAVEPOINT</text>
+<line x1="1044" y1="1413" x2="890" y2="1413" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="896" y="1392" width="352.3" height="21" fill="#FFFFFF" opacity="0.9"/><text x="900" y="1407" font-size="14" text-anchor="start" fill="#1A1A1A">Despacho(resultado, destinatario = correo de la cuenta)</text>
+<line x1="890" y1="1442" x2="1524" y2="1442" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="896" y="1421" width="156.6" height="21" fill="#FFFFFF" opacity="0.9"/><text x="900" y="1436" font-size="14" text-anchor="start" fill="#1A1A1A">RELEASE SAVEPOINT</text>
+<path d="M890 1462 L924 1462 L924 1492 L892 1492" fill="none" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)" stroke-linejoin="round"/>
+<rect x="928" y="1452" width="368.3" height="38" fill="#FFFFFF" opacity="0.9"/><text x="932" y="1467" font-size="14" text-anchor="start" fill="#1A1A1A">generador.generar(resultado): asunto, texto plano y HTML</text>
+<text x="932" y="1484" font-size="14" text-anchor="start" fill="#1A1A1A">(GeneradorRespuestaCorreo + ResponseFormatter)</text>
+<line x1="890" y1="1525" x2="1364" y2="1525" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="896" y="1504" width="395.5" height="21" fill="#FFFFFF" opacity="0.9"/><text x="900" y="1519" font-size="14" text-anchor="start" fill="#1A1A1A">encolar(): INSERT INTO correo_saliente (estado PENDIENTE)</text>
+<line x1="890" y1="1554" x2="1364" y2="1554" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="896" y="1533" width="420.7" height="21" fill="#FFFFFF" opacity="0.9"/><text x="900" y="1548" font-size="14" text-anchor="start" fill="#1A1A1A">finalizar(): UPDATE mensaje_correo SET estado = 'PROCESADO'</text>
+<line x1="890" y1="1583" x2="1524" y2="1583" stroke="#1F4E79" stroke-width="1.4" marker-end="url(#flechaAcento)"/>
+<rect x="1172.6" y="1562" width="68.7" height="21" fill="#FFFFFF" opacity="0.9"/><text x="1207" y="1577" font-size="14" font-weight="bold" text-anchor="middle" fill="#1F4E79">COMMIT</text>
+<line x1="884" y1="1626" x2="410" y2="1626" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="592.4" y="1605" width="109.2" height="21" fill="#FFFFFF" opacity="0.9"/><text x="647" y="1620" font-size="14" text-anchor="middle" fill="#1A1A1A">true (procesado)</text>
+<line x1="398" y1="1673" x2="244" y2="1673" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="250" y="1652" width="367.1" height="21" fill="#FFFFFF" opacity="0.9"/><text x="254" y="1667" font-size="14" text-anchor="start" fill="#1A1A1A">QUIT (DELE solo si mail.pop3.eliminar.procesados = true)</text>
+<line x1="410" y1="1758" x2="884" y2="1758" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="516.2" y="1737" width="261.7" height="21" fill="#FFFFFF" opacity="0.9"/><text x="647" y="1752" font-size="14" text-anchor="middle" fill="#1A1A1A">enviarSiguientePendiente(enviadorSmtp)</text>
+<line x1="890" y1="1832" x2="1364" y2="1832" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="896" y="1794" width="412.9" height="38" fill="#FFFFFF" opacity="0.9"/><text x="900" y="1809" font-size="14" text-anchor="start" fill="#1A1A1A">tomarPendientes(1): SELECT … WHERE estado = 'PENDIENTE'</text>
+<text x="900" y="1826" font-size="14" text-anchor="start" fill="#1A1A1A">FOR UPDATE SKIP LOCKED</text>
+<line x1="878" y1="1861" x2="564" y2="1861" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="641.1" y="1840" width="159.7" height="21" fill="#FFFFFF" opacity="0.9"/><text x="721" y="1855" font-size="14" text-anchor="middle" fill="#1A1A1A">enviar(CorreoPendiente)</text>
+<path d="M570 1881 L604 1881 L604 1911 L572 1911" fill="none" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)" stroke-linejoin="round"/>
+<rect x="608" y="1871" width="153.5" height="38" fill="#FFFFFF" opacity="0.9"/><text x="612" y="1886" font-size="14" text-anchor="start" fill="#1A1A1A">EmailResponseBuilder:</text>
+<text x="612" y="1903" font-size="14" text-anchor="start" fill="#1A1A1A">MIME texto + HTML</text>
+<line x1="558" y1="1961" x2="244" y2="1961" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="250" y="1923" width="401.7" height="38" fill="#FFFFFF" opacity="0.9"/><text x="254" y="1938" font-size="14" text-anchor="start" fill="#1A1A1A">EHLO · STARTTLS · AUTH · MAIL FROM:&lt;buzón del sistema&gt;</text>
+<text x="254" y="1955" font-size="14" text-anchor="start" fill="#1A1A1A">RCPT TO:&lt;correo registrado&gt; · DATA</text>
+<line x1="244" y1="1990" x2="558" y2="1990" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="373.3" y="1969" width="55.5" height="21" fill="#FFFFFF" opacity="0.9"/><text x="401" y="1984" font-size="14" text-anchor="middle" fill="#1A1A1A">250 OK</text>
+<line x1="564" y1="2019" x2="878" y2="2019" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="692.5" y="1998" width="57" height="21" fill="#FFFFFF" opacity="0.9"/><text x="721" y="2013" font-size="14" text-anchor="middle" fill="#1A1A1A">enviado</text>
+<line x1="890" y1="2048" x2="1364" y2="2048" stroke="#3C3C3C" stroke-width="1.4" marker-end="url(#flecha)"/>
+<rect x="896" y="2027" width="435.4" height="21" fill="#FFFFFF" opacity="0.9"/><text x="900" y="2042" font-size="14" text-anchor="start" fill="#1A1A1A">marcarEnviado(): UPDATE correo_saliente SET estado = 'ENVIADO'</text>
+<line x1="890" y1="2077" x2="1524" y2="2077" stroke="#1F4E79" stroke-width="1.4" marker-end="url(#flechaAcento)"/>
+<rect x="1172.6" y="2056" width="68.7" height="21" fill="#FFFFFF" opacity="0.9"/><text x="1207" y="2071" font-size="14" font-weight="bold" text-anchor="middle" fill="#1F4E79">COMMIT</text>
+<line x1="884" y1="2120" x2="410" y2="2120" stroke="#3C3C3C" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#abierta)"/>
+<rect x="611.5" y="2099" width="71" height="21" fill="#FFFFFF" opacity="0.9"/><text x="647" y="2114" font-size="14" text-anchor="middle" fill="#1A1A1A">ENVIADO</text>
+<line x1="244" y1="2149" x2="84" y2="2149" stroke="#1F4E79" stroke-width="1.4" marker-end="url(#abiertaAcento)"/>
+<rect x="90" y="2128" width="383.9" height="21" fill="#FFFFFF" opacity="0.9"/><text x="94" y="2143" font-size="14" font-weight="bold" text-anchor="start" fill="#1F4E79">respuesta «LISPRO»: tabla de productos (texto + HTML)</text>
+<path d="M364 301 L619.5 301 L631.5 313 L631.5 351 L364 351 Z" fill="#FBFBF6" stroke="#9A9A9A" stroke-width="1.2"/>
+<path d="M619.5 301 L619.5 313 L631.5 313" fill="none" stroke="#9A9A9A" stroke-width="1.2"/>
+<text x="374" y="322" font-size="13" text-anchor="start" fill="#1A1A1A">ProcesadorContinuo ejecuta un ciclo cada</text>
+<text x="374" y="339" font-size="13" text-anchor="start" fill="#1A1A1A">10 s (LOCAL) o 60 s (TECNOWEB)</text>
+</svg>

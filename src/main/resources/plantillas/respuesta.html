@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FEDER - {{titulo}}</title>
+<style>
+{{estilos}}
+</style>
+</head>
+<body>
+<div class="contenedor">
+  <div class="cabecera">
+    <span class="marca">FEDER</span>
+    <span class="subtitulo">Sistema de gestión por correo</span>
+  </div>
+  <div class="cuerpo">
+    <span class="estado {{claseEstado}}">{{estado}}</span>
+    <h1>{{titulo}}</h1>
+    {{bloqueRecibido}}
+    {{mensaje}}
+    {{recuadros}}
+    {{detalles}}
+    {{tablas}}
+    {{bloqueComando}}
+  </div>
+  <p class="pie">{{pie}}</p>
+</div>
+</body>
+</html>
