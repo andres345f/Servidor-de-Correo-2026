@@ -29,8 +29,32 @@ import java.util.logging.Logger;
 public final class ConfiguradorLogs {
 
     private static final DateTimeFormatter FORMATO = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+    /** Marca de un registro que va solo al archivo (la pantalla ya lo muestra resumido de otra forma). */
+    private static final Object SOLO_ARCHIVO = new Object();
 
     private ConfiguradorLogs() {
+    }
+
+    /**
+     * Registra el error completo (con su excepción) en el archivo del logger, sin mostrarlo en pantalla. Se usa
+     * cuando la pantalla ya lo informa de forma resumida, para no repetir el mismo fallo varias veces por ciclo.
+     */
+    public static void soloArchivo(Logger logger, Level nivel, String mensaje, Throwable error) {
+        LogRecord registro = new LogRecord(nivel, mensaje);
+        registro.setThrown(error);
+        registro.setParameters(new Object[] {SOLO_ARCHIVO});
+        registro.setLoggerName(logger.getName());
+        logger.log(registro);
+    }
+
+    /** Indica si la consola puede mostrar el texto (por ejemplo, los símbolos ✔ y ✖) sin convertirlo en "?". */
+    public static boolean consolaPuedeMostrar(String texto) {
+        return codificacionTerminal().newEncoder().canEncode(texto);
+    }
+
+    private static boolean esSoloArchivo(LogRecord registro) {
+        Object[] parametros = registro.getParameters();
+        return parametros != null && parametros.length > 0 && parametros[0] == SOLO_ARCHIVO;
     }
 
     public static void configurar(Path carpeta) {
@@ -65,6 +89,7 @@ public final class ConfiguradorLogs {
             consola.setEncoding(codificacionTerminal().name());
             consola.setFormatter(new FormatoConsola());
             consola.setLevel(nivel);
+            consola.setFilter(registro -> !esSoloArchivo(registro));
             logger.addHandler(consola);
         }
         logger.setUseParentHandlers(false);
@@ -131,6 +156,15 @@ public final class ConfiguradorLogs {
                 if (t.getCause() != null) {
                     linea.append(" | causa: ").append(t.getCause().getClass().getSimpleName())
                             .append(": ").append(limpiar(String.valueOf(t.getCause().getMessage())));
+                    // La causa más profunda suele ser la que explica el porqué (p. ej. "connect timed out").
+                    Throwable raiz = t.getCause();
+                    for (int i = 0; raiz.getCause() != null && raiz.getCause() != raiz && i < 10; i++) {
+                        raiz = raiz.getCause();
+                    }
+                    if (raiz != t.getCause()) {
+                        linea.append(" | causa raíz: ").append(raiz.getClass().getSimpleName())
+                                .append(": ").append(limpiar(String.valueOf(raiz.getMessage())));
+                    }
                 }
             }
             return linea.append(System.lineSeparator()).toString();

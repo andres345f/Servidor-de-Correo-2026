@@ -15,6 +15,7 @@ import com.feder.herramientas.instalacion.InstaladorEsquema;
 import com.feder.herramientas.documentacion.GeneradorCatalogoComandos;
 import com.feder.presentacion.procesamiento.CicloCorreo;
 import com.feder.presentacion.procesamiento.ConfiguracionCorreo;
+import com.feder.presentacion.procesamiento.MonitorServicios;
 import com.feder.presentacion.procesamiento.ProcesadorContinuo;
 
 import java.io.IOException;
@@ -166,9 +167,17 @@ public final class Main {
                 intentosFallidos++;
                 int intento = intentosFallidos;
                 long segundos = esperaMs / 1000;
-                CONSOLA.info(() -> "[BD]   No se pudo conectar con la base: " + e.getMessage()
-                        + "\nNo se lee ningún correo hasta que la base responda. Reintento " + intento
-                        + " en " + segundos + " s.");
+                String motivo = MonitorServicios.motivoLegible(e);
+                String destino = aplicacion.conexion().destinoSinCredenciales();
+                ConfiguradorLogs.soloArchivo(Logger.getLogger("feder.error"), java.util.logging.Level.SEVERE,
+                        "[BD] Sin conexión al arrancar", e);
+                // El diagnóstico de red (DNS, servidor, puerto, internet) se hace solo en el primer intento.
+                String diagnostico = intento == 1 ? MonitorServicios.diagnosticoArranque(destino, e) : "";
+                CONSOLA.info(() -> intento == 1
+                        ? "[BD]   Sin conexión con " + destino.replaceFirst("^jdbc:postgresql://", "")
+                        + "\nMotivo:      " + motivo + "\n" + diagnostico
+                        + "\nNo se lee ningún correo hasta que la base responda. Reintento " + intento + " en " + segundos + " s."
+                        : "[BD]   Sigue sin conexión: " + motivo + " Reintento " + intento + " en " + segundos + " s.");
                 if (esperarODetener(esperaMs)) {
                     return null;
                 }
@@ -241,7 +250,9 @@ public final class Main {
             System.out.println("Detención solicitada antes de empezar a procesar.");
             return;
         }
-        ProcesadorContinuo procesador = new ProcesadorContinuo(aplicacion.nuevoCiclo(), aplicacion.intervalo());
+        ConfiguracionCorreo correo = ConfiguracionCorreo.desde(aplicacion.config());
+        ProcesadorContinuo procesador = new ProcesadorContinuo(aplicacion.nuevoCiclo(), aplicacion.intervalo(),
+                MonitorServicios.para(aplicacion.conexion().destinoSinCredenciales(), correo.pop3().host(), correo.pop3().puerto()));
         // Apagado ordenado con Ctrl+C: se termina el ciclo en curso antes de salir.
         Runtime.getRuntime().addShutdownHook(new Thread(procesador::detener, "apagado-ordenado"));
         // Apagado ordenado desde otro proceso: scripts/detener.ps1 crea el archivo estado/DETENER.

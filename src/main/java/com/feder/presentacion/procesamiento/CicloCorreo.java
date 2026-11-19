@@ -1,5 +1,7 @@
 package com.feder.presentacion.procesamiento;
 
+import com.feder.configuracion.ConfiguradorLogs;
+import com.feder.negocio.comun.FallaConexion;
 import com.feder.negocio.mantenimiento.ServicioMantenimiento;
 import com.feder.negocio.mensajeria.GeneradorRespuesta;
 import com.feder.negocio.mensajeria.ServicioMensajeria;
@@ -40,6 +42,10 @@ public class CicloCorreo {
         public int respuestasEnviadas;
         public int fallosEnvio;
         public String errorRecepcion;
+        /** Fallo de conexión con la base de datos en este ciclo (null si respondió). */
+        public Throwable fallaBaseDatos;
+        /** Fallo de conexión con el servidor de correo POP3 en este ciclo (null si respondió). */
+        public Throwable fallaCorreo;
 
         @Override
         public String toString() {
@@ -75,12 +81,27 @@ public class CicloCorreo {
 
     public Resumen ejecutar() {
         Resumen resumen = new Resumen();
-        if (mantenimiento != null) {
-            mantenimiento.ejecutar();
+        // Si la base no responde, no se intentan los pasos que la necesitan: el fallo se informa una sola vez
+        // (ProcesadorContinuo). El buzón se revisa igual, para saber si el correo también está caído.
+        try {
+            if (mantenimiento != null) {
+                mantenimiento.ejecutar();
+            }
+            enviarPendientes(resumen);
+        } catch (RuntimeException e) {
+            registrarFallaBaseDatos(resumen, e);
         }
-        enviarPendientes(resumen);
         recibir(resumen);
-        enviarPendientes(resumen);
+        if (resumen.fallaBaseDatos == null) {
+            try {
+                enviarPendientes(resumen);
+            } catch (RuntimeException e) {
+                registrarFallaBaseDatos(resumen, e);
+            }
+        }
+        if (resumen.fallaBaseDatos != null && resumen.errorRecepcion == null) {
+            resumen.errorRecepcion = "Base de datos: " + resumen.fallaBaseDatos.getMessage();
+        }
         ACCESO.info(() -> "CICLO " + resumen);
         // Un ciclo sin novedades ya mostró su línea "[POP3] Conectado ..." y uno con error, su aviso.
         boolean huboActividad = resumen.recibidosNuevos > 0 || resumen.respuestasEnviadas > 0
@@ -89,6 +110,17 @@ public class CicloCorreo {
             CONSOLA.info(() -> textoRevision(resumen));
         }
         return resumen;
+    }
+
+    /** Un fallo de conexión con la base se anota (y va completo a error.log); cualquier otro error se propaga. */
+    private static void registrarFallaBaseDatos(Resumen resumen, RuntimeException e) {
+        if (!FallaConexion.esDeBaseDeDatos(e)) {
+            throw e;
+        }
+        if (resumen.fallaBaseDatos == null) {
+            resumen.fallaBaseDatos = e;
+            ConfiguradorLogs.soloArchivo(ERROR, Level.SEVERE, "[BD] Sin conexión con la base de datos", e);
+        }
     }
 
     /** Resumen en pantalla de un ciclo en el que llegaron correos o se enviaron respuestas. */
@@ -170,13 +202,17 @@ public class CicloCorreo {
             }
             ultimoError = null;
         } catch (CorreoException e) {
+            // El motivo y el diagnóstico los muestra ProcesadorContinuo; aquí, la traza C/S hasta el fallo.
             resumen.errorRecepcion = e.getMessage();
+            resumen.fallaCorreo = e;
             mostrarTrazaDelFallo(servidor, traza, trazaMostrada, e.getMessage());
-            String pista = e.getMessage().contains("autenticación")
-                    ? " Revise mail.password en config/application-tecnoweb.properties." : "";
-            ERROR.warning(() -> "[POP3] No se pudo revisar el buzón: " + e.getMessage() + "." + pista);
+            ConfiguradorLogs.soloArchivo(ERROR, Level.WARNING, "[POP3] No se pudo revisar el buzón", e);
         } catch (RuntimeException e) {
-            // Por ejemplo, PostgreSQL caído: el mensaje no quedó registrado y se reintentará en otro ciclo.
+            if (FallaConexion.esDeBaseDeDatos(e)) {
+                // Los correos nuevos no quedaron registrados: siguen en el buzón y se procesan cuando vuelva la base.
+                registrarFallaBaseDatos(resumen, e);
+                return;
+            }
             resumen.errorRecepcion = e.getClass().getSimpleName() + ": " + e.getMessage();
             mostrarTrazaDelFallo(servidor, traza, trazaMostrada, resumen.errorRecepcion);
             ERROR.log(Level.SEVERE, "Revisión interrumpida: los correos nuevos quedan en el buzón y se procesarán"
@@ -243,6 +279,9 @@ public class CicloCorreo {
                 }
             }
         } catch (RuntimeException e) {
+            if (FallaConexion.esDeBaseDeDatos(e)) {
+                throw e; // Lo informa el ciclo una sola vez.
+            }
             ERROR.log(Level.SEVERE, "Error al recorrer la bandeja de salida", e);
         }
     }

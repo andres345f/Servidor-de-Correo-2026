@@ -1,6 +1,7 @@
 package com.feder.negocio.mantenimiento;
 
 import com.feder.negocio.ContextoNegocio;
+import com.feder.negocio.comun.FallaConexion;
 import com.feder.negocio.usuarios.RegistroConcesiones;
 
 import java.util.logging.Level;
@@ -37,7 +38,10 @@ public class ServicioMantenimiento {
         this.tareaAdicional = tareaAdicional;
     }
 
-    /** Ejecuta las tareas; un fallo se registra y no detiene el procesamiento del correo. */
+    /**
+     * Ejecuta las tareas; un fallo se registra y no detiene el procesamiento del correo. Si la base de datos no
+     * responde, el fallo se propaga para que el ciclo lo informe una sola vez y no intente los pasos siguientes.
+     */
     public void ejecutar() {
         try {
             int anuladas = contexto.transacciones().enTransaccion(() -> concesiones.anularInvitacionesVencidas(LOTE_POR_CICLO));
@@ -46,12 +50,18 @@ public class ServicioMantenimiento {
                 CONSOLA.info(() -> "Mantenimiento: " + anuladas + " invitación(es) vencida(s) anulada(s).");
             }
         } catch (RuntimeException e) {
+            if (FallaConexion.esDeBaseDeDatos(e)) {
+                throw e;
+            }
             ERROR.log(Level.WARNING, "Mantenimiento periódico fallido; se reintentará en el próximo ciclo", e);
         }
         if (tareaAdicional != null) {
             try {
                 tareaAdicional.run();
             } catch (RuntimeException e) {
+                if (FallaConexion.esDeBaseDeDatos(e)) {
+                    throw e;
+                }
                 ERROR.log(Level.WARNING, "Tarea periódica fallida; se reintentará en el próximo ciclo", e);
             }
         }

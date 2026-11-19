@@ -1,7 +1,6 @@
 package com.feder.presentacion.procesamiento;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -27,9 +26,17 @@ public class ProcesadorContinuo {
     private final CountDownLatch parada = new CountDownLatch(1);
     private final CountDownLatch terminado = new CountDownLatch(1);
 
+    private final MonitorServicios monitor;
+
     public ProcesadorContinuo(CicloCorreo ciclo, Duration intervalo) {
+        this(ciclo, intervalo, MonitorServicios.basico());
+    }
+
+    /** @param monitor informa en pantalla las caídas de la base y del correo, sus motivos y la recuperación. */
+    public ProcesadorContinuo(CicloCorreo ciclo, Duration intervalo, MonitorServicios monitor) {
         this.ciclo = ciclo;
         this.intervalo = intervalo;
+        this.monitor = monitor;
     }
 
     /** Bucle principal; bloquea el hilo que lo llama hasta que se invoque {@link #detener()}. */
@@ -37,32 +44,26 @@ public class ProcesadorContinuo {
         ACCESO.info(() -> "Procesador iniciado; intervalo=" + intervalo.toSeconds() + "s");
         CONSOLA.info(() -> "Esperando correos (revisión cada " + intervalo.toSeconds() + " s).");
         int fallosSeguidos = 0;
-        Instant inicioFallos = null;
         try {
             while (parada.getCount() > 0) {
                 boolean huboFallo;
+                Throwable fallaBd = null;
+                Throwable fallaCorreo = null;
+                boolean otroFallo = false;
                 try {
                     CicloCorreo.Resumen resumen = ciclo.ejecutar();
                     huboFallo = resumen.errorRecepcion != null;
+                    fallaBd = resumen.fallaBaseDatos;
+                    fallaCorreo = resumen.fallaCorreo;
+                    otroFallo = huboFallo && fallaBd == null && fallaCorreo == null;
                 } catch (RuntimeException e) {
                     ERROR.log(Level.SEVERE, "Ciclo fallido", e);
                     huboFallo = true;
-                }
-                if (!huboFallo && fallosSeguidos > 0) {
-                    long segundos = Duration.between(inicioFallos, Instant.now()).toSeconds();
-                    int intentos = fallosSeguidos;
-                    CONSOLA.info(() -> "Conexión recuperada tras " + intentos + " intento(s) fallido(s) ("
-                            + segundos + " s sin servicio).");
-                }
-                if (huboFallo && fallosSeguidos == 0) {
-                    inicioFallos = Instant.now();
+                    otroFallo = true;
                 }
                 fallosSeguidos = huboFallo ? fallosSeguidos + 1 : 0;
                 Duration espera = esperaSiguiente(fallosSeguidos);
-                if (huboFallo) {
-                    int intento = fallosSeguidos;
-                    CONSOLA.info(() -> "Reintento " + intento + " en " + espera.toSeconds() + " s.");
-                }
+                monitor.registrar(fallaBd, fallaCorreo, otroFallo, fallosSeguidos, espera);
                 if (parada.await(espera.toMillis(), TimeUnit.MILLISECONDS)) {
                     break;
                 }

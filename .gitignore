@@ -34,3 +34,6 @@ _trabajo_interno/
 
 # Datos iniciales con datos personales del administrador (TecnoWeb)
 db/02_seed_tecnoweb.sql
+
+# Flujo de pruebas con correos personales (no se versiona)
+FLUJO_PRUEBAS*.txt

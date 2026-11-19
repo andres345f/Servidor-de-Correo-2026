@@ -53,6 +53,10 @@ public final class VerificadorPagosPasarela implements Runnable {
                         + pedido + factura + ". Se avisó al cliente por correo.");
             }
         } catch (RuntimeException e) {
+            if (com.feder.negocio.comun.FallaConexion.esDeBaseDeDatos(e)) {
+                proxima = ahora; // Sin base no se consultó nada: se reintenta en cuanto vuelva.
+                throw e;
+            }
             ERROR.log(Level.WARNING, "[" + pasarela + "] No se pudieron consultar los pagos QR pendientes; se reintentará en "
                     + intervalo.toSeconds() + " s", e);
         }
