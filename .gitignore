@@ -31,3 +31,6 @@ _trabajo_interno/
 *.key
 *.p12
 *.pfx
+
+# Datos iniciales con datos personales del administrador (TecnoWeb)
+db/02_seed_tecnoweb.sql

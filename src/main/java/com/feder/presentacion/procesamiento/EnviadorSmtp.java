@@ -9,6 +9,8 @@ import com.feder.presentacion.correo.smtp.SmtpClient;
 import com.feder.presentacion.correo.smtp.SmtpPermanenteException;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -28,6 +30,10 @@ import java.util.logging.Logger;
 public class EnviadorSmtp implements EnviadorCorreo, AutoCloseable {
 
     private static final Logger ERROR = Logger.getLogger("feder.error");
+    private static final Logger CONSOLA = Logger.getLogger("feder.consola");
+
+    /** Líneas C/S del envío en curso; se muestran juntas al terminar cada envío. */
+    private final List<String> traza = new ArrayList<>();
 
     private final ConfiguracionCorreo configuracion;
     private final EmailResponseBuilder constructor;
@@ -59,6 +65,10 @@ public class EnviadorSmtp implements EnviadorCorreo, AutoCloseable {
     @Override
     public void enviar(CorreoPendiente correo) throws FalloEnvio {
         byte[] mensaje = construir(correo);
+        traza.clear();
+        String encabezado = conexion == null
+                ? "[SMTP] Conectando a " + configuracion.smtp().host() + ":" + configuracion.smtp().puerto() + " ..."
+                : "[SMTP] Enviando por la conexión ya abierta ...";
         // El plazo cubre la apertura de la sesión (EHLO, TLS, AUTH) y el envío completo.
         vencido = false;
         ScheduledFuture<?> plazo = vigilante.schedule(() -> {
@@ -84,6 +94,8 @@ public class EnviadorSmtp implements EnviadorCorreo, AutoCloseable {
             throw new FalloEnvio("Fallo de la sesión SMTP: " + e.getMessage(), false, e);
         } finally {
             plazo.cancel(false);
+            CONSOLA.info(encabezado + (traza.isEmpty() ? "" : "\n" + String.join("\n", traza)));
+            traza.clear();
         }
     }
 
@@ -106,6 +118,7 @@ public class EnviadorSmtp implements EnviadorCorreo, AutoCloseable {
             return;
         }
         SmtpClient nueva = new SmtpClient(configuracion.smtp(), configuracion.mecanismoSmtp(), configuracion.dominio());
+        nueva.trazar(traza::add);
         enUso = nueva;
         if (vencido) {
             // El vigilante actuó antes de que esta conexión existiera: se cierra para que conectar() no la abra.
@@ -146,6 +159,10 @@ public class EnviadorSmtp implements EnviadorCorreo, AutoCloseable {
                 ERROR.fine(() -> "QUIT SMTP no confirmado: " + e.getMessage());
             } finally {
                 plazo.cancel(false);
+                if (!traza.isEmpty()) {
+                    CONSOLA.info("[SMTP] " + String.join(" | ", traza));
+                    traza.clear();
+                }
             }
         }
         descartarConexion();

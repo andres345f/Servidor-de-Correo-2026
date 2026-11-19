@@ -82,18 +82,17 @@ public class CicloCorreo {
         recibir(resumen);
         enviarPendientes(resumen);
         ACCESO.info(() -> "CICLO " + resumen);
-        CONSOLA.info(() -> textoRevision(resumen));
+        // Un ciclo sin novedades ya mostró su línea "[POP3] Conectado ..." y uno con error, su aviso.
+        boolean huboActividad = resumen.recibidosNuevos > 0 || resumen.respuestasEnviadas > 0
+                || resumen.fallidos > 0 || resumen.fallosEnvio > 0;
+        if (resumen.errorRecepcion == null && huboActividad) {
+            CONSOLA.info(() -> textoRevision(resumen));
+        }
         return resumen;
     }
 
-    /** Una línea por ciclo en pantalla, para que se vea que el sistema sigue revisando el buzón. */
+    /** Resumen en pantalla de un ciclo en el que llegaron correos o se enviaron respuestas. */
     static String textoRevision(Resumen r) {
-        if (r.errorRecepcion != null) {
-            return "No se pudo revisar el buzón: " + r.errorRecepcion;
-        }
-        if (r.recibidosNuevos == 0 && r.respuestasEnviadas == 0 && r.fallidos == 0 && r.fallosEnvio == 0) {
-            return "Buzón revisado: sin correos nuevos.";
-        }
         StringBuilder texto = new StringBuilder("Buzón revisado: ")
                 .append(r.recibidosNuevos).append(" correo(s) nuevo(s), ")
                 .append(r.respuestasEnviadas).append(" respuesta(s) enviada(s)");
@@ -107,8 +106,13 @@ public class CicloCorreo {
     }
 
     private void recibir(Resumen resumen) {
+        String servidor = "[POP3] " + configuracion.pop3().host() + ":" + configuracion.pop3().puerto();
+        // La traza C/S se guarda y solo se muestra si llegaron correos nuevos o si algo falla.
+        List<String> traza = new ArrayList<>();
+        boolean trazaMostrada = false;
         try (Pop3Client pop3 = new Pop3Client(configuracion.pop3());
              VigilantePlazo plazo = new VigilantePlazo("plazo-pop3", configuracion.plazoPorOperacionPop3())) {
+            pop3.trazar(traza::add);
             // Cada operación de red tiene un plazo absoluto: si el servidor se vuelve lento, se cierra la conexión.
             Runnable cortar = () -> cerrarSilenciosamente(pop3);
             plazo.ejecutar(pop3::conectar, cortar);
@@ -116,6 +120,19 @@ public class CicloCorreo {
             // UIDL identifica cada mensaje de forma estable entre sesiones; los números no.
             Map<Integer, String> uidls = new TreeMap<>(plazo.ejecutar(pop3::uidl, cortar));
             Set<String> registrados = mensajeria.uidlsRegistrados(configuracion.identificadorBuzon());
+            long nuevos = uidls.values().stream().filter(u -> !registrados.contains(u)).count();
+            if (nuevos > 0) {
+                CONSOLA.info(servidor + " · " + uidls.size() + " correo(s) en el buzón, " + nuevos + " nuevo(s)\n"
+                        + String.join("\n", traza));
+                traza.clear();
+                trazaMostrada = true;
+                // Desde aquí cada RETR se muestra en el momento, antes del bloque del correo que descarga.
+                pop3.trazar(linea -> {
+                    if (linea.startsWith("C : RETR")) {
+                        CONSOLA.info("[POP3] " + linea);
+                    }
+                });
+            }
             List<Integer> conResultadoGuardado = new ArrayList<>();
             for (Map.Entry<Integer, String> entrada : uidls.entrySet()) {
                 if (registrados.contains(entrada.getValue())) {
@@ -148,14 +165,36 @@ public class CicloCorreo {
                 }
             }
             plazo.ejecutar(pop3::quit, cortar);
+            if (!trazaMostrada) {
+                CONSOLA.info(servidor + " · Conectado · " + uidls.size() + " correo(s) en el buzón, 0 nuevos");
+            }
+            ultimoError = null;
         } catch (CorreoException e) {
             resumen.errorRecepcion = e.getMessage();
-            ERROR.warning(() -> "POP3: " + e.getMessage());
+            mostrarTrazaDelFallo(servidor, traza, trazaMostrada, e.getMessage());
+            String pista = e.getMessage().contains("autenticación")
+                    ? " Revise mail.password en config/application-tecnoweb.properties." : "";
+            ERROR.warning(() -> "[POP3] No se pudo revisar el buzón: " + e.getMessage() + "." + pista);
         } catch (RuntimeException e) {
             // Por ejemplo, PostgreSQL caído: el mensaje no quedó registrado y se reintentará en otro ciclo.
             resumen.errorRecepcion = e.getClass().getSimpleName() + ": " + e.getMessage();
-            ERROR.log(Level.SEVERE, "Ciclo interrumpido durante la recepción", e);
+            mostrarTrazaDelFallo(servidor, traza, trazaMostrada, resumen.errorRecepcion);
+            ERROR.log(Level.SEVERE, "Revisión interrumpida: los correos nuevos quedan en el buzón y se procesarán"
+                    + " cuando el servicio responda", e);
         }
+    }
+
+    /** Motivo del último fallo mostrado: si el siguiente es igual, no se repite la traza. */
+    private String ultimoError;
+
+    /** Muestra la traza C/S hasta el punto donde falló, salvo que ya se haya mostrado o el fallo se repita igual. */
+    private void mostrarTrazaDelFallo(String servidor, List<String> traza, boolean trazaMostrada, String motivo) {
+        boolean repetido = motivo != null && motivo.equals(ultimoError);
+        ultimoError = motivo;
+        if (trazaMostrada || repetido) {
+            return;
+        }
+        CONSOLA.info(servidor + " · Conectando ..." + (traza.isEmpty() ? "" : "\n" + String.join("\n", traza)));
     }
 
     /**

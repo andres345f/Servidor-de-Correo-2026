@@ -55,6 +55,12 @@ public class PagoRepositorio extends RepositorioJdbc {
                 PagoRepositorio::mapear, pedidoId);
     }
 
+    /** Pagos PENDIENTE de un método, del más antiguo al más reciente (verificación automática con el proveedor). */
+    public List<Pago> pendientesPorMetodo(com.feder.modelo.MetodoPago metodo, int limite) {
+        return consultar(COLUMNAS + "WHERE pg.estado = 'PENDIENTE' AND pg.metodo = ? ORDER BY pg.id LIMIT ?",
+                PagoRepositorio::mapear, metodo.name(), limite);
+    }
+
     public Optional<Pago> pendienteDePedido(long pedidoId) {
         return consultarUno(COLUMNAS + "WHERE pg.pedido_id = ? AND pg.estado = 'PENDIENTE'", PagoRepositorio::mapear, pedidoId);
     }

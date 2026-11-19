@@ -53,7 +53,8 @@ public final class ConfiguracionCorreo {
         String hostGeneral = config.opcional("mail.host", null);
         String usuario = config.requerido("mail.username");
         String contrasena = config.secreto("mail.password");
-        boolean textoPlano = !config.esTecnoweb() && Boolean.parseBoolean(config.opcional("mail.permitir.texto.plano", "false"));
+        // TecnoWeb solo ofrece POP3 sin cifrar (puerto 110, sin STLS): se admite únicamente si se activa a propósito.
+        boolean textoPlano = Boolean.parseBoolean(config.opcional("mail.permitir.texto.plano", "false"));
         int timeout = config.entero("mail.timeout.ms", 1000, 300_000);
 
         ParametrosConexion pop3 = ParametrosConexion

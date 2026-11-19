@@ -64,9 +64,13 @@ final class ComandosPagos {
     private ResultadoOperacion registrarPago(Parametros p, Solicitante s) {
         ServicioPagos.RegistroPago r = pagos.registrar(s, p.texto("codigo_pedido"), p.enumeracion("metodo", MetodoPago.class),
                 p.decimal("monto"), p.texto("clave_idempotencia"));
-        return pago(r.yaExistia() ? "Pago ya registrado" : "Pago registrado", r.yaExistia()
+        ResultadoOperacion resultado = pago(r.yaExistia() ? "Pago ya registrado" : "Pago registrado", r.yaExistia()
                 ? "Este intento ya estaba registrado: no se creó otro." : "El intento quedó PENDIENTE.", r.pago(), r.codigoPedido())
                 .detalle("Indicaciones", r.indicaciones());
+        if (r.qr() != null) {
+            resultado.adjuntarImagenPng("QR-" + r.pago().getClaveIdempotencia(), r.qr());
+        }
+        return resultado;
     }
 
     private ResultadoOperacion confirmarPago(Parametros p, Solicitante s) {

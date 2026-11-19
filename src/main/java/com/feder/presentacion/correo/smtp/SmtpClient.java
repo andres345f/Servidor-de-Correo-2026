@@ -6,6 +6,7 @@ import com.feder.presentacion.correo.CorreoException;
 import com.feder.presentacion.correo.ParametrosConexion;
 import com.feder.presentacion.correo.RellenoPuntos;
 import com.feder.presentacion.correo.TransporteSeguro;
+import com.feder.presentacion.correo.Traza;
 import com.feder.presentacion.correo.ValidadorDireccion;
 import java.io.IOException;
 import java.net.Socket;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 /**
@@ -43,6 +45,7 @@ public final class SmtpClient implements AutoCloseable {
     private volatile boolean cerrado;
     private boolean cifrada;
     private Map<String, String> extensiones = Map.of();
+    private Consumer<String> traza = linea -> { };
 
     public SmtpClient(ParametrosConexion parametros, MecanismoAutenticacion mecanismo, String dominioEhlo) {
         this.parametros = Objects.requireNonNull(parametros, "parametros");
@@ -51,6 +54,11 @@ public final class SmtpClient implements AutoCloseable {
             throw new IllegalArgumentException("El dominio para EHLO debe ser un nombre de host o una IP entre corchetes");
         }
         this.dominioEhlo = dominioEhlo;
+    }
+
+    /** Recibe cada línea de la traza de protocolo (C/S) para mostrarla en pantalla; AUTH no se traza. */
+    public void trazar(Consumer<String> destino) {
+        traza = destino == null ? linea -> { } : destino;
     }
 
     /** Conecta, valida el 220, saluda con EHLO, eleva a TLS si se configuró y se autentica. */
@@ -73,7 +81,9 @@ public final class SmtpClient implements AutoCloseable {
         cifrada = parametros.transporte() == TransporteSeguro.TLS;
         try {
             canal = CanalLineas.sobre(abierto);
-            esperar(SmtpRespuesta.leer(canal()), 220, "el saludo inicial");
+            SmtpRespuesta saludo = SmtpRespuesta.leer(canal());
+            traza.accept(Traza.servidor(texto(saludo)));
+            esperar(saludo, 220, "el saludo inicial");
             saludar();
             if (parametros.transporte() == TransporteSeguro.STARTTLS) {
                 elevarConStarttls();
@@ -124,6 +134,7 @@ public final class SmtpClient implements AutoCloseable {
             esperar(intercambiar("DATA"), 354, "DATA");
             RellenoPuntos.escribirBloque(canal(), mensaje);
             SmtpRespuesta aceptacion = SmtpRespuesta.leer(canal());
+            traza.accept(Traza.par("(mensaje, " + Math.max(1, mensaje.length / 1024) + " KB)", texto(aceptacion)));
             esperar(aceptacion, 250, "el contenido del mensaje");
             return aceptacion.ultimaLinea();
         } catch (IOException e) {
@@ -266,7 +277,14 @@ public final class SmtpClient implements AutoCloseable {
 
     private SmtpRespuesta intercambiar(String linea) throws IOException, CorreoException {
         canal().escribirLinea(linea);
-        return SmtpRespuesta.leer(canal());
+        SmtpRespuesta respuesta = SmtpRespuesta.leer(canal());
+        traza.accept(Traza.par(linea, texto(respuesta)));
+        return respuesta;
+    }
+
+    /** Código y primera línea de texto de una respuesta, para la traza. */
+    private static String texto(SmtpRespuesta respuesta) {
+        return respuesta.codigo() + (respuesta.textos().isEmpty() ? "" : " " + respuesta.textos().get(0));
     }
 
     private static void esperar(SmtpRespuesta respuesta, int codigo, String contexto) throws CorreoException {

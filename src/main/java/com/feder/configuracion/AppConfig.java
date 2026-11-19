@@ -26,7 +26,8 @@ public final class AppConfig {
     public static final String ENTORNO_LOCAL = "local";
     public static final String ENTORNO_TECNOWEB = "tecnoweb";
 
-    private static final Set<String> CLAVES_SECRETAS = Set.of("db.password", "mail.password");
+    private static final Set<String> CLAVES_SECRETAS = Set.of("db.password", "mail.password",
+            "pagofacil.token.servicio", "pagofacil.token.secreto");
 
     /** Todas las claves admitidas: cualquiera puede darse por variable de entorno (DB_URL, MAIL_HOST...). */
     private static final Set<String> CLAVES_ADMITIDAS = Set.of(
@@ -37,7 +38,9 @@ public final class AppConfig {
             "mail.timeout.ms", "mail.plazo.envio.segundos", "mail.plazo.recepcion.segundos", "mail.permitir.texto.plano",
             "procesamiento.intervalo.segundos", "procesamiento.max.mensajes.por.ciclo", "procesamiento.max.intentos.envio",
             "seguridad.confirmacion.minutos", "seguridad.limite.solicitudes.por.hora", "logs.dir",
-            "negocio.dias.proximo.vencimiento");
+            "negocio.dias.proximo.vencimiento",
+            "pagofacil.url", "pagofacil.token.servicio", "pagofacil.token.secreto", "pagofacil.metodo.pago",
+            "pagofacil.estado.pagado", "pagofacil.callback.url", "pagofacil.consulta.segundos");
 
     private static final Map<String, String> POR_DEFECTO = Map.ofEntries(
             Map.entry("mail.pop3.security", "TLS"),
@@ -54,7 +57,9 @@ public final class AppConfig {
             // Panel de vencimientos de CU8: lotes que vencen dentro de este número de días.
             Map.entry("negocio.dias.proximo.vencimiento", "30"),
             Map.entry("seguridad.limite.solicitudes.por.hora", "30"),
-            Map.entry("logs.dir", "logs"));
+            Map.entry("logs.dir", "logs"),
+            // Cada cuánto se consulta a PagoFácil por los pagos QR pendientes.
+            Map.entry("pagofacil.consulta.segundos", "60"));
 
     private final String entorno;
     private final Map<String, String> valores;

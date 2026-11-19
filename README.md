@@ -92,7 +92,7 @@ duplicado). La operación de negocio nunca se repite y los reenvíos están limi
 config/      plantillas de configuración (*.example.properties); las copias privadas no se versionan
 db/          01_schema.sql (esquema), 02_seed.sql (datos de demostración), migraciones/ y verificaciones/
 docs/        COMANDOS.md, diagramas SVG y el documento técnico PUDS (PUDS_FEDER_INF513_P1_grupo29sa.pdf)
-scripts/     PostgreSQL local, correo local, inicio/parada, demostración y diagnóstico de TecnoWeb
+scripts/     inicio/parada del procesador y diagnóstico de TecnoWeb
 src/main/    código fuente (java/) y plantillas HTML de las respuestas (resources/plantillas/)
 src/test/    pruebas unitarias, de integración con PostgreSQL y de extremo a extremo por sockets
 ```
@@ -100,69 +100,32 @@ src/test/    pruebas unitarias, de integración con PostgreSQL y de extremo a ex
 ## Requisitos
 
 - JDK 17 o superior en el `PATH` (`java -version`).
-- PostgreSQL 17 o superior instalado (solo se usan sus binarios; el proyecto crea su propio clúster).
-  Si no está en `C:\Program Files\PostgreSQL\<versión>\bin`, defina `PG_BIN` con esa carpeta.
-- Windows PowerShell 5.1 o PowerShell 7 para los scripts `.ps1`. En Linux: `sh`, `java` y `psql`.
+- Acceso a la base PostgreSQL y al buzón de TecnoWeb del grupo (ver [Despliegue en TecnoWeb](#despliegue-en-tecnoweb)).
+- Windows PowerShell 5.1 o PowerShell 7 para los scripts `.ps1`. En Linux: `sh` y `java`.
 
-## Puesta en marcha local (paso a paso)
-
-El entorno local usa dos PostgreSQL y un servidor de correo de demostración (SMTP 2525 y POP3 1110, solo en 127.0.0.1):
-
-- **La aplicación** usa el PostgreSQL instalado en Windows (servicio del sistema, `127.0.0.1:5432`, base `feder_local`).
-- **Las pruebas automáticas** usan un clúster PostgreSQL propio del proyecto (`127.0.0.1:55432`, base `feder_test`).
-
-> El clúster del proyecto acepta conexiones sin contraseña (autenticación `trust`) y solo escucha en 127.0.0.1:
-> está pensado para un equipo personal de desarrollo. No lo use en un equipo compartido ni con datos reales.
+## Puesta en marcha (paso a paso)
 
 ```powershell
-# 1. Configuración privada local: copie la plantilla y escriba la contraseña de su PostgreSQL en db.password
-Copy-Item config\application-local.example.properties config\application-local.properties
+# 1. Configuración privada: copie la plantilla y escriba db.password y mail.password en la copia
+Copy-Item config\application-tecnoweb.example.properties config\application-tecnoweb.properties
 
-# 2a. Base de la aplicación en el PostgreSQL de Windows (una sola vez): crear feder_local y cargar esquema y semilla
-psql -h 127.0.0.1 -p 5432 -U postgres -c "CREATE DATABASE feder_local ENCODING 'UTF8' TEMPLATE template0"
-psql -h 127.0.0.1 -p 5432 -U postgres -d feder_local -f db\01_schema.sql
-psql -h 127.0.0.1 -p 5432 -U postgres -d feder_local -f db\02_seed.sql
-
-# 2b. Clúster PostgreSQL de pruebas del proyecto (bases feder_local, feder_test y feder_test_vacia)
-.\scripts\pg-local.ps1 init
-
-# 3. Compilar
+# 2. Compilar
 .\mvnw.cmd -B -DskipTests package
 
-# 4. En una ventana: servidor de correo local (buzón del sistema y de cada usuario de la semilla)
-.\scripts\correo-local.ps1
+# 3. Comprobar DNS, puertos, buzón y base sin modificar nada
+.\scripts\diagnostico-tecnoweb.ps1
 
-# 5. En otra ventana: el procesador de correo (pausa de 5 segundos entre una revisión del buzón y la siguiente)
+# 4. Procesador de correo (pausa de 5 segundos entre una revisión del buzón y la siguiente)
 .\scripts\iniciar.ps1
 ```
 
-### Enviar un comando en el entorno local
-
-```powershell
-.\scripts\demo.ps1 enviar -De elmer.rojas@feder.example -Asunto 'LISPRO["*"]'
-.\scripts\demo.ps1 leer   -De elmer.rojas@feder.example
-```
-
-Un comando que modifica datos devuelve primero el código de confirmación:
-
-```powershell
-.\scripts\demo.ps1 enviar -De almacen.carla.mendez@feder.example -Asunto 'INSCAT["Infusiones","Té y hierbas aromáticas"]'
-.\scripts\demo.ps1 leer   -De almacen.carla.mendez@feder.example     # muestra CONFIRMAR["XXXXXXXX"]
-.\scripts\demo.ps1 enviar -De almacen.carla.mendez@feder.example -Asunto 'CONFIRMAR["XXXXXXXX"]'
-.\scripts\demo.ps1 leer   -De almacen.carla.mendez@feder.example
-```
-
-También puede usarse cualquier cliente de correo (Thunderbird, por ejemplo) contra
-127.0.0.1:2525/1110 sin cifrado, con usuario = dirección completa y clave `buzon-local`.
+Para instalar el esquema en una base vacía y crear el primer administrador, siga
+[Despliegue en TecnoWeb](#despliegue-en-tecnoweb). Los comandos se envían por correo a
+`grupo29sa@tecnoweb.org.bo` desde cualquier cliente (Gmail, Outlook, Thunderbird).
 
 ### Detener
 
 - Procesador: `Ctrl+C` en su ventana o `.\scripts\detener.ps1` (termina el ciclo en curso y sale).
-- Servidor de correo local: `Ctrl+C` en su ventana.
-- Clúster PostgreSQL: `.\scripts\pg-local.ps1 stop`.
-
-Para volver la base local a su estado inicial: `.\scripts\pg-local.ps1 reset-db feder_local`
-(solo acepta bases del clúster local con prefijo `feder_`).
 
 ## Formato de los comandos
 
@@ -200,8 +163,13 @@ adivina caracteres. Así se garantiza que un comando nunca llegue a la base de d
   escribió: un asunto Latin-1 y uno UTF-8 truncado se ven iguales. Los clientes actuales nunca envían así el
   asunto. En las demás cabeceras (por ejemplo, el nombre del remitente) esos bytes se leen como ISO-8859-1,
   por compatibilidad con clientes antiguos.
-- Una palabra codificada pegada a otro texto (por ejemplo dentro de comillas: `HELP["=?UTF-8?Q?=2A?="]`)
-  no se decodifica: es un dato literal (RFC 2047 §5).
+- **Texto codificado dentro de un parámetro** (por ejemplo, un nombre copiado de otro correo:
+  `MODUSU["José =?ISO-8859-1?Q?Pe=F1a?= Suárez","",""]`): después de separar el comando, cada parámetro se
+  decodifica una vez, solo como dato, y luego se valida según su tipo como cualquier otro. El ejemplo guarda
+  `José Peña Suárez`. Si el texto codificado de un parámetro está mal formado, está pegado al texto vecino
+  (`Pe=?ISO-8859-1?Q?=F1?=a`) o trae otra codificación dentro, el correo se responde con «Asunto con
+  codificación no válida», el número de parámetro y el motivo, y **no se ejecuta ningún comando**. El nombre
+  del comando nunca se decodifica por esta vía.
 - Las etiquetas de ISO-8859-1 se interpretan como windows-1252, igual que en los navegadores, para aceptar
   € y las comillas tipográficas. No se admiten los juegos propios de Java (`x-...`: autodetección,
   variantes con marca de orden de bytes), CESU-8 ni los juegos con estado ISO-2022-KR e ISO-2022-CN. En
@@ -231,13 +199,12 @@ en el entorno `tecnoweb` son obligatorias y su ausencia se explica antes de inte
 | `mail.pop3.port`, `mail.pop3.security` | `TLS` (995), `STARTTLS` (110 con STLS) o `NINGUNO` (solo local) |
 | `mail.smtp.port`, `mail.smtp.security`, `mail.smtp.auth` | `STARTTLS` (587), `TLS` (465) o `NINGUNO`; `PLAIN`, `LOGIN` o `NINGUNA` |
 | `mail.timeout.ms`, `mail.plazo.envio.segundos`, `mail.plazo.recepcion.segundos` | Espera por lectura y plazo máximo de cada envío SMTP y de cada operación POP3, que cubre la conexión TCP, el saludo TLS y el intercambio (un servidor lento no detiene el ciclo). La resolución del nombre del servidor (DNS), que Java no puede interrumpir, se espera como máximo `mail.timeout.ms` |
-| `mail.permitir.texto.plano` | Solo `true` en local: permite credenciales sin cifrar contra 127.0.0.1 |
+| `mail.permitir.texto.plano` | `true` permite credenciales POP3 sin cifrar: necesario en local (127.0.0.1) y en TecnoWeb, cuyo POP3 (110) no ofrece STLS |
 | `mail.pop3.eliminar.procesados` | Borra del buzón los mensajes ya procesados (por defecto no) |
 | `procesamiento.intervalo.segundos` | Pausa entre ciclos en modo continuo |
 | `seguridad.confirmacion.minutos`, `seguridad.limite.solicitudes.por.hora` | Confirmaciones y límite por remitente |
 
-Las plantillas comentadas están en `config/application-local.example.properties` y
-`config/application-tecnoweb.example.properties`.
+La plantilla comentada está en `config/application-tecnoweb.example.properties`.
 
 ## Base de datos
 
@@ -263,7 +230,7 @@ aplican con la acción `actualizar-esquema`, en dos pasos:
 # 1. Solo lectura: muestra la base, el usuario, el servidor y las migraciones pendientes
 java -jar target\feder-email-driven.jar actualizar-esquema
 # 2. Aplica las pendientes; exige el nombre exacto de la base que mostró el paso 1
-java -jar target\feder-email-driven.jar actualizar-esquema --confirmar=feder_local
+java -jar target\feder-email-driven.jar actualizar-esquema --confirmar=db_grupo29sa
 ```
 
 Cada migración se aplica en su propia transacción y después se vuelve a comprobar el resultado. Si la
@@ -277,21 +244,21 @@ Una base recién instalada no tiene cuentas. El primer ADMINISTRADOR se crea con
 instalación, fuera de los comandos por correo, que solo funciona mientras no exista ningún administrador:
 
 ```powershell
-$env:APP_ENV = 'local'
+$env:APP_ENV = 'tecnoweb'
 java -jar target\feder-email-driven.jar inicializar-admin --correo=administracion@feder.example --ci=1234567 --nombres=Nombre --apellidos=Apellido --telefono=70000000
 ```
 
 ## Pruebas
 
 ```powershell
-.\scripts\pg-local.ps1 init      # una vez: crea feder_test y feder_test_vacia
 .\mvnw.cmd -B test
 ```
 
 La suite incluye pruebas unitarias (analizador, MIME, formato, configuración), pruebas de cada caso de
 uso contra PostgreSQL real (reglas, permisos, concurrencia con transacciones simultáneas) y pruebas de
 extremo a extremo que envían correos reales por sockets al servidor local y comprueban la respuesta.
-Las pruebas que necesitan PostgreSQL se omiten con un aviso si el clúster local no está en marcha.
+Las pruebas que necesitan PostgreSQL usan una base de pruebas en `127.0.0.1:55432` (`feder_test`); si no
+está disponible, se omiten con un aviso.
 
 ## Despliegue en TecnoWeb
 
@@ -335,10 +302,42 @@ Procedimiento seguro, en este orden:
 Los datos de demostración (`02_seed.sql`) **no** se cargan en la base institucional. Ningún script
 ejecuta `DROP`, `TRUNCATE` ni borrados contra ella.
 
+## Pagos QR con PagoFácil
+
+Integración con la API QR de PagoFácil v2 (`https://masterqr.pagofacil.com.bo/api/services/v2`, documento
+"Especificaciones Integración por API" v1.1.0). Sin configurarla, se usa la pasarela local.
+
+1. **Cliente**: `REGPAG["PED-2026-0008","QR","300.00",""]` (y su `CONFIRMAR`). El sistema llama a `/generate-qr`
+   con la clave del pago como `paymentNumber` y responde con el **código QR adjunto (PNG)** y su vencimiento.
+2. **Pago**: el cliente escanea el QR con la app de su banco.
+3. **Confirmación automática**: en cada revisión del buzón (como máximo cada `pagofacil.consulta.segundos`) el
+   procesador consulta `/query-transaction` por los pagos QR `PENDIENTE`. Si PagoFácil informa el estado
+   `pagofacil.estado.pagado`, con fecha de pago y el **importe exacto**, el pago pasa a `PAGADO` con la referencia
+   `PAGOFACIL-<transacción>`, con las mismas reglas que `CONPAG` (sin superar el total, referencia única): se emite
+   la factura si el pedido quedó pagado, se confirma el pedido INMEDIATO y se avisa al cliente por correo. La
+   bitácora lo registra sin autor humano (`verificacion = PROVEEDOR`). Si algo no cuadra, el pago sigue
+   `PENDIENTE` y queda el motivo en `logs/error.log` para que el personal lo revise.
+
+No se usa la URL de callback: el sistema no expone ningún servidor web (todo es por correo). Los pagos con
+TARJETA siguen verificándose a mano con `CONPAG`/`RECPAG`.
+
+Configuración (en la copia privada `config/application-tecnoweb.properties`; ver la plantilla):
+
+| Clave | Uso |
+|---|---|
+| `pagofacil.token.servicio`, `pagofacil.token.secreto` | Credenciales (`tcTokenService`, `tcTokenSecret`). Secretas: nunca se muestran |
+| `pagofacil.metodo.pago` | `paymentMethodId` habilitado para generar el QR |
+| `pagofacil.estado.pagado` | Valor de `paymentStatus` que significa pagado. **Sin él no se confirma nada solo** |
+| `pagofacil.consulta.segundos` | Intervalo de consulta de pagos pendientes (por defecto 60) |
+| `pagofacil.url` | URL base (por defecto la de producción del documento) |
+
+`java -jar target\feder-email-driven.jar diagnostico-pagofacil` comprueba las credenciales, lista los métodos
+habilitados y muestra la bibliografía de `paymentStatus`, **sin generar QR ni transacciones**.
+
 ## Limitaciones conocidas
 
-- **Pagos**: no hay un proveedor de pagos real. La pasarela local solo devuelve las indicaciones de pago;
-  el personal verifica cada cobro QR o con tarjeta (`CONPAG`/`RECPAG`). Ningún comando realiza cobros.
+- **Pagos**: sin PagoFácil configurado, la pasarela local solo devuelve las indicaciones de pago y el personal
+  verifica cada cobro (`CONPAG`/`RECPAG`). Con PagoFácil, los pagos QR se confirman solos; los de tarjeta, no.
 - La factura no lleva código de autorización fiscal (no hay integración con un servicio de facturación).
 - No existe un comando para cambiar el correo de una cuenta.
 - El vencimiento de lotes (`VENLTF`) y la expiración de reservas (`EXPRES`) los ejecuta el personal, porque

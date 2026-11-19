@@ -73,8 +73,13 @@ class CodificacionAsuntoTest {
                         "INSCAT", List.of("Mieles «Ñandú» & Cía.", "Açaí, 100 % orgánico")),
                 arguments("Palabras contiguas en líneas plegadas con un carácter partido",
                         ascii("=?UTF-8?Q?INSCAT[\"Caf=C3?=\r\n =?UTF-8?Q?=A9\",\"x\"]?="), "INSCAT", List.of("Café", "x")),
-                arguments("Palabra codificada escrita como dato entre comillas", ascii("HELP[\"=?UTF-8?Q?=2A?=\"]"), "HELP",
-                        List.of("=?UTF-8?Q?=2A?=")),
+                arguments("Palabra codificada escrita como parámetro se decodifica como dato", ascii("HELP[\"=?UTF-8?Q?=2A?=\"]"),
+                        "HELP", List.of("*")),
+                arguments("Nombre con una palabra ISO-8859-1 dentro de un asunto UTF-8",
+                        ascii(b("UTF-8", "MODUSU[\"José =?ISO-8859-1?Q?Pe=F1a?= Suárez\",\"\",\"\"]".getBytes(StandardCharsets.UTF_8))),
+                        "MODUSU", List.of("José Peña Suárez", "", "")),
+                arguments("Palabra codificada al inicio de un parámetro", ascii("INSCAT[\"=?UTF-8?Q?T=C3=A9?= verde\",\"x\"]"),
+                        "INSCAT", List.of("Té verde", "x")),
                 arguments("Texto que solo se parece a una palabra codificada", ascii("HELP[\"=?\"]"), "HELP", List.of("=?")));
     }
 
@@ -129,6 +134,43 @@ class CodificacionAsuntoTest {
                 s.errorCodificacion);
         assertTrue(s.errorCodificacion.contains("No se ejecutó ningún comando"));
         assertEquals(InterpreteCorreo.ASUNTO_NO_DECODIFICABLE, s.asunto, "un asunto dudoso no se registra");
+    }
+
+    static Stream<Arguments> parametrosMalCodificados() {
+        return Stream.of(
+                arguments("Q mal formada dentro del parámetro", ascii("INSCAT[\"=?UTF-8?Q?T=ZZ?= verde\",\"x\"]"),
+                        "codificación Q mal formada"),
+                arguments("Juego de caracteres desconocido dentro del parámetro", ascii("INSCAT[\"=?x-inventado?Q?a?=\",\"x\"]"),
+                        "juego de caracteres desconocido o no admitido"),
+                arguments("Palabra pegada al texto vecino", ascii("INSCAT[\"Pe=?ISO-8859-1?Q?=F1?=a\",\"x\"]"),
+                        "debe ir separado por espacios"),
+                arguments("Otra codificación dentro de la palabra (no se decodifica dos veces)",
+                        ascii("INSCAT[\"" + b("UTF-8", ascii("=?ISO-8859-1?Q?Pe=F1a?=")) + "\",\"x\"]"),
+                        "no puede contener otra codificación dentro"));
+    }
+
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("parametrosMalCodificados")
+    void unParametroMalCodificadoSeRechazaConSuMotivo(String caso, byte[] asunto, String motivo) {
+        SolicitudCorreo s = interpretar(asunto);
+        assertNull(s.comando, "no debe llegar ningún comando a negocio");
+        assertTrue(s.parametros.isEmpty());
+        assertNull(s.errorSintaxis);
+        assertNotNull(s.errorCodificacion);
+        assertTrue(s.errorCodificacion.startsWith("El parámetro 1 del comando INSCAT tiene texto codificado"),
+                s.errorCodificacion);
+        assertTrue(s.errorCodificacion.contains(motivo), s.errorCodificacion);
+        assertTrue(s.errorCodificacion.contains("No se ejecutó ningún comando"));
+        assertEquals(InterpreteCorreo.ASUNTO_NO_DECODIFICABLE, s.asunto);
+    }
+
+    @Test
+    void unConfirmarConParametroMalCodificadoNoDejaElCodigoRegistrado() {
+        SolicitudCorreo s = interpretar(ascii("CONFIRMAR[\"=?UTF-8?Q?QWER=ZZ?=\"]"));
+        assertNotNull(s.errorCodificacion);
+        assertEquals(InterpreteCorreo.ASUNTO_NO_DECODIFICABLE, s.asunto);
+        assertFalse(s.errorCodificacion.contains("QWER"), s.errorCodificacion);
+        assertNull(s.asuntoOriginal, "el original de un CONFIRMAR lleva el código");
     }
 
     @Test

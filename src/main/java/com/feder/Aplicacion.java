@@ -19,6 +19,10 @@ import com.feder.negocio.mensajeria.ServicioMensajeria;
 import com.feder.negocio.notificaciones.ModuloNotificaciones;
 import com.feder.negocio.notificaciones.ServicioNotificaciones;
 import com.feder.negocio.pagos.ModuloPagos;
+import com.feder.negocio.pagos.PasarelaPagos;
+import com.feder.negocio.pagos.PasarelaPagosLocal;
+import com.feder.pagofacil.ConfiguracionPagoFacil;
+import com.feder.pagofacil.PasarelaPagoFacil;
 import com.feder.negocio.posventa.ModuloPosventa;
 import com.feder.negocio.seguridad.ServicioConfirmacion;
 import com.feder.negocio.seguridad.ServicioIdentidad;
@@ -56,6 +60,9 @@ public final class Aplicacion {
     private final ContextoNegocio contexto;
     private final CatalogoComandos catalogo;
     private final ServicioMensajeria mensajeria;
+    /** Configuración de PagoFácil, o null si no está configurado (se usa la pasarela local). */
+    private final ConfiguracionPagoFacil pagoFacil;
+    private final ModuloPagos moduloPagos;
 
     public Aplicacion(AppConfig config) {
         this(config, Clock.systemUTC());
@@ -70,7 +77,10 @@ public final class Aplicacion {
                 new ServicioNotificaciones(new NotificacionRepositorio(), reloj));
         this.catalogo = new CatalogoComandos();
         int diasProximoVencimiento = config.entero("negocio.dias.proximo.vencimiento", 1, 365);
-        for (ModuloComandos modulo : modulos(contexto, diasProximoVencimiento)) {
+        this.pagoFacil = ConfiguracionPagoFacil.desde(config);
+        PasarelaPagos pasarela = pagoFacil == null ? new PasarelaPagosLocal() : new PasarelaPagoFacil(pagoFacil);
+        this.moduloPagos = new ModuloPagos(contexto, pasarela);
+        for (ModuloComandos modulo : modulos(contexto, diasProximoVencimiento, moduloPagos)) {
             catalogo.registrarModulo(modulo);
         }
         int limitePorHora = config.entero("seguridad.limite.solicitudes.por.hora", 1, 10_000);
@@ -83,8 +93,12 @@ public final class Aplicacion {
                 config.entero("procesamiento.max.intentos.envio", 1, 1000));
     }
 
-    /** Módulos de comandos de los ocho casos de uso más la ayuda. */
+    /** Módulos de comandos de los ocho casos de uso más la ayuda, con la pasarela de pagos local. */
     static List<ModuloComandos> modulos(ContextoNegocio contexto, int diasProximoVencimiento) {
+        return modulos(contexto, diasProximoVencimiento, new ModuloPagos(contexto));
+    }
+
+    static List<ModuloComandos> modulos(ContextoNegocio contexto, int diasProximoVencimiento, ModuloPagos moduloPagos) {
         return List.of(
                 new ModuloAyuda(),
                 new ModuloUsuarios(contexto),                          // CU1
@@ -93,7 +107,7 @@ public final class Aplicacion {
                 new ModuloCatalogo(contexto),                          // CU4 catálogo
                 new ModuloInventario(contexto),                        // CU4 compras e inventario
                 new ModuloVentas(contexto),                            // CU5
-                new ModuloPagos(contexto),                             // CU6 pagos, facturas y reembolsos
+                moduloPagos,                                           // CU6 pagos, facturas y reembolsos
                 new ModuloEntregas(contexto),                          // CU6 preparación, despacho y entregas
                 new ModuloPosventa(contexto),                          // CU6 devoluciones
                 new ModuloNotificaciones(contexto),                    // CU6 notificaciones
@@ -103,13 +117,29 @@ public final class Aplicacion {
     }
 
     public CicloCorreo nuevoCiclo() {
+        Runnable verificarPagos = pagoFacil == null ? null
+                : moduloPagos.verificadorPagos(Duration.ofSeconds(pagoFacil.consultaSegundos()), contexto.reloj());
         return new CicloCorreo(ConfiguracionCorreo.desde(config), mensajeria, generadorAdjuntos(),
-                new ServicioMantenimiento(contexto));
+                new ServicioMantenimiento(contexto, verificarPagos));
+    }
+
+    /** Pasarela de pagos en uso, para mostrarla al arrancar. */
+    public String nombrePasarelaPagos() {
+        return moduloPagos.nombrePasarela();
+    }
+
+    /** Configuración de PagoFácil, o null si no está configurado. */
+    public ConfiguracionPagoFacil pagoFacil() {
+        return pagoFacil;
     }
 
     /** Los reportes de CU8 piden un archivo PDF o Excel: se genera aquí, en presentación, y se adjunta. */
     static GeneradorAdjuntos generadorAdjuntos() {
         return resultado -> {
+            if (resultado.imagenContenido() != null) {
+                // Por ejemplo, el código QR de un pago con PagoFácil.
+                return new AdjuntoCorreo(resultado.imagenNombre(), "image/png", resultado.imagenContenido());
+            }
             if (resultado.formatoExportacion() == null) {
                 return null;
             }

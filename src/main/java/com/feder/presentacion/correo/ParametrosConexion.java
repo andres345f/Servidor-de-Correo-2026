@@ -72,7 +72,7 @@ public final class ParametrosConexion {
         return fabricaSsl;
     }
 
-    /** Solo el entorno local debe activarlo: permite enviar credenciales sin cifrar. */
+    /** Permite enviar credenciales sin cifrar: solo para servidores que no ofrecen TLS (local o TecnoWeb). */
     public boolean permitirTextoPlano() {
         return permitirTextoPlano;
     }

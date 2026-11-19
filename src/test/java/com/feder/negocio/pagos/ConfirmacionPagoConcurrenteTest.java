@@ -68,6 +68,9 @@ class ConfirmacionPagoConcurrenteTest {
      */
     @AfterEach
     void borrarLoCreado() throws SQLException {
+        if (conexionBD == null) {
+            return; // Sin base de pruebas la preparación se omitió: no hay nada que borrar.
+        }
         try (Connection c = conexionBD.abrir()) {
             c.setAutoCommit(false);
             ApoyoCu45.ejecutar(c, "DELETE FROM reembolso WHERE pago_id IN (SELECT id FROM pago WHERE pedido_id = ?)", pedidoId);

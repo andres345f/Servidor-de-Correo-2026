@@ -24,9 +24,17 @@ public class ServicioMantenimiento {
     private final ContextoNegocio contexto;
     private final RegistroConcesiones concesiones;
 
+    /** Tarea adicional de cada ciclo (hoy: confirmar pagos QR con el proveedor de pagos), o null. */
+    private final Runnable tareaAdicional;
+
     public ServicioMantenimiento(ContextoNegocio contexto) {
+        this(contexto, null);
+    }
+
+    public ServicioMantenimiento(ContextoNegocio contexto, Runnable tareaAdicional) {
         this.contexto = contexto;
         this.concesiones = new RegistroConcesiones(contexto);
+        this.tareaAdicional = tareaAdicional;
     }
 
     /** Ejecuta las tareas; un fallo se registra y no detiene el procesamiento del correo. */
@@ -39,6 +47,13 @@ public class ServicioMantenimiento {
             }
         } catch (RuntimeException e) {
             ERROR.log(Level.WARNING, "Mantenimiento periódico fallido; se reintentará en el próximo ciclo", e);
+        }
+        if (tareaAdicional != null) {
+            try {
+                tareaAdicional.run();
+            } catch (RuntimeException e) {
+                ERROR.log(Level.WARNING, "Tarea periódica fallida; se reintentará en el próximo ciclo", e);
+            }
         }
     }
 }

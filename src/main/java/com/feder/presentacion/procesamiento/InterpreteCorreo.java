@@ -6,9 +6,12 @@ import com.feder.presentacion.comandos.CommandParser;
 import com.feder.presentacion.comandos.ComandoAnalizado;
 import com.feder.presentacion.comandos.ErrorSintaxisException;
 import com.feder.presentacion.correo.mime.CorreoEntrante;
+import com.feder.presentacion.correo.mime.DecodificadorRfc2047;
 import com.feder.presentacion.correo.mime.EmailMessageParser;
 import com.feder.presentacion.correo.mime.MensajeInvalidoException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.logging.Logger;
 
@@ -70,12 +73,31 @@ public class InterpreteCorreo {
                             + ". No se ejecutó ningún comando. Vuelva a enviarlo escrito como texto simple"
                             + " o con una codificación válida (por ejemplo, UTF-8)");
         }
+        ComandoAnalizado comando;
         try {
-            ComandoAnalizado comando = analizadorComandos.analizar(asunto);
-            return SolicitudCorreo.conComando(buzon, uidl, correo.messageId(), remitente, asunto,
-                    comando.nombre(), comando.parametros());
+            comando = analizadorComandos.analizar(asunto);
         } catch (ErrorSintaxisException e) {
             return SolicitudCorreo.conErrorSintaxis(buzon, uidl, correo.messageId(), remitente, asunto, e.getMessage());
         }
+        // Un parámetro puede traer texto codificado (=?juego?B|Q?...?=) que el asunto no decodificó, por ejemplo
+        // un nombre copiado de otro correo. Se decodifica una sola vez y solo como dato, nunca como comando; si no
+        // se puede decodificar con certeza, no se ejecuta nada y se explica el motivo.
+        List<String> parametros = new ArrayList<>();
+        for (int i = 0; i < comando.parametros().size(); i++) {
+            DecodificadorRfc2047.Resultado r = DecodificadorRfc2047.analizar(comando.parametros().get(i));
+            if (!r.valido() || DecodificadorRfc2047.contienePalabraCodificada(r.texto())) {
+                String motivo = !r.valido() ? r.error()
+                        : "debe ir separado por espacios del resto del texto y no puede contener otra codificación dentro";
+                // Como con un asunto mal codificado, no se registra el asunto (podría llevar un código de CONFIRMAR).
+                return SolicitudCorreo.conErrorCodificacion(buzon, uidl, correo.messageId(), remitente,
+                        ASUNTO_NO_DECODIFICABLE,
+                        "El parámetro " + (i + 1) + " del comando " + comando.nombre() + " tiene texto codificado"
+                                + " (=?...?=) que no se pudo decodificar: " + motivo + ". No se ejecutó ningún comando."
+                                + " Escriba el dato como texto normal, por ejemplo José Peña");
+            }
+            parametros.add(r.texto());
+        }
+        return SolicitudCorreo.conComando(buzon, uidl, correo.messageId(), remitente, asunto,
+                comando.nombre(), parametros);
     }
 }

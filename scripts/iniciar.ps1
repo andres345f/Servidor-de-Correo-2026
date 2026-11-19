@@ -1,7 +1,7 @@
 ﻿<#
   Inicia el procesador de correo de FEDER.
-    .\scripts\iniciar.ps1                   # entorno de APP_ENV (local si no está definida), procesamiento continuo
-    .\scripts\iniciar.ps1 -Entorno tecnoweb # entorno institucional (requiere DB_PASSWORD y MAIL_PASSWORD)
+    .\scripts\iniciar.ps1                   # entorno de APP_ENV (tecnoweb si no está definida), procesamiento continuo
+    .\scripts\iniciar.ps1 -Entorno tecnoweb # entorno institucional (contraseñas en config/application-tecnoweb.properties)
     .\scripts\iniciar.ps1 -UnaVez           # un solo ciclo
   Para detenerlo: Ctrl+C en esta ventana o .\scripts\detener.ps1 desde otra.
 #>
@@ -20,10 +20,10 @@ if (-not (Test-Path $Jar)) {
   if ($LASTEXITCODE -ne 0) { throw 'La compilación falló.' }
 }
 
-# Prioridad: -Entorno explícito; si no, la variable APP_ENV ya definida; si tampoco, local.
-# Así este script y scripts/iniciar.sh eligen el mismo entorno para el mismo APP_ENV.
+# Prioridad: -Entorno explícito; si no, la variable APP_ENV ya definida; si tampoco, tecnoweb
+# (igual que scripts/iniciar.sh).
 if (-not $Entorno) {
-  $Entorno = if ($env:APP_ENV) { $env:APP_ENV.Trim().ToLowerInvariant() } else { 'local' }
+  $Entorno = if ($env:APP_ENV) { $env:APP_ENV.Trim().ToLowerInvariant() } else { 'tecnoweb' }
 }
 if ($Entorno -notin @('local', 'tecnoweb')) { throw "APP_ENV debe ser 'local' o 'tecnoweb' (valor recibido: $Entorno)." }
 Write-Host "Entorno: $Entorno"

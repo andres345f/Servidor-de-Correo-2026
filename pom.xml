@@ -58,7 +58,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.5.2</version>
         <configuration>
-          <!-- Las pruebas de base de datos usan el clúster local (scripts/pg-local.ps1).
+          <!-- Las pruebas de base de datos usan una base de pruebas en 127.0.0.1:55432 (feder_test).
                Si no está disponible, esas pruebas se omiten de forma explícita, no fallan en silencio. -->
           <systemPropertyVariables>
             <feder.test.db.url>${feder.test.db.url}</feder.test.db.url>

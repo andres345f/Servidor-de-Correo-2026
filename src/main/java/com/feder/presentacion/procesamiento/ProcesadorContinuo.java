@@ -1,6 +1,7 @@
 package com.feder.presentacion.procesamiento;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -34,8 +35,9 @@ public class ProcesadorContinuo {
     /** Bucle principal; bloquea el hilo que lo llama hasta que se invoque {@link #detener()}. */
     public void ejecutar() {
         ACCESO.info(() -> "Procesador iniciado; intervalo=" + intervalo.toSeconds() + "s");
-        CONSOLA.info(() -> "Sistema FEDER iniciado. Revisa el buzón cada " + intervalo.toSeconds() + " s.\nEsperando correos...");
+        CONSOLA.info(() -> "Esperando correos (revisión cada " + intervalo.toSeconds() + " s).");
         int fallosSeguidos = 0;
+        Instant inicioFallos = null;
         try {
             while (parada.getCount() > 0) {
                 boolean huboFallo;
@@ -46,8 +48,21 @@ public class ProcesadorContinuo {
                     ERROR.log(Level.SEVERE, "Ciclo fallido", e);
                     huboFallo = true;
                 }
+                if (!huboFallo && fallosSeguidos > 0) {
+                    long segundos = Duration.between(inicioFallos, Instant.now()).toSeconds();
+                    int intentos = fallosSeguidos;
+                    CONSOLA.info(() -> "Conexión recuperada tras " + intentos + " intento(s) fallido(s) ("
+                            + segundos + " s sin servicio).");
+                }
+                if (huboFallo && fallosSeguidos == 0) {
+                    inicioFallos = Instant.now();
+                }
                 fallosSeguidos = huboFallo ? fallosSeguidos + 1 : 0;
                 Duration espera = esperaSiguiente(fallosSeguidos);
+                if (huboFallo) {
+                    int intento = fallosSeguidos;
+                    CONSOLA.info(() -> "Reintento " + intento + " en " + espera.toSeconds() + " s.");
+                }
                 if (parada.await(espera.toMillis(), TimeUnit.MILLISECONDS)) {
                     break;
                 }

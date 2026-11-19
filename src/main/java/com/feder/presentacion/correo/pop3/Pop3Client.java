@@ -11,6 +11,7 @@ import com.feder.presentacion.correo.ParametrosConexion;
 import com.feder.presentacion.correo.RellenoPuntos;
 import com.feder.presentacion.correo.Secretos;
 import com.feder.presentacion.correo.TransporteSeguro;
+import com.feder.presentacion.correo.Traza;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Arrays;
@@ -21,6 +22,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 /**
@@ -45,9 +47,15 @@ public final class Pop3Client implements AutoCloseable {
     private volatile boolean cerrado;
     private boolean cifrada;
     private Set<String> capacidades = Set.of();
+    private Consumer<String> traza = linea -> { };
 
     public Pop3Client(ParametrosConexion parametros) {
         this.parametros = Objects.requireNonNull(parametros, "parametros");
+    }
+
+    /** Recibe cada línea de la traza de protocolo (C/S) para mostrarla en pantalla; la contraseña va oculta. */
+    public void trazar(Consumer<String> destino) {
+        traza = destino == null ? linea -> { } : destino;
     }
 
     /** Abre la conexión, valida el saludo, consulta CAPA y, si se configuró, eleva a TLS con STLS. */
@@ -70,7 +78,9 @@ public final class Pop3Client implements AutoCloseable {
         cifrada = parametros.transporte() == TransporteSeguro.TLS;
         try {
             canal = CanalLineas.sobre(abierto);
-            interpretarEstado(canal().leerLinea(), "el saludo inicial");
+            String saludo = canal().leerLinea();
+            traza.accept(Traza.servidor(saludo));
+            interpretarEstado(saludo, "el saludo inicial");
             capacidades = consultarCapacidades();
             if (parametros.transporte() == TransporteSeguro.STARTTLS) {
                 elevarConStls();
@@ -88,9 +98,9 @@ public final class Pop3Client implements AutoCloseable {
         if (!parametros.tieneCredenciales()) {
             throw new IllegalStateException("No se configuraron credenciales POP3");
         }
-        if (!cifrada && !(parametros.permitirTextoPlano() && ConectorSocket.esLoopback(socket))) {
+        if (!cifrada && !parametros.permitirTextoPlano()) {
             throw new CorreoException("Se rechaza enviar usuario y contraseña POP3 por una conexión sin cifrar;"
-                    + " configure TLS o STARTTLS (el texto plano solo se admite hacia el servidor local 127.0.0.1)");
+                    + " configure TLS o STARTTLS, o active mail.permitir.texto.plano=true si el servidor no cifra");
         }
         comando("USER " + parametros.usuario(), "USER");
         char[] clave = parametros.contrasena();
@@ -99,6 +109,7 @@ public final class Pop3Client implements AutoCloseable {
         try {
             canal().escribirLinea(linea);
             String respuesta = canal().leerLinea();
+            traza.accept(Traza.par("PASS ********", respuesta.startsWith("+OK") ? respuesta : soloCodigoDeRespuesta(respuesta)));
             if (!respuesta.startsWith("+OK")) {
                 // No se conserva el texto libre del servidor (algunos repiten datos de la credencial);
                 // solo el código de respuesta de RFC 2449, como [AUTH] o [IN-USE], útil para el diagnóstico.
@@ -164,6 +175,7 @@ public final class Pop3Client implements AutoCloseable {
             canal().escribirLinea("UIDL");
             String linea = canal().leerLinea();
             if (linea.startsWith("-ERR")) {
+                traza.accept(Traza.par("UIDL", linea));
                 throw new CorreoException("El servidor POP3 no admite UIDL; sin identificadores únicos no se puede"
                         + " garantizar que un mismo mensaje no se procese dos veces", linea);
             }
@@ -178,6 +190,7 @@ public final class Pop3Client implements AutoCloseable {
                     throw new CorreoException("Número de mensaje repetido en UIDL", entrada);
                 }
             }
+            traza.accept(Traza.par("UIDL", "+OK " + mapa.size() + " mensaje(s)"));
             return Collections.unmodifiableMap(mapa);
         } catch (IOException e) {
             throw new CorreoException("Error de comunicación con el servidor POP3 durante UIDL", e);
@@ -304,7 +317,9 @@ public final class Pop3Client implements AutoCloseable {
         exigirConexion();
         try {
             canal().escribirLinea(linea);
-            return interpretarEstado(canal().leerLinea(), descripcion);
+            String respuesta = canal().leerLinea();
+            traza.accept(Traza.par(linea, respuesta));
+            return interpretarEstado(respuesta, descripcion);
         } catch (IOException e) {
             throw new CorreoException("Error de comunicación con el servidor POP3 durante " + descripcion, e);
         }

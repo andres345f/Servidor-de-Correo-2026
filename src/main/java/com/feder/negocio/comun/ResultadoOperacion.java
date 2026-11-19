@@ -99,6 +99,8 @@ public final class ResultadoOperacion {
     private final List<Recuadro> recuadros = new ArrayList<>();
     private com.feder.modelo.FormatoReporte formatoExportacion;
     private String nombreArchivo;
+    private String imagenNombre;
+    private byte[] imagenContenido;
 
     private ResultadoOperacion(boolean exito, String titulo, String mensaje) {
         this.exito = exito;
@@ -163,6 +165,23 @@ public final class ResultadoOperacion {
     /** Nombre base del archivo adjunto (sin extensión). */
     public String nombreArchivo() {
         return nombreArchivo;
+    }
+
+    /** Adjunta una imagen PNG ya generada (por ejemplo, el código QR de un pago). */
+    public ResultadoOperacion adjuntarImagenPng(String nombreBase, byte[] png) {
+        this.imagenNombre = Objects.requireNonNull(nombreBase).replaceAll("[^A-Za-z0-9_-]", "_") + ".png";
+        this.imagenContenido = Objects.requireNonNull(png).clone();
+        return this;
+    }
+
+    /** Nombre del archivo de la imagen adjunta, o null si no hay imagen. */
+    public String imagenNombre() {
+        return imagenNombre;
+    }
+
+    /** Contenido PNG de la imagen adjunta, o null si no hay imagen. */
+    public byte[] imagenContenido() {
+        return imagenContenido == null ? null : imagenContenido.clone();
     }
 
     public boolean esExito() {

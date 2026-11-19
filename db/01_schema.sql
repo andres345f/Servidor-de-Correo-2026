@@ -25,8 +25,7 @@
 --
 -- INSTALACIÓN NO DESTRUCTIVA: el script no elimina nada. Si la base ya contiene alguna de las 28 tablas
 -- de FEDER, se detiene con un error antes de crear nada (la transacción se revierte y la base queda
--- intacta). Para reinstalar en el entorno LOCAL se recrea la base completa con
--- scripts/pg-local.ps1 reset-db; en la base institucional nunca se borran tablas ni datos.
+-- intacta). En la base institucional nunca se borran tablas ni datos.
 -- Se ejecuta en una sola transacción: si algo falla, no queda nada aplicado.
 -- =====================================================================================
 
@@ -52,7 +51,7 @@ BEGIN
            'producto', 'categoria', 'comunidad_agricola', 'bitacora', 'usuario_rol', 'usuario', 'rol');
     IF existentes IS NOT NULL THEN
         RAISE EXCEPTION 'La base % ya contiene objetos de FEDER (%); no se modificó nada.', current_database(), existentes
-            USING HINT = 'Este script solo instala sobre una base sin esas tablas. En el entorno local, recree la base con scripts/pg-local.ps1 reset-db.';
+            USING HINT = 'Este script solo instala sobre una base sin esas tablas. Para una base que ya tiene FEDER, use actualizar-esquema.';
     END IF;
 END
 $$;

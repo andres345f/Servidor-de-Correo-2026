@@ -74,6 +74,11 @@ public final class DecodificadorRfc2047 {
         return analizar(texto).error();
     }
 
+    /** Indica si el texto contiene algo con forma de palabra codificada (=?juego?B|Q?texto?=). */
+    public static boolean contienePalabraCodificada(String texto) {
+        return texto != null && PALABRA.matcher(texto).find();
+    }
+
     public static Resultado analizar(String texto) {
         if (texto == null || !texto.contains("=?")) {
             return new Resultado(texto, null);

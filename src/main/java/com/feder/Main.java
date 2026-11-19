@@ -7,12 +7,14 @@ import com.feder.configuracion.ConfiguradorLogs;
 import com.feder.herramientas.clientedemo.Argumentos;
 import com.feder.herramientas.clientedemo.ClienteDemo;
 import com.feder.negocio.usuarios.ServicioInicializacion;
+import com.feder.pagofacil.DiagnosticoPagoFacil;
 import com.feder.herramientas.correolocal.ServidorCorreoLocal;
 import com.feder.herramientas.diagnostico.DiagnosticoInfraestructura;
 import com.feder.herramientas.instalacion.ActualizadorEsquema;
 import com.feder.herramientas.instalacion.InstaladorEsquema;
 import com.feder.herramientas.documentacion.GeneradorCatalogoComandos;
 import com.feder.presentacion.procesamiento.CicloCorreo;
+import com.feder.presentacion.procesamiento.ConfiguracionCorreo;
 import com.feder.presentacion.procesamiento.ProcesadorContinuo;
 
 import java.io.IOException;
@@ -20,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Punto de entrada. El entorno se elige con APP_ENV (local o tecnoweb).
@@ -31,6 +34,7 @@ import java.util.List;
  *   instalar-esquema    muestra la base de destino sin modificarla; con --confirmar=BASE instala db/01_schema.sql
  *   actualizar-esquema  muestra las migraciones pendientes sin modificar nada; con --confirmar=BASE las aplica
  *   diagnostico         comprueba DNS, puertos, POP3, SMTP y PostgreSQL sin modificar nada
+ *   diagnostico-pagofacil comprueba las credenciales de PagoFácil y lista sus métodos QR (no genera QR)
  *   documentar-comandos genera docs/COMANDOS.md a partir del catálogo real
  *   correo-local        inicia el servidor de correo local de demostración
  *   cliente-demo        envía un comando o lee respuestas en el servidor local
@@ -38,6 +42,7 @@ import java.util.List;
 public final class Main {
 
     private static final Path ARCHIVO_DETENER = Path.of("estado", "DETENER");
+    private static final Logger CONSOLA = Logger.getLogger("feder.consola");
 
     private Main() {
     }
@@ -70,6 +75,10 @@ public final class Main {
                 case "diagnostico":
                     boolean ok = new DiagnosticoInfraestructura(AppConfig.cargar(Path.of("config")), System.out).ejecutar();
                     System.exit(ok ? 0 : 1);
+                    break;
+                case "diagnostico-pagofacil":
+                    boolean pagoFacilOk = DiagnosticoPagoFacil.ejecutar(AppConfig.cargar(Path.of("config")), System.out);
+                    System.exit(pagoFacilOk ? 0 : 1);
                     break;
                 case "documentar-comandos":
                     Path destino = Path.of("docs", "COMANDOS.md");
@@ -140,7 +149,11 @@ public final class Main {
      */
     private static Aplicacion crearAplicacionDeCorreo(boolean reintentar) throws InterruptedException {
         Aplicacion aplicacion = crearAplicacion();
+        if (reintentar) {
+            System.out.println(encabezado(aplicacion));
+        }
         long esperaMs = 10_000;
+        int intentosFallidos = 0;
         List<String> pendientes;
         while (true) {
             try {
@@ -150,8 +163,12 @@ public final class Main {
                 if (!reintentar) {
                     throw e;
                 }
-                System.err.println("No se pudo comprobar el esquema (" + e.getMessage() + "); se reintentará en "
-                        + esperaMs / 1000 + " s.");
+                intentosFallidos++;
+                int intento = intentosFallidos;
+                long segundos = esperaMs / 1000;
+                CONSOLA.info(() -> "[BD]   No se pudo conectar con la base: " + e.getMessage()
+                        + "\nNo se lee ningún correo hasta que la base responda. Reintento " + intento
+                        + " en " + segundos + " s.");
                 if (esperarODetener(esperaMs)) {
                     return null;
                 }
@@ -165,7 +182,30 @@ public final class Main {
                     + " repítalo con --confirmar=<nombre exacto de la base> para aplicar las migraciones.");
             System.exit(3);
         }
+        if (reintentar) {
+            int intentos = intentosFallidos;
+            CONSOLA.info(() -> "[BD]   Conectado" + (intentos > 0 ? " tras " + intentos + " intento(s) fallido(s)" : "")
+                    + " · esquema al día");
+        }
         return aplicacion;
+    }
+
+    /** Recuadro de inicio: entorno, buzón y servidores que se usarán (sin contraseñas). */
+    private static String encabezado(Aplicacion aplicacion) {
+        ConfiguracionCorreo correo = ConfiguracionCorreo.desde(aplicacion.config());
+        String linea = "=".repeat(65);
+        return linea
+                + "\n SISTEMA FEDER · Procesador de correo        entorno: " + aplicacion.config().entorno()
+                + "\n Buzón:  " + correo.direccionSistema()
+                + "\n POP3:   " + correo.pop3().host() + ":" + correo.pop3().puerto()
+                + "   SMTP: " + correo.smtp().host() + ":" + correo.smtp().puerto()
+                + "\n BD:     " + aplicacion.conexion().destinoSinCredenciales().replaceFirst("^jdbc:postgresql://", "")
+                + "\n Pagos:  " + aplicacion.nombrePasarelaPagos()
+                + (aplicacion.pagoFacil() == null ? ""
+                : aplicacion.pagoFacil().estadoPagado() == null ? " · confirmación automática DESACTIVADA (falta pagofacil.estado.pagado)"
+                : " · confirmación automática cada " + aplicacion.pagoFacil().consultaSegundos() + " s")
+                + "\n Revisión cada " + aplicacion.intervalo().toSeconds() + " s · Ctrl+C para detener"
+                + "\n" + linea;
     }
 
     /** Espera el tiempo indicado; devuelve true si en ese lapso se creó el archivo de detención. */
@@ -208,7 +248,6 @@ public final class Main {
         Thread vigilante = new Thread(() -> vigilarArchivoDetener(procesador), "vigilante-detener");
         vigilante.setDaemon(true);
         vigilante.start();
-        System.out.println("Procesando el buzón (entorno " + aplicacion.config().entorno() + "). Ctrl+C para detener.");
         procesador.ejecutar();
     }
 
@@ -245,7 +284,7 @@ public final class Main {
     private static void imprimirAyuda() {
         System.out.println("Uso: java -jar feder-email-driven.jar <accion>");
         System.out.println("  procesar | procesar-una-vez | reintentar-envios | inicializar-admin | instalar-esquema | actualizar-esquema"
-                + " | diagnostico | documentar-comandos | correo-local | cliente-demo");
+                + " | diagnostico | diagnostico-pagofacil | documentar-comandos | correo-local | cliente-demo");
         System.out.println("Entorno: variable APP_ENV=local|tecnoweb; configuración en config/application-<entorno>.properties");
     }
 }

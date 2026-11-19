@@ -2,6 +2,7 @@ package com.feder.negocio.pagos;
 
 import com.feder.datos.pagos.PagoRepositorio;
 import com.feder.datos.pagos.PagoRepositorio.PagoVista;
+import com.feder.datos.usuarios.CuentaRepositorio;
 import com.feder.datos.ventas.PedidoRepositorio;
 import com.feder.modelo.AccionBitacora;
 import com.feder.modelo.EstadoPago;
@@ -14,6 +15,7 @@ import com.feder.modelo.Reembolso;
 import com.feder.modelo.TipoNotificacion;
 import com.feder.modelo.TipoPedido;
 import com.feder.modelo.TipoRol;
+import com.feder.modelo.Usuario;
 import com.feder.negocio.ContextoNegocio;
 import com.feder.negocio.catalogo.Importes;
 import com.feder.negocio.catalogo.Permisos;
@@ -26,10 +28,13 @@ import com.feder.negocio.notificaciones.NotificadorCliente;
 import com.feder.negocio.ventas.AccesoPedido;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 /**
@@ -47,6 +52,9 @@ public class ServicioPagos {
     private static final Set<EstadoPedido> ADMITEN_CAMBIO_DE_EFECTIVO = EnumSet.of(EstadoPedido.PENDIENTE,
             EstadoPedido.ESPERANDO_ABASTECIMIENTO);
     private static final Set<EstadoPedido> SIN_COBROS = EnumSet.of(EstadoPedido.CANCELADO, EstadoPedido.ENTREGADO);
+    /** Pagos QR pendientes que se consultan al proveedor en cada verificación automática. */
+    private static final int PENDIENTES_POR_VERIFICACION = 20;
+    private static final Logger ERROR = Logger.getLogger("feder.error");
 
     private final ContextoNegocio ctx;
     private final PagoRepositorio pagos;
@@ -58,6 +66,7 @@ public class ServicioPagos {
     private final PasarelaPagos pasarela;
     private final ServicioFacturas facturas;
     private final NotificadorCliente notificador;
+    private final CuentaRepositorio cuentas = new CuentaRepositorio();
 
     public ServicioPagos(ContextoNegocio ctx, PagoRepositorio pagos, PedidoRepositorio pedidos, ServicioReembolsos reembolsos,
                          ConfirmacionComercial confirmacion, PasarelaPagos pasarela, ServicioFacturas facturas) {
@@ -73,8 +82,14 @@ public class ServicioPagos {
         this.notificador = new NotificadorCliente(ctx);
     }
 
-    /** Intento registrado: el pago, si ya existía (reenvío) y las indicaciones para pagar. */
-    public record RegistroPago(Pago pago, String codigoPedido, boolean yaExistia, String indicaciones) {
+    /**
+     * Intento registrado: el pago, si ya existía (reenvío), las indicaciones para pagar y, si la pasarela lo emite,
+     * la imagen PNG del código QR (null en otro caso).
+     */
+    public record RegistroPago(Pago pago, String codigoPedido, boolean yaExistia, String indicaciones, byte[] qr) {
+        RegistroPago(Pago pago, String codigoPedido, boolean yaExistia, PasarelaPagos.InstruccionesCobro instrucciones) {
+            this(pago, codigoPedido, yaExistia, instrucciones.indicaciones(), instrucciones.imagenQr());
+        }
     }
 
     /**
@@ -118,7 +133,7 @@ public class ServicioPagos {
             ctx.bitacora().registrar(solicitante.usuarioId(), AccionBitacora.CREAR, "PAGO", pago.getId(), DetalleJson.nuevo()
                     .con("pedido", pedido.getCodigo()).con("metodo", metodo).con("monto", importe)
                     .con("clave_idempotencia", pago.getClaveIdempotencia()));
-            return new RegistroPago(pago, pedido.getCodigo(), false, indicaciones(pago, pedido));
+            return new RegistroPago(pago, pedido.getCodigo(), false, instrucciones(pago, pedido));
         });
     }
 
@@ -131,7 +146,7 @@ public class ServicioPagos {
                 if (p.getPedidoId() != pedido.getId().longValue() || p.getMetodo() != metodo || p.getMonto().compareTo(importe) != 0) {
                     throw NegocioException.duplicado("La clave " + clave + " ya identifica otro intento de pago: use una clave nueva.");
                 }
-                return Optional.of(new RegistroPago(p, pedido.getCodigo(), true, indicacionesDeReenvio(p, pedido)));
+                return Optional.of(new RegistroPago(p, pedido.getCodigo(), true, instruccionesDeReenvio(p, pedido)));
             }
         }
         Optional<Pago> pendiente = pagos.pendienteDePedido(pedido.getId());
@@ -140,7 +155,7 @@ public class ServicioPagos {
         }
         Pago p = pendiente.get();
         if (clave == null && p.getMetodo() == metodo && p.getMonto().compareTo(importe) == 0) {
-            return Optional.of(new RegistroPago(p, pedido.getCodigo(), true, indicaciones(p, pedido)));
+            return Optional.of(new RegistroPago(p, pedido.getCodigo(), true, instrucciones(p, pedido)));
         }
         throw NegocioException.regla("El pedido " + pedido.getCodigo() + " ya tiene un intento de pago PENDIENTE (" + p.getMetodo()
                 + ", Bs " + Importes.formatear(p.getMonto()) + ", clave " + p.getClaveIdempotencia() + "). FEDER debe verificarlo "
@@ -167,26 +182,37 @@ public class ServicioPagos {
         }
     }
 
-    private String indicaciones(Pago pago, Pedido pedido) {
+    private PasarelaPagos.InstruccionesCobro instrucciones(Pago pago, Pedido pedido) {
         if (pago.getMetodo() == MetodoPago.EFECTIVO) {
-            return "Pagará Bs " + Importes.formatear(pago.getMonto()) + " en efectivo al recibir el pedido; FEDER confirmará el cobro "
-                    + "en ese momento." + (pedido.getTipo() == TipoPedido.INMEDIATO && pedido.getEstado() == EstadoPedido.PENDIENTE
-                    ? " El personal de FEDER debe aceptar antes el pedido para esta modalidad." : "");
+            return new PasarelaPagos.InstruccionesCobro(pago.getClaveIdempotencia(), "Pagará Bs " + Importes.formatear(pago.getMonto())
+                    + " en efectivo al recibir el pedido; FEDER confirmará el cobro en ese momento."
+                    + (pedido.getTipo() == TipoPedido.INMEDIATO && pedido.getEstado() == EstadoPedido.PENDIENTE
+                    ? " El personal de FEDER debe aceptar antes el pedido para esta modalidad." : ""));
         }
-        // R048 y R053 (3): el intento no vence por el paso del tiempo; sigue PENDIENTE hasta que el personal lo verifica.
+        // R048 y R053 (3): el intento no vence por el paso del tiempo; sigue PENDIENTE hasta que se verifica el cobro.
         return pasarela.prepararCobro(new PasarelaPagos.SolicitudCobro(pago.getClaveIdempotencia(), pedido.getCodigo(),
-                pago.getMetodo(), pago.getMonto())).indicaciones();
+                pago.getMetodo(), pago.getMonto(), pagador(pedido)));
+    }
+
+    /** Datos del cliente del pedido para la pasarela (el proveedor los pide para emitir el QR). */
+    private PasarelaPagos.Pagador pagador(Pedido pedido) {
+        Usuario u = cuentas.buscarPorId(pedido.getUsuarioId()).orElseThrow();
+        String documento = u.getCi() + (u.getCiComplemento() == null || u.getCiComplemento().isBlank() ? "" : "-" + u.getCiComplemento());
+        return new PasarelaPagos.Pagador(u.getId(), (u.getNombres() + " " + u.getApellidos()).trim(), documento,
+                String.valueOf(u.getTelefono()), u.getCorreo());
     }
 
     /**
      * R048 y R051: un intento que ya salió de PENDIENTE no vuelve a presentarse a la pasarela ni invita a pagar de
      * nuevo; solo se informa cómo terminó.
      */
-    private String indicacionesDeReenvio(Pago pago, Pedido pedido) {
+    private PasarelaPagos.InstruccionesCobro instruccionesDeReenvio(Pago pago, Pedido pedido) {
         return switch (pago.getEstado()) {
-            case PENDIENTE -> indicaciones(pago, pedido);
-            case PAGADO -> "Este intento ya fue cobrado y confirmado: no vuelva a pagarlo.";
-            case RECHAZADO -> "Este intento terminó RECHAZADO sin cobro: para pagar, registre un intento nuevo con otra clave.";
+            case PENDIENTE -> instrucciones(pago, pedido);
+            case PAGADO -> new PasarelaPagos.InstruccionesCobro(pago.getClaveIdempotencia(),
+                    "Este intento ya fue cobrado y confirmado: no vuelva a pagarlo.");
+            case RECHAZADO -> new PasarelaPagos.InstruccionesCobro(pago.getClaveIdempotencia(),
+                    "Este intento terminó RECHAZADO sin cobro: para pagar, registre un intento nuevo con otra clave.");
         };
     }
 
@@ -235,7 +261,66 @@ public class ServicioPagos {
                     .con("verificacion", "MANUAL").con("pasarela", pasarela.nombre()).con("referencia_externa", referenciaExterna)
                     .con("monto_cobrado", montoCobrado));
             Pago confirmado = pagos.buscarPorClave(clave).orElseThrow();
-            return trasCobro(solicitante, pedido, confirmado, pagado.add(pago.getMonto()));
+            return trasCobro(solicitante.usuarioId(), "verificado por el personal", pedido, confirmado, pagado.add(pago.getMonto()));
+        });
+    }
+
+    // ------------------------------------------------------------------ verificación automática con el proveedor
+
+    /**
+     * R048 con un proveedor real: consulta a la pasarela los pagos QR PENDIENTE y confirma los que el proveedor informa
+     * cobrados, con las mismas reglas que la verificación del personal (importe exacto, sin superar el total,
+     * referencia única) y sin autor humano. Un pago que no cumple las reglas sigue PENDIENTE para revisión.
+     * Devuelve los pagos confirmados en esta pasada.
+     */
+    public List<Verificacion> verificarConPasarela() {
+        if (!pasarela.conectadaAProveedor()) {
+            return List.of();
+        }
+        List<Pago> pendientes = ctx.transacciones().enTransaccion(
+                () -> pagos.pendientesPorMetodo(MetodoPago.QR, PENDIENTES_POR_VERIFICACION));
+        List<Verificacion> confirmados = new ArrayList<>();
+        for (Pago pendiente : pendientes) {
+            // La consulta al proveedor se hace fuera de la transacción: no se retienen bloqueos durante la llamada HTTP.
+            Optional<PasarelaPagos.CobroVerificado> cobro = pasarela.consultarCobro(pendiente.getClaveIdempotencia());
+            if (cobro.isEmpty()) {
+                continue;
+            }
+            try {
+                Verificacion v = confirmarPorPasarela(pendiente.getClaveIdempotencia(), cobro.get());
+                if (!v.yaProcesado()) {
+                    confirmados.add(v);
+                }
+            } catch (NegocioException e) {
+                ERROR.log(Level.WARNING, "El pago " + pendiente.getClaveIdempotencia() + " figura cobrado en " + pasarela.nombre()
+                        + " pero no se confirmó: " + e.getMessage() + " Sigue PENDIENTE para revisión del personal.");
+            }
+        }
+        return confirmados;
+    }
+
+    private Verificacion confirmarPorPasarela(String clave, PasarelaPagos.CobroVerificado cobro) {
+        return ctx.transacciones().enTransaccion(() -> {
+            Pedido pedido = bloquearPedidoDe(clave);
+            Pago pago = pagos.bloquear(pagos.buscarPorClave(clave).orElseThrow().getId()).orElseThrow();
+            if (pago.getEstado() != EstadoPago.PENDIENTE) {
+                // Ya lo resolvió el personal o una verificación anterior: no se toca.
+                return new Verificacion(pago, pedido, true, false, null, null);
+            }
+            exigirVerificable(pago, clave, cobro.referencia(), cobro.monto());
+            BigDecimal pagado = cobros.pagado(pedido.getId());
+            if (pagado.add(pago.getMonto()).compareTo(pedido.getTotal()) > 0) {
+                throw NegocioException.regla("Confirmar este pago superaría el total del pedido " + pedido.getCodigo() + ".");
+            }
+            if (!pagos.confirmar(pago.getId(), ctx.ahora(), cobro.referencia())) {
+                throw NegocioException.estadoInvalido("El pago cambió de estado durante la verificación.");
+            }
+            ctx.bitacora().registrar(null, AccionBitacora.MODIFICAR, "PAGO", pago.getId(), DetalleJson.nuevo()
+                    .con("estado_anterior", EstadoPago.PENDIENTE).con("estado_nuevo", EstadoPago.PAGADO)
+                    .con("verificacion", "PROVEEDOR").con("pasarela", pasarela.nombre())
+                    .con("referencia_externa", cobro.referencia()).con("monto_cobrado", cobro.monto()));
+            Pago confirmado = pagos.buscarPorClave(clave).orElseThrow();
+            return trasCobro(null, "verificado por " + pasarela.nombre(), pedido, confirmado, pagado.add(pago.getMonto()));
         });
     }
 
@@ -257,9 +342,10 @@ public class ServicioPagos {
         }
     }
 
-    private Verificacion trasCobro(Solicitante solicitante, Pedido pedido, Pago pago, BigDecimal pagado) {
+    /** @param autorId quien verificó el cobro; null si lo verificó el proveedor (sin autor humano). */
+    private Verificacion trasCobro(Long autorId, String verificadoPor, Pedido pedido, Pago pago, BigDecimal pagado) {
         if (pedido.getEstado() == EstadoPedido.CANCELADO) {
-            Reembolso tardio = reembolsos.porCobroTardio(pedido, pago, solicitante.usuarioId());
+            Reembolso tardio = reembolsos.porCobroTardio(pedido, pago, autorId);
             notificador.avisarConCorreo(pedido, TipoNotificacion.PAGO_CONFIRMADO, "Pago recibido de un pedido cancelado",
                     "Recibimos Bs " + Importes.formatear(pago.getMonto()) + " del pedido " + pedido.getCodigo()
                             + ", que ya estaba cancelado: el pedido no se reactiva y le reintegraremos ese importe.");
@@ -271,13 +357,13 @@ public class ServicioPagos {
         boolean inmediatoPendiente = pedido.getTipo() == TipoPedido.INMEDIATO && pedido.getEstado() == EstadoPedido.PENDIENTE;
         boolean confirmado = false;
         if (completa && inmediatoPendiente) {
-            confirmacion.confirmar(pedido, solicitante.usuarioId(), "Pago por " + pago.getMetodo() + " verificado por el personal", false);
+            confirmacion.confirmar(pedido, autorId, "Pago por " + pago.getMetodo() + " " + verificadoPor, false);
             confirmado = true;
         } else if (inmediatoPendiente) {
             confirmacion.anticipoConfirmado(pedido);
         }
         // R030: la factura se emite en la misma transacción en que lo pagado alcanza el total.
-        Factura factura = completa ? facturas.alCompletarPago(pedido, solicitante.usuarioId()).orElse(null) : null;
+        Factura factura = completa ? facturas.alCompletarPago(pedido, autorId).orElse(null) : null;
         return new Verificacion(pago, pedido, false, confirmado, null, factura);
     }
 

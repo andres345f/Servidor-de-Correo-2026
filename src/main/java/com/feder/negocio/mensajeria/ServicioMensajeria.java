@@ -164,6 +164,12 @@ public class ServicioMensajeria {
                 break;
             default:
                 bloque.append("ERROR").append("\nMotivo:       ").append(motivo);
+                // Si el error fue de parámetros, el resultado trae la forma correcta del comando (ComandoDispatcher).
+                for (String[] detalle : resolucion.resultado.detalles()) {
+                    if ("Forma correcta".equals(detalle[0])) {
+                        bloque.append("\nFormato:      ").append(detalle[1]);
+                    }
+                }
         }
         return bloque.toString();
     }
@@ -383,7 +389,10 @@ public class ServicioMensajeria {
         boolean registrado = salientes.registrarFallo(saliente.id, intento, reserva.reservadoHasta, error, definitivo,
                 OffsetDateTime.now(reloj).plus(espera(intento)));
         if (registrado) {
-            ERROR.warning(() -> "Envío fallido id=" + saliente.id + " intento=" + intento + (definitivo ? " DEFINITIVO" : "") + ": " + error);
+            ERROR.warning(() -> "Envío fallido id=" + saliente.id + " a " + saliente.destinatario
+                    + " (intento " + intento + " de " + maximoIntentosEnvio + "): " + error
+                    + (definitivo ? ". Queda FALLIDO; no se reintenta (reintentar-envios lo vuelve a poner en cola)."
+                            : ". Queda en la bandeja de salida y se reintentará."));
         } else {
             ERROR.warning(() -> "Envío fallido id=" + saliente.id + " intento=" + intento
                     + " ignorado: el correo ya estaba enviado o lo tomó un intento posterior");
